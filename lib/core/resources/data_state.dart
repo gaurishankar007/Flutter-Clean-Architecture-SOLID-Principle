@@ -20,11 +20,11 @@ class FailureState<T> extends DataState<T> {
   const FailureState({
     required String error,
     required String errorMsg,
-    required ErrorType errorType,
+    ErrorType errorType = ErrorType.unknown,
   }) : super(error: error, errorMsg: errorMsg, errorType: errorType);
 
   @override
-  List<Object?> get props => [errorMsg, errorType];
+  List<Object?> get props => [errorMsg, errorType, errorType];
 }
 
 class NetworkFailureState<T> extends DataState<T> {
@@ -35,7 +35,7 @@ class NetworkFailureState<T> extends DataState<T> {
   }) : super(error: error, errorMsg: errorMsg, errorType: errorType);
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [error, errorMsg, errorType];
 }
 
 enum ErrorType {
@@ -46,6 +46,8 @@ enum ErrorType {
   noNetwork,
   socketTimeOut,
   tokenExpired,
+  tokenInvalid,
   invalidUserCredential,
   server,
+  notFound,
 }

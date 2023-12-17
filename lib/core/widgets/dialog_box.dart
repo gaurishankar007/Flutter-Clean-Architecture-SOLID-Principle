@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:boilerplate/core/utils/text_styles.dart';
-import 'package:boilerplate/core/constants/colors.dart';
-import 'package:boilerplate/core/widgets/button.dart';
-import 'package:boilerplate/core/widgets/image_builder.dart';
-import 'package:boilerplate/injection/injector.dart';
+
+import '../../injection/injector.dart';
+import '../constants/colors.dart';
+import '../utils/text_styles.dart';
+import 'button.dart';
+import 'image_builder.dart';
 
 buttonDialog({
   required BuildContext context,
@@ -16,7 +17,7 @@ buttonDialog({
   return showDialog(
     context: context,
     builder: (builder) {
-      return AlertDialog(
+      return AlertDialog.adaptive(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(size.pSH(16)),
         ),
@@ -31,6 +32,7 @@ buttonDialog({
         ),
         actions: [
           CusButton(
+            expandWidth: true,
             onTap: () async {
               Navigator.pop(builder);
               buttonOnTap();

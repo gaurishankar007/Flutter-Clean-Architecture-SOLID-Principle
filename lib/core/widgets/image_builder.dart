@@ -1,7 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:boilerplate/core/constants/colors.dart';
+
+import '../constants/colors.dart';
 
 class ImageBuilder extends StatelessWidget {
   final String imageUrl;

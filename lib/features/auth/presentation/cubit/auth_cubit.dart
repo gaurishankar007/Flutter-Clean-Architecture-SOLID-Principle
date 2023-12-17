@@ -1,96 +1,44 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:boilerplate/core/constants/colors.dart';
-import 'package:boilerplate/core/constants/page_transitions.dart';
-import 'package:boilerplate/core/constants/route_path.dart';
-import 'package:boilerplate/core/navigation/navigation.dart';
-import 'package:boilerplate/core/resources/data_state.dart';
-import 'package:boilerplate/features/auth/domain/parameter/login_param.dart';
-import 'package:boilerplate/features/auth/domain/useCases/save_token_uc.dart';
-import 'package:boilerplate/features/auth/domain/useCases/login_uc.dart';
-import 'package:boilerplate/injection/injector.dart';
+
+import '../../../../core/constants/route_path.dart';
+import '../../../../core/navigation/navigation.dart';
+import '../../../../core/resources/data_state.dart';
+import '../../../../injection/injector.dart';
+import '../../data/models/logData/log_data_model.dart';
 
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState?> {
-  final _loginUC = LoginUseCase(authRepoImpl);
-  final _saveTokenUC = SaveTokenUseCase(authRepoImpl);
-
-  final PageController pageController = PageController();
-  bool pVisibility = false;
   bool rememberMe = false;
-  bool loading = false;
-
   String userId = "";
-  String token = "";
 
-  AuthCubit() : super(null) {
-    emit(_state);
-  }
+  AuthCubit() : super(null);
 
-  AuthState get _state => AuthState(
-        pageController: pageController,
-        pVisibility: pVisibility,
-        rememberMe: rememberMe,
-        loading: loading,
-      );
+  rememberUser(bool remember) => rememberMe = remember;
 
-  passwordV() {
-    pVisibility = !pVisibility;
-    emit(_state);
-  }
+  login(LogDataModel param) async {
+    final dState = await loginUC.call(param);
 
-  remember() {
-    rememberMe = !rememberMe;
-    emit(_state);
-  }
+    if (dState is SuccessState) {
+      appData.setUserModel = dState.data!;
+      appData.setLogDataModel = param.copyWith(rememberMe: rememberMe);
 
-  _reset() {
-    pVisibility = false;
-    rememberMe = false;
-    emit(_state);
-  }
-
-  Future<bool> onWillPop() async {
-    if (pageController.page != 0) {
-      pageController.previousPage(duration: duration, curve: curve);
-      return false;
-    }
-
-    userId = "";
-    token = "";
-    return true;
-  }
-
-  login(LoginParameter param) async {
-    loading = true;
-    emit(_state);
-
-    final data = await _loginUC.call(param);
-
-    loading = false;
-    emit(_state);
-
-    if (data is SuccessState) {
-      appData.setTokenModel = data.data!;
-
-      if (rememberMe) {
-        await _saveTokenUC.call(data.data!);
+      saveUserDataUC.call(appData.udm);
+      if (!appData.logDataModel.biometricEnabled) {
+        saveLogDataUC.call(appData.logDataModel);
       }
-
-      navWithPath(kDashboardP);
-      return _reset();
+      return navWithPath(kDashboardP);
     }
 
-    snackBar.snackThis(color: kR600, data: data);
+    snackBar.snackThis(data: dState);
   }
 
   logOut() async {
     navWithPath(kLoginP);
-    SharedPreferences s = await SharedPreferences.getInstance();
-    s.clear();
-    appData.removeTokenModel();
+    SharedPreferences sharedP = await SharedPreferences.getInstance();
+    sharedP.remove("userData");
+    appData.removeUserModel();
   }
 }

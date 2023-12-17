@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+// xxxl
+TextStyle xxxlSemiBold(Color color) =>
+    TextStyle(color: color, fontSize: 28, fontWeight: FontWeight.w600);
+
 // xxl1
 TextStyle xxl1Bold(Color color) =>
     TextStyle(color: color, fontSize: 26, fontWeight: FontWeight.w700);
@@ -53,6 +57,8 @@ TextStyle smRegular(Color color) =>
     TextStyle(color: color, fontSize: 14, fontWeight: FontWeight.w400);
 
 // xs
+TextStyle xsBold(Color color) =>
+    TextStyle(color: color, fontSize: 12, fontWeight: FontWeight.w700);
 TextStyle xsSemibold(Color color) =>
     TextStyle(color: color, fontSize: 12, fontWeight: FontWeight.w600);
 TextStyle xsMedium(Color color) =>
@@ -61,6 +67,8 @@ TextStyle xsRegular(Color color) =>
     TextStyle(color: color, fontSize: 12, fontWeight: FontWeight.w400);
 
 // xs-1
+TextStyle xs_1Bold(Color color) =>
+    TextStyle(color: color, fontSize: 10, fontWeight: FontWeight.w700);
 TextStyle xs_1Semibold(Color color) =>
     TextStyle(color: color, fontSize: 10, fontWeight: FontWeight.w600);
 TextStyle xs_1Medium(Color color) =>
@@ -69,6 +77,8 @@ TextStyle xs_1Regular(Color color) =>
     TextStyle(color: color, fontSize: 10, fontWeight: FontWeight.w400);
 
 // xs-2
+TextStyle xs_2Bold(Color color) =>
+    TextStyle(color: color, fontSize: 8, fontWeight: FontWeight.w700);
 TextStyle xs_2Semibold(Color color) =>
     TextStyle(color: color, fontSize: 8, fontWeight: FontWeight.w600);
 TextStyle xs_2Medium(Color color) =>

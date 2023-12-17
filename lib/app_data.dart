@@ -1,16 +1,21 @@
 import 'dart:io';
-import 'package:boilerplate/core/resources/data_state.dart';
-import 'package:boilerplate/features/auth/data/models/token_model.dart';
-import 'package:boilerplate/features/auth/domain/useCases/get_token_uc.dart';
-import 'package:boilerplate/injection/injector.dart';
+
+import 'core/overrides/http_override.dart';
+import 'core/resources/data_state.dart';
+import 'features/auth/data/models/logData/log_data_model.dart';
+import 'features/auth/data/models/userData/user_data_model.dart';
+import 'features/auth/presentation/cubit/auth_cubit.dart';
+import 'injection/injector.dart';
 
 class AppData {
   AppData._();
-
-  bool _initialized = false;
-  TokenDataModel _tokenDataModel = TokenDataModel.empty();
   static final AppData _singleton = AppData._();
   factory AppData() => _singleton;
+
+  bool _initialized = false;
+  UserDataModel _userDataModel = UserDataModel.empty();
+  LogDataModel _logDataModel = LogDataModel.empty();
+  String _fyId = "";
 
   Future init() async {
     if (_initialized) return;
@@ -18,29 +23,37 @@ class AppData {
 
     HttpOverrides.global = MyHttpOverrides();
     initializeDependencies();
-    await networkService.listen();
+
+    await network.listen();
     await _checkLogin();
   }
 
   _checkLogin() async {
-    final data = await GetTokenUseCase(authRepoImpl).call();
+    final userData = await getUserDataUC.call();
+    final logData = await getLogDataUC.call();
 
-    if (data is SuccessState) {
-      _tokenDataModel = data.data!;
+    if (userData is SuccessState) _userDataModel = userData.data!;
+    if (logData is SuccessState) _logDataModel = logData.data!;
+  }
+
+  set setUserModel(UserDataModel userModel) => _userDataModel = userModel;
+  set setLogDataModel(LogDataModel logModel) => _logDataModel = logModel;
+  set setFyId(String fyId) => _fyId = fyId;
+  UserDataModel get udm => _userDataModel;
+  LogDataModel get logDataModel => _logDataModel;
+  String get fyId => _fyId;
+
+  Future<DataState<String>> refreshToken() async {
+    final dState = await getRefreshTokenUC.call();
+
+    if (dState is SuccessState) {
+      _userDataModel = _userDataModel.copyWith(accessToken: dState.data!);
+    } else if (dState is FailureState && dState.errorType == ErrorType.tokenExpired) {
+      getIt<AuthCubit>().logOut();
     }
+
+    return dState;
   }
 
-  set setTokenModel(TokenDataModel tokenModel) => _tokenDataModel = tokenModel;
-
-  TokenDataModel get tokenDataModel => _tokenDataModel;
-  removeTokenModel() => _tokenDataModel = TokenDataModel.empty();
-}
-
-class MyHttpOverrides extends HttpOverrides {
-  @override
-  HttpClient createHttpClient(SecurityContext? context) {
-    return super.createHttpClient(context)
-      ..badCertificateCallback =
-          (X509Certificate cert, String host, int port) => true;
-  }
+  removeUserModel() => _userDataModel = UserDataModel.empty();
 }

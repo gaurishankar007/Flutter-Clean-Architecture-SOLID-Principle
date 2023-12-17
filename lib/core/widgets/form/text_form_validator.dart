@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:boilerplate/core/constants/colors.dart';
-import 'package:boilerplate/core/utils/text_styles.dart';
-import 'package:boilerplate/core/widgets/form/text_form.dart';
 import 'package:rxdart/rxdart.dart';
+
+import '../../constants/colors.dart';
+import '../../utils/text_styles.dart';
+import 'text_form.dart';
 
 class RxTextFormValidator extends StatelessWidget {
   final BehaviorSubject<String> stream;

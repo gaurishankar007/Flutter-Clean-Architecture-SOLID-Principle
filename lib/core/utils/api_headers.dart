@@ -1,9 +1,9 @@
-import 'package:boilerplate/features/auth/data/models/token_model.dart';
-import 'package:boilerplate/injection/injector.dart';
+import '../../features/auth/data/models/userData/user_data_model.dart';
+import '../../injection/injector.dart';
 
 Map<String, String> getHeaders() {
-  TokenDataModel tokenDataModel = appData.tokenDataModel;
-  String token = tokenDataModel.accessToken;
+  UserDataModel userDataModel = appData.udm;
+  String token = userDataModel.accessToken;
 
-  return {"Authorization": 'Token $token'};
+  return {"Authorization": 'Bearer $token'};
 }

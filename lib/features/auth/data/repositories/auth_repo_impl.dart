@@ -1,27 +1,45 @@
-import 'package:boilerplate/core/exception/exception_handler.dart';
-import 'package:boilerplate/core/resources/data_state.dart';
-import 'package:boilerplate/features/auth/data/dataSources/auth_local_source.dart';
-import 'package:boilerplate/features/auth/data/dataSources/auth_remote_source.dart';
-import 'package:boilerplate/features/auth/data/models/token_model.dart';
-import 'package:boilerplate/features/auth/domain/parameter/login_param.dart';
-import 'package:boilerplate/features/auth/domain/repositories/auth_repo.dart';
+import '../../../../core/resources/data_state.dart';
+import '../../../../injection/injector.dart';
+import '../../domain/repositories/auth_repo.dart';
+import '../dataSources/auth_local_source.dart';
+import '../dataSources/auth_remote_source.dart';
+import '../models/logData/log_data_model.dart';
+import '../models/userData/user_data_model.dart';
 
 class AuthRepoImpl implements AuthRepo {
   final AuthRemoteSourceImpl _remoteSource = AuthRemoteSourceImpl();
   final AuthLocalSourceImpl _localSource = AuthLocalSourceImpl();
 
   @override
-  Future<DataState<TokenDataModel>> login(LoginParameter param) async {
-    return checkConnection(_remoteSource.login(param));
+  Future<DataState<UserDataModel>> login(LogDataModel param) async {
+    if (network.isConnected) return _remoteSource.login(param);
+    return NetworkFailureState();
   }
 
   @override
-  Future<DataState<bool>> saveToken(TokenDataModel param) {
-    return _localSource.saveToken(param);
+  Future<DataState<bool>> saveUserData(UserDataModel param) async {
+    return _localSource.saveUserData(param);
   }
 
   @override
-  Future<DataState<TokenDataModel>> getToken() {
-    return _localSource.getToken();
+  Future<DataState<UserDataModel>> getUserData() async {
+    return _localSource.getUserData();
   }
+
+  @override
+  Future<DataState<bool>> saveLogData(LogDataModel param) async {
+    return _localSource.saveLogData(param);
+  }
+
+  @override
+  Future<DataState<LogDataModel>> getLogData() async {
+    return _localSource.getLogData();
+  }
+
+  @override
+  Future<DataState<String>> refreshToken() async {
+    if (network.isConnected) return _remoteSource.refreshToken();
+    return NetworkFailureState();
+  }
+
 }

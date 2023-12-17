@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:boilerplate/core/constants/colors.dart';
-import 'package:boilerplate/core/utils/text_styles.dart';
-import 'package:boilerplate/core/extensions/build_context_extension.dart';
-import 'package:boilerplate/injection/injector.dart';
+
+import '../../injection/injector.dart';
+import '../constants/colors.dart';
+import '../extensions/build_context_extension.dart';
+import '../utils/text_styles.dart';
 
 class CusDropDown extends StatelessWidget {
   final String? title;
@@ -32,8 +33,8 @@ class CusDropDown extends StatelessWidget {
           Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(title!, style: smMedium(kBlack70)),
-              SizedBox(height: size.pSH(6)),
+              Text(title!, style: smRegular(kB70)),
+              SizedBox(height: size.pSH(15)),
             ],
           ),
         Container(
@@ -51,10 +52,10 @@ class CusDropDown extends StatelessWidget {
               margin: EdgeInsets.only(right: size.pSW(20)),
               child: Icon(
                 Icons.keyboard_arrow_down,
-                color: kBlack70,
+                color: kB70,
               ),
             ),
-            iconEnabledColor: kBlack50,
+            iconEnabledColor: kB50,
             iconSize: 25,
             underline: SizedBox(),
             onChanged: onChanged,

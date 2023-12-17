@@ -5,7 +5,7 @@ import 'package:boilerplate/config/routes/routes.gr.dart';
 
 @AutoRouterConfig(replaceInRouteName: 'Page,Route')
 class AppRouter extends $AppRouter {
-  bool get _isLoggedIn => appData.tokenDataModel.accessToken.isNotEmpty;
+  bool get _isLoggedIn => appData.udm.accessToken.isNotEmpty;
 
   @override
   RouteType get defaultRouteType => const RouteType.adaptive();

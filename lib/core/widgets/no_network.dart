@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:boilerplate/core/constants/colors.dart';
-import 'package:boilerplate/core/constants/ui_text.dart';
-import 'package:boilerplate/core/utils/text_styles.dart';
-import 'package:boilerplate/core/widgets/button.dart';
-import 'package:boilerplate/injection/injector.dart';
+
+import '../../injection/injector.dart';
+import '../constants/colors.dart';
+import '../constants/ui_text.dart';
+import '../utils/text_styles.dart';
+import 'button.dart';
 
 class NoNetworkBox extends StatelessWidget {
   final Future Function() callBack;
@@ -97,16 +98,10 @@ class NoNetworkBox extends StatelessWidget {
             style: xxlSemibold(kBlack),
           ),
           SizedBox(height: size.pSH(25)),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CusButton(
-                expandWidth: false,
-                onTap: callBack,
-                color: Colors.indigo,
-                text: kTryAgain,
-              ),
-            ],
+          CusButton(
+            onTap: callBack,
+            color: Colors.indigo,
+            text: kTryAgain,
           ),
         ],
       ),

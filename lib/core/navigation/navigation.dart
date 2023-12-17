@@ -1,6 +1,6 @@
-import 'package:boilerplate/core/constants/route_path.dart';
-import 'package:boilerplate/injection/injector.dart';
-import 'package:boilerplate/config/routes/routes.gr.dart';
+import '../../config/routes/routes.gr.dart';
+import '../../injection/injector.dart';
+import '../constants/route_path.dart';
 
 navWithPath(String route, {dynamic argument}) {
   try {
@@ -18,7 +18,7 @@ navWithPath(String route, {dynamic argument}) {
         return;
     }
   } catch (error) {
-    // debugPrint(error);
+    return;
   }
 }
 

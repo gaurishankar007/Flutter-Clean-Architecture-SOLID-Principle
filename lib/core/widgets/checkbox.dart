@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:boilerplate/core/constants/colors.dart';
-import 'package:boilerplate/core/extensions/build_context_extension.dart';
-import 'package:boilerplate/injection/injector.dart';
+
+import '../../injection/injector.dart';
+import '../constants/colors.dart';
+import '../extensions/build_context_extension.dart';
 
 class CusCheckBox extends StatelessWidget {
   final bool value;
@@ -10,13 +11,14 @@ class CusCheckBox extends StatelessWidget {
   final TextStyle? titleStyle;
   final double? scale;
 
-  const CusCheckBox(
-      {super.key,
-      required this.value,
-      this.onChanged,
-      this.title,
-      this.titleStyle,
-      this.scale = .85});
+  const CusCheckBox({
+    super.key,
+    required this.value,
+    this.onChanged,
+    this.title,
+    this.titleStyle,
+    this.scale = .85,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,12 +30,9 @@ class CusCheckBox extends StatelessWidget {
           child: Checkbox(
             value: value,
             fillColor: MaterialStateColor.resolveWith(
-              (states) => value ? context.cs.primary : Colors.transparent,
+              (states) => value ? context.cs.primary : k4C4,
             ),
-            side: BorderSide(
-              width: 2,
-              color: value ? Colors.transparent : kGreyD,
-            ),
+            side: BorderSide.none,
             onChanged: onChanged,
             visualDensity: VisualDensity(horizontal: -4, vertical: -4),
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,

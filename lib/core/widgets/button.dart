@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:boilerplate/core/constants/colors.dart';
-import 'package:boilerplate/core/utils/text_styles.dart';
-import 'package:boilerplate/injection/injector.dart';
+
+import '../../injection/injector.dart';
+import '../constants/colors.dart';
+import '../utils/text_styles.dart';
 
 class CusButton extends StatelessWidget {
   final String text;
@@ -11,7 +12,7 @@ class CusButton extends StatelessWidget {
   final bool outlined;
   final bool disabled;
   final bool loading;
-  final Future Function() onTap;
+  final Function() onTap;
   final TextStyle? textStyle;
   final Color? color;
   final Color? borderColor;
@@ -32,7 +33,7 @@ class CusButton extends StatelessWidget {
     this.icon,
     this.borderColor,
     this.elevation,
-    this.expandWidth = true,
+    this.expandWidth = false,
   });
 
   @override
@@ -47,10 +48,14 @@ class CusButton extends StatelessWidget {
     }
 
     Widget child = Row(
+      mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         if (icon != null)
-          Container(margin: EdgeInsets.only(right: size.pSW(10)), child: icon!),
+          Container(
+            margin: EdgeInsets.only(right: size.pSW(10)),
+            child: icon!,
+          ),
         Text(text, style: textStyle ?? xlSemibold(tColor)),
       ],
     );
@@ -79,7 +84,7 @@ class CusButton extends StatelessWidget {
                   if (loading) setState(() => load = false);
                 },
           style: ElevatedButton.styleFrom(
-            backgroundColor: outlined ? kWhite : color,
+            backgroundColor: outlined ? kWhite : color ?? kP,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(size.pSW(6)),
               side: borderSide,

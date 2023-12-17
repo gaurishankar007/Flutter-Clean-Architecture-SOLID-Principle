@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:boilerplate/core/constants/colors.dart';
-import 'package:boilerplate/core/utils/text_styles.dart';
-import 'package:boilerplate/injection/injector.dart';
+
+import '../../../injection/injector.dart';
+import '../../constants/colors.dart';
+import '../../utils/text_styles.dart';
 
 class CusTextForm extends StatelessWidget {
   final TextEditingController? controller;
   final String? title;
+  final double? height;
   final TextInputType keyboardType;
   final bool obscureText;
   final Function(String?)? onChanged;
   final String? initialValue;
+  final Color? fillColor;
   final String hintText;
   final double hPad;
   final Widget? prefixIcon;
@@ -23,9 +26,11 @@ class CusTextForm extends StatelessWidget {
     super.key,
     this.controller,
     this.title,
+    this.height,
     this.obscureText = false,
     this.keyboardType = TextInputType.text,
     this.onChanged,
+    this.fillColor,
     this.initialValue,
     required this.hintText,
     this.hPad = 14,
@@ -39,6 +44,7 @@ class CusTextForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double newHeight = height ?? size.pSH(70);
     double leftPad = size.pSW(hPad);
     double rightPad = size.pSW(hPad);
     BoxConstraints? prefixBoxCon;
@@ -50,8 +56,8 @@ class CusTextForm extends StatelessWidget {
 
       prefix = InkWell(
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(size.pSW(8)),
-          bottomLeft: Radius.circular(size.pSW(8)),
+          topLeft: Radius.circular(6),
+          bottomLeft: Radius.circular(6),
         ),
         onTap: prefixOnTap,
         child: Container(
@@ -67,8 +73,8 @@ class CusTextForm extends StatelessWidget {
 
       suffix = InkWell(
         borderRadius: BorderRadius.only(
-          topRight: Radius.circular(size.pSW(8)),
-          bottomRight: Radius.circular(size.pSW(8)),
+          topRight: Radius.circular(6),
+          bottomRight: Radius.circular(6),
         ),
         onTap: suffixOnTap,
         child: Container(
@@ -87,12 +93,12 @@ class CusTextForm extends StatelessWidget {
           Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(title!, style: xlMedium(kP1)),
+              Text(title!, style: xlSemibold(kP1)),
               SizedBox(height: size.pSH(16)),
             ],
           ),
         SizedBox(
-          height: size.pSH(70),
+          height: newHeight,
           child: TextFormField(
             controller: controller,
             keyboardType: keyboardType,
@@ -104,12 +110,14 @@ class CusTextForm extends StatelessWidget {
                 left: leftPad,
                 right: rightPad,
               ),
+              filled: fillColor != null,
+              fillColor: fillColor,
               prefixIconConstraints: prefixBoxCon,
               prefixIcon: prefix,
               suffixIconConstraints: suffixBoxCon,
               suffixIcon: suffix,
               hintText: hintText,
-              hintStyle: mdRegular(kGrey),
+              hintStyle: mdRegular(kE8E),
             ),
           ),
         ),

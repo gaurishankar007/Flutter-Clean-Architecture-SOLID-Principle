@@ -23,7 +23,7 @@ ThemeData lightTheme = ThemeData(
     ),
   ),
   inputDecorationTheme: InputDecorationTheme(
-    enabledBorder: outlineIB(kGrey1),
+    enabledBorder: outlineIB(k1B1),
     focusedBorder: outlineIB(kP),
     errorBorder: outlineIB(kR600),
   ),

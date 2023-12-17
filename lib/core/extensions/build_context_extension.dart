@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:boilerplate/core/constants/colors.dart';
-import 'package:boilerplate/core/resources/data_state.dart';
+
+import '../constants/colors.dart';
+import '../resources/data_state.dart';
 
 extension BuildContextExtension on BuildContext {
   Size get size => MediaQuery.of(this).size;

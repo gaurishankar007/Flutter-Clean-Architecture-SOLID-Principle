@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:boilerplate/core/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:boilerplate/core/constants/colors.dart';
 import 'package:boilerplate/core/utils/text_styles.dart';
@@ -24,6 +25,11 @@ class Home extends StatelessWidget {
                 margin: EdgeInsets.only(bottom: size.pSH(25)),
                 alignment: Alignment.centerLeft,
                 child: Text("Home", style: xl1Semibold(kBlack)),
+              ),
+              CusButton(
+                expandWidth: true,
+                onTap: () => authCubit.logOut(),
+                text: "Logout",
               ),
             ],
           ),

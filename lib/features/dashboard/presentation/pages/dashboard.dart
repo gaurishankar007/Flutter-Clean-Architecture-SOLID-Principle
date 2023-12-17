@@ -39,7 +39,7 @@ class Dashboard extends StatelessWidget {
               ),
               boxShadow: [
                 BoxShadow(
-                  color: kBlack15,
+                  color: kB15,
                   spreadRadius: 1,
                   blurRadius: 3,
                 ),
@@ -55,8 +55,7 @@ class Dashboard extends StatelessWidget {
 
                 return BottomNavigationBar(
                   currentIndex: activeIndex,
-                  onTap: (index) =>
-                      BlocProvider.of<DashboardCubit>(context).setIndex(index),
+                  onTap: (index) => BlocProvider.of<DashboardCubit>(context).setIndex(index),
                   elevation: 0,
                   backgroundColor: Colors.transparent,
                   showSelectedLabels: false,
@@ -65,7 +64,7 @@ class Dashboard extends StatelessWidget {
                   unselectedFontSize: 0,
                   iconSize: 25,
                   selectedItemColor: kP,
-                  unselectedItemColor: kGrey1,
+                  unselectedItemColor: kEBE,
                   type: BottomNavigationBarType.fixed,
                   items: const [
                     BottomNavigationBarItem(
