@@ -1,45 +1,46 @@
 import '../../../../core/resources/data_state.dart';
-import '../../../../injection/injector.dart';
+import '../../../../core/services/network_status.dart';
+import '../../domain/entities/user_data.dart';
+import '../../domain/forms/sign_in_form.dart';
+import '../../domain/forms/sign_up_form.dart';
 import '../../domain/repositories/auth_repo.dart';
-import '../dataSources/auth_local_source.dart';
-import '../dataSources/auth_remote_source.dart';
-import '../models/logData/log_data_model.dart';
-import '../models/userData/user_data_model.dart';
+import '../dataSources/auth_local_data_source.dart';
+import '../dataSources/auth_remote_data_source.dart';
 
-class AuthRepoImpl implements AuthRepo {
-  final AuthRemoteSourceImpl _remoteSource = AuthRemoteSourceImpl();
-  final AuthLocalSourceImpl _localSource = AuthLocalSourceImpl();
+class AuthRepositoryImplementation implements AuthRepository {
+  final NetworkStatus networkStatus;
+  final AuthRemoteDataSource remoteDataSource;
+  final AuthLocalDataSource localDataSource;
+
+  AuthRepositoryImplementation({
+    required this.networkStatus,
+    required this.remoteDataSource,
+    required this.localDataSource,
+  });
 
   @override
-  Future<DataState<UserDataModel>> login(LogDataModel param) async {
-    if (network.isConnected) return _remoteSource.login(param);
-    return NetworkFailureState();
+  FutureData<UserData> signIn(SignInForm form) async {
+    if (networkStatus.isOnline) {
+      final dataState = await remoteDataSource.signIn(form);
+      if (dataState is DataSuccess) localDataSource.saveUserData(dataState.data!);
+      return dataState;
+    }
+    return const DataNetworkFailure();
   }
 
   @override
-  Future<DataState<bool>> saveUserData(UserDataModel param) async {
-    return _localSource.saveUserData(param);
+  FutureData<UserData> signUp(SignUpForm form) async {
+    if (networkStatus.isOnline) {
+      final dataState = await remoteDataSource.signUp(form);
+      if (dataState is DataSuccess) localDataSource.saveUserData(dataState.data!);
+      return dataState;
+    }
+    return const DataNetworkFailure();
   }
 
   @override
-  Future<DataState<UserDataModel>> getUserData() async {
-    return _localSource.getUserData();
-  }
+  FutureData<UserData> getUserData() => localDataSource.getUserData();
 
   @override
-  Future<DataState<bool>> saveLogData(LogDataModel param) async {
-    return _localSource.saveLogData(param);
-  }
-
-  @override
-  Future<DataState<LogDataModel>> getLogData() async {
-    return _localSource.getLogData();
-  }
-
-  @override
-  Future<DataState<String>> refreshToken() async {
-    if (network.isConnected) return _remoteSource.refreshToken();
-    return NetworkFailureState();
-  }
-
+  FutureBool saveUserData(UserData userData) => localDataSource.saveUserData(userData);
 }

@@ -1,16 +1,62 @@
-# boilerplate
+# Clean Architecture Bloc Boilerplate 🚀🚀🚀
 
-A new Flutter project.
+## Getting Started With Pattern (Folder Structure)
 
-## Getting Started
+- Config
+  - Routes
+  - Theme
+- Core
+  - Constants
+    - API Paths
+    - Assets
+    - Colors
+    - Constants
+  - Error
+    - ErrorData
+    - Exception Handler
+  - Extensions
+    - BuildContext Extension
+    - String Extension
+  - Navigation
+    - Navigator
+    - Routes Data
+  - Resources
+    - DataState
+  - Services
+    - Local Database
+    - Network Service
+    - Network Status
+    - User Service
+  - UseCase
+    - UseCase Contract
+  - Utils
+- Feature
+  - Domain
+    - Entity
+    - Repository
+    - UseCase
+  - Data
+    - Model
+    - DataSources
+    - Repository Implementation
+  - Presentation
+    - Cubit
+    - Pages
+    - Widget
+- Injection
+  - Singleton Getters
+  - Injection
+- Initializer
+- Main App
 
-This project is a starting point for a Flutter application.
+## Project Features
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Dependency injection
+- Internet Connection Checking
+- Responsive Design
+- Error Handling
+- Local Storage
+- Custom Widgets
+- Glassmorphism
+- Theme Customization
+- Unit testing with mocktail and bloc_test

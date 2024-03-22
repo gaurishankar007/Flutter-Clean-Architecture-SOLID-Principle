@@ -1,15 +1,12 @@
 import '../../../../core/resources/data_state.dart';
-import '../../../../core/useCase/use_case_param.dart';
-import '../../data/models/userData/user_data_model.dart';
+import '../../../../core/useCase/use_case.dart';
+import '../entities/user_data.dart';
 import '../repositories/auth_repo.dart';
 
-class SaveUserDataUseCase extends UCP<bool, UserDataModel> {
-  final AuthRepo _authRepo;
-
-  SaveUserDataUseCase(this._authRepo);
+class SaveUserDataUseCase implements UseCase<bool, UserData> {
+  final AuthRepository authRepository;
+  SaveUserDataUseCase({required this.authRepository});
 
   @override
-  Future<DataState<bool>> call(UserDataModel param) async {
-    return await _authRepo.saveUserData(param);
-  }
+  FutureData<bool> call(UserData parameter) async => await authRepository.saveUserData(parameter);
 }

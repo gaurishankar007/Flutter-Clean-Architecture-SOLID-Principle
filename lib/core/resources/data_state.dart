@@ -1,53 +1,35 @@
 import 'package:equatable/equatable.dart';
 
+import '../errors/error_data.dart';
+
+typedef FutureData<T> = Future<DataState<T>>;
+typedef FutureList<T> = Future<DataState<List<T>>>;
+typedef FutureBool = Future<DataState<bool>>;
+
 abstract class DataState<T> extends Equatable {
   final T? data;
-  final String? error;
-  final String? errorMsg;
-  final ErrorType? errorType;
+  final ErrorData? error;
 
-  const DataState({this.data, this.error, this.errorMsg, this.errorType});
-}
-
-class SuccessState<T> extends DataState<T> {
-  const SuccessState({required T data}) : super(data: data);
+  const DataState({this.data, this.error});
 
   @override
-  List<Object?> get props => [data];
+  List<Object?> get props => [data, error];
 }
 
-class FailureState<T> extends DataState<T> {
-  const FailureState({
-    required String error,
-    required String errorMsg,
-    ErrorType errorType = ErrorType.unknown,
-  }) : super(error: error, errorMsg: errorMsg, errorType: errorType);
-
-  @override
-  List<Object?> get props => [errorMsg, errorType, errorType];
+class DataSuccess<T> extends DataState<T> {
+  const DataSuccess({required T data}) : super(data: data);
 }
 
-class NetworkFailureState<T> extends DataState<T> {
-  const NetworkFailureState({
-    String error = "Network Connection Error",
-    String errorMsg = "Network connection failed",
-    ErrorType errorType = ErrorType.noNetwork,
-  }) : super(error: error, errorMsg: errorMsg, errorType: errorType);
-
-  @override
-  List<Object?> get props => [error, errorMsg, errorType];
+class DataFailure<T> extends DataState<T> {
+  const DataFailure({ErrorData error = const ErrorData()}) : super(error: error);
 }
 
-enum ErrorType {
-  unknown,
-  dioException,
-  isarException,
-  sharedPreferenceException,
-  noNetwork,
-  socketTimeOut,
-  tokenExpired,
-  tokenInvalid,
-  invalidUserCredential,
-  server,
-  notFound,
+class DataNetworkFailure<T> extends DataState<T> {
+  const DataNetworkFailure({
+    super.error = const ErrorData(
+      error: "Network Connection Error",
+      message: "Network connection failed",
+      type: ErrorType.noNetwork,
+    ),
+  });
 }

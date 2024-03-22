@@ -1,12 +1,10 @@
 part of 'dashboard_cubit.dart';
 
-class DashboardState extends Equatable {
-  final int activeIndex;
-
-  const DashboardState({
-    required this.activeIndex,
-  });
+abstract class DashboardState extends Equatable {
+  const DashboardState();
 
   @override
-  List<Object> get props => [activeIndex];
+  List<Object> get props => [];
 }
+
+class DashboardInitial extends DashboardState {}

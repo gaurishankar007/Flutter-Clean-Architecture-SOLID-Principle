@@ -1,0 +1,30 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:dio/dio.dart';
+import 'package:get_it/get_it.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
+
+import '../config/routes/routes.dart';
+import '../core/services/local_database.dart';
+import '../core/services/network_service.dart';
+import '../core/services/network_status.dart';
+import '../core/services/user_service.dart';
+import '../core/utils/screen_size.dart';
+import '../features/auth/data/dataSources/auth_local_data_source.dart';
+import '../features/auth/data/dataSources/auth_remote_data_source.dart';
+import '../features/auth/data/repositories/auth_repo_impl.dart';
+import '../features/auth/domain/repositories/auth_repo.dart';
+import '../features/auth/domain/useCases/get_user_data_uc.dart';
+import '../features/auth/domain/useCases/save_user_data_uc.dart';
+import '../features/auth/domain/useCases/sign_in_uc.dart';
+import '../features/auth/domain/useCases/sign_up_uc.dart';
+import '../features/auth/presentation/cubit/auth_cubit.dart';
+import '../features/auth/presentation/dependencies/auth_cubit_dependency.dart';
+import '../initializer.dart';
+
+part "getters.dart";
+part "injection.dart";
+part "injections/bloc_injection.dart";
+part "injections/core_injection.dart";
+part "injections/data_source_injection.dart";
+part "injections/repository_implementation_injection.dart";
+part "injections/use_case_injection.dart";

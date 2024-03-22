@@ -1,35 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:boilerplate/config/theme/theme.dart';
-import 'package:boilerplate/features/auth/presentation/cubit/auth_cubit.dart';
-import 'injection/injector.dart';
 
-Future main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await appData.init();
-  runApp(Boilerplate());
+import 'config/themes/dark_theme.dart';
+import 'config/themes/light_theme.dart';
+import 'injector/injector.dart';
+
+Future<void> main() async {
+  await initializer.initializeApp();
+  runApp(const ChatApp());
 }
 
-class Boilerplate extends StatelessWidget {
-  const Boilerplate({super.key});
+class ChatApp extends StatelessWidget {
+  const ChatApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, layout) {
-      return OrientationBuilder(builder: (context, orientation) {
-        size.init(layout, orientation);
-
-        return BlocProvider(
-          create: (context) => getIt<AuthCubit>(),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        screen.initializeScreen(constraints, context);
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (_) => authCubit),
+          ],
           child: MaterialApp.router(
-            debugShowCheckedModeBanner: false,
-            title: 'Boilerplate App',
+            title: 'Chat App',
             theme: lightTheme,
+            darkTheme: darkTheme,
+            themeMode: ThemeMode.light,
             routerDelegate: appRouter.delegate(),
             routeInformationParser: appRouter.defaultRouteParser(),
+            debugShowCheckedModeBanner: false,
           ),
         );
-      });
-    });
+      },
+    );
   }
 }

@@ -1,32 +1,33 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:boilerplate/core/constants/route_path.dart';
-import 'package:boilerplate/injection/injector.dart';
-import 'package:boilerplate/config/routes/routes.gr.dart';
+import 'package:flutter/material.dart';
 
-@AutoRouterConfig(replaceInRouteName: 'Page,Route')
+import '../../core/navigation/navigator.dart';
+import 'helper/sliding_auto_route.dart';
+import 'routes.gr.dart';
+
+@AutoRouterConfig(replaceInRouteName: "Page, Route")
 class AppRouter extends $AppRouter {
-  bool get _isLoggedIn => appData.udm.accessToken.isNotEmpty;
-
   @override
   RouteType get defaultRouteType => const RouteType.adaptive();
 
   @override
   List<AutoRoute> get routes => <AutoRoute>[
         AutoRoute(
-          page: LoginRoute.page,
-          path: kLoginP,
-          initial: !_isLoggedIn,
+          page: SignInRoute.page,
+          path: SIGN_IN_PATH,
+          initial: true,
+        ),
+        slidingRoute(
+          page: SignUpRoute.page,
+          path: SIGN_UP_PATH,
+          direction: AxisDirection.left,
         ),
         AutoRoute(
-          path: kDashboardP,
           page: DashboardRoute.page,
-          initial: _isLoggedIn,
-          children: [
-            AutoRoute(
-              path: kHomeP,
-              page: HomeRoute.page,
-              initial: _isLoggedIn,
-            ),
+          path: DASHBOARD_PATH,
+          initial: false,
+          guards: const [
+            // AuthGuard()
           ],
         ),
       ];

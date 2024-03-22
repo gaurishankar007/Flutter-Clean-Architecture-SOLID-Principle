@@ -1,44 +1,49 @@
-import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../../core/constants/route_path.dart';
-import '../../../../core/navigation/navigation.dart';
 import '../../../../core/resources/data_state.dart';
-import '../../../../injection/injector.dart';
-import '../../data/models/logData/log_data_model.dart';
+import '../../domain/forms/sign_in_form.dart';
+import '../../domain/forms/sign_up_form.dart';
+import '../dependencies/auth_cubit_dependency.dart';
 
 part 'auth_state.dart';
 
-class AuthCubit extends Cubit<AuthState?> {
-  bool rememberMe = false;
-  String userId = "";
+class AuthCubit extends Cubit<AuthState> {
+  final AuthCubitDependency dependency;
 
-  AuthCubit() : super(null);
+  AuthCubit({required this.dependency}) : super(AuthState.initial());
 
-  rememberUser(bool remember) => rememberMe = remember;
+  removeSignUpError() => emit(state.copyWith(signUpError: ""));
 
-  login(LogDataModel param) async {
-    final dState = await loginUC.call(param);
+  Future<bool> sigIn({required String email, required String password}) async {
+    emit(state.copyWith(signInError: ""));
 
-    if (dState is SuccessState) {
-      appData.setUserModel = dState.data!;
-      appData.setLogDataModel = param.copyWith(rememberMe: rememberMe);
+    final form = SignInForm(email: email, password: password);
+    final dataState = await dependency.signInUseCase.call(form);
 
-      saveUserDataUC.call(appData.udm);
-      if (!appData.logDataModel.biometricEnabled) {
-        saveLogDataUC.call(appData.logDataModel);
-      }
-      return navWithPath(kDashboardP);
+    if (dataState is DataSuccess) {
+      dependency.userService.userData = dataState.data!;
+      return true;
     }
 
-    snackBar.snackThis(data: dState);
+    emit(state.copyWith(signInError: dataState.error!.message));
+    return false;
   }
 
-  logOut() async {
-    navWithPath(kLoginP);
-    SharedPreferences sharedP = await SharedPreferences.getInstance();
-    sharedP.remove("userData");
-    appData.removeUserModel();
+  Future<bool> sigUp({required SignUpForm form}) async {
+    emit(state.copyWith(signUpError: ""));
+
+    if (form.password != form.confirmPassword) {
+      emit(state.copyWith(signUpError: "Password did not matched with confirm password"));
+      return false;
+    }
+
+    final dataState = await dependency.signUpUseCase.call(form);
+    if (dataState is DataSuccess) {
+      dependency.userService.userData = dataState.data!;
+      return true;
+    }
+
+    emit(state.copyWith(signUpError: dataState.error!.message));
+    return false;
   }
 }
