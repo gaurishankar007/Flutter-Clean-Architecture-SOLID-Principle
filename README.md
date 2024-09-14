@@ -115,7 +115,3 @@
 - Screen util for storing device screen type and its dimensions
 - Base custom widgets which are used everywhere in the app
 - Well structured folders and dart files
-
-## Visual Representation
-
-![Clean Architecture Visual Representation](https://media.licdn.com/dms/image/D4D22AQG-qyukqfBqEA/feedshare-shrink_800/0/1702383484984?e=1714608000&v=beta&t=LKhnmVWvh6j0PEyAVJPH-xB_0l9nWrUVGjfawI3aIIQ)
