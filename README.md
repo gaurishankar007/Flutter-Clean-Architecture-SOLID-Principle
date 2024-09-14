@@ -99,17 +99,22 @@
 
 ## Project Features
 
-- Dependency injection
-- Internet Connection Checking
-- Api Request and Response handling Automation
-- Token Refreshing
-- Http Request/Response Inspector
-- Responsive Design With Screen Util
-- Robust Error Handling
-- Offline Data Storage
-- Navigation, Toast Message, and Image Picker Services
-- Custom Widgets
-- Theme Customization
+- Build flavors for development, staging, and production
+- Dependency injections
+- Navigation service with nested navigation
+- Theme data customization
+- Robust api and internal error handling
+- Automated api request and response handling
+- Token refreshing and updating
+- Http request and response inspector
+- Toast message service for displaying message without context
+- Internet service for checking internet connectivity
+- Local data service for storing and getting user data
+- User data service for accessing user credential easily
+- Base bloc for easy access of services like navigation, toast message
+- Screen util for storing device screen type and its dimensions
+- Base custom widgets which are used everywhere in the app
+- Well structured folders and dart files
 
 ## Visual Representation
 
