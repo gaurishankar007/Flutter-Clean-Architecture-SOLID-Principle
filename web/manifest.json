@@ -1,6 +1,6 @@
 {
-    "name": "boilerplate",
-    "short_name": "boilerplate",
+    "name": "clean_architecture",
+    "short_name": "clean_architecture",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

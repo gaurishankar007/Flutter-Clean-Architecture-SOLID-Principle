@@ -1,12 +1,17 @@
-part of '../injector.dart';
+import 'package:get_it/get_it.dart';
 
-_registerRepositoryImplementations() {
+import '../../features/auth/data/repositories/auth_repository_implementation.dart';
+import '../../features/auth/domain/repositories/auth_repository.dart';
+
+final locator = GetIt.instance;
+
+registerRepositoryImplementations() {
   /// Auth
-  getIt.registerLazySingleton<AuthRepository>(
+  locator.registerLazySingleton<AuthRepository>(
     () => AuthRepositoryImplementation(
-      networkStatus: getIt(),
-      remoteDataSource: getIt(),
-      localDataSource: getIt(),
+      internet: locator(),
+      remoteDataSource: locator(),
+      localDataSource: locator(),
     ),
   );
 }

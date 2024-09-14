@@ -1,38 +1,46 @@
 import 'package:equatable/equatable.dart';
 
 class User extends Equatable {
-  final String id;
-  final String name;
+  final int id;
+  final String firstName;
+  final String lastName;
+  final String username;
   final String email;
-  final String profile;
+  final bool isActive;
 
   const User({
     required this.id,
-    required this.name,
+    required this.firstName,
+    required this.lastName,
+    required this.username,
     required this.email,
-    required this.profile,
+    required this.isActive,
   });
 
   const User.empty()
-      : id = "",
-        name = "",
+      : id = 0,
+        firstName = "",
+        lastName = "",
+        username = "",
         email = "",
-        profile = "";
+        isActive = false;
 
-  User copyWith({String? id, String? name, String? email, String? profile}) {
-    return User(
-      id: id ?? this.id,
-      name: name ?? this.name,
-      email: email ?? this.email,
-      profile: profile ?? this.profile,
-    );
-  }
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'first_name': firstName,
+        'last_name': lastName,
+        'username': username,
+        'email': email,
+        'is_active': isActive,
+      };
 
   @override
   List<Object?> get props => [
         id,
-        name,
+        firstName,
+        lastName,
+        username,
         email,
-        profile,
+        isActive,
       ];
 }

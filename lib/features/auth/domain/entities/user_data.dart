@@ -18,13 +18,23 @@ class UserData extends Equatable {
         accessToken = "",
         refreshToken = "";
 
-  UserData copyWith({User? user, String? accessToken, String? refreshToken}) {
+  UserData copyWith({
+    User? user,
+    String? accessToken,
+    String? refreshToken,
+  }) {
     return UserData(
       user: user ?? this.user,
       accessToken: accessToken ?? this.accessToken,
       refreshToken: refreshToken ?? this.refreshToken,
     );
   }
+
+  Map<String, dynamic> toJson() => {
+        'user': user.toJson(),
+        'access': accessToken,
+        'refresh': refreshToken,
+      };
 
   @override
   List<Object?> get props => [

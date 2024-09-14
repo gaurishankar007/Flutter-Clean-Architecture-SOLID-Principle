@@ -1,14 +1,15 @@
 import 'package:auto_route/auto_route.dart';
 
-import '../../../injector/injector.dart';
+import '../../../core/services/user_data_service.dart';
 import '../routes.gr.dart';
 
 class AuthGuard extends AutoRouteGuard {
+  const AuthGuard();
+
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) {
-    final bool isLoggedIn = userService.userData.accessToken.isNotEmpty;
-    if (isLoggedIn) return resolver.next(true);
+    if (UserDataUtil.I.isLoggedIn) return resolver.next(true);
 
-    router.replaceAll([SignInRoute()]);
+    router.replaceAll([const LoginRoute()]);
   }
 }

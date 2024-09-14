@@ -8,15 +8,18 @@ class UserDataModel extends UserData {
     required super.refreshToken,
   });
 
-  factory UserDataModel.fromJson(Map<String, dynamic> json) => UserDataModel(
-        user: UserModel.fromJson(json['user']),
-        accessToken: json['accessToken'] as String,
-        refreshToken: json['refreshToken'] as String,
-      );
+  factory UserDataModel.fromJson(Map<String, dynamic> json) {
+    return UserDataModel(
+      user: UserModel.fromJson(json['user'] ?? {}),
+      accessToken: json['access'] ?? "",
+      refreshToken: json['refresh'] ?? "",
+    );
+  }
 
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'user': user,
-        'accessToken': accessToken,
-        'refreshToken': refreshToken,
-      };
+  @override
+  List<Object?> get props => [
+        user,
+        accessToken,
+        refreshToken,
+      ];
 }

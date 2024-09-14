@@ -1,9 +1,24 @@
-part of '../injector.dart';
+import 'package:get_it/get_it.dart';
 
-_registerUseCases() {
+import '../../features/auth/domain/use_cases/check_authentication_use_case.dart';
+import '../../features/auth/domain/use_cases/get_user_data_use_case.dart';
+import '../../features/auth/domain/use_cases/login_use_case.dart';
+import '../../features/auth/domain/use_cases/save_user_data_use_case.dart';
+
+final locator = GetIt.instance;
+
+registerUseCases() {
   /// Auth
-  getIt.registerLazySingleton(() => SignInUseCase(authRepository: getIt()));
-  getIt.registerLazySingleton(() => SignUpUseCase(authRepository: getIt()));
-  getIt.registerLazySingleton(() => GetUserDataUseCase(authRepository: getIt()));
-  getIt.registerLazySingleton(() => SaveUserDataUseCase(authRepository: getIt()));
+  locator.registerLazySingleton(
+    () => LoginUseCase(authRepository: locator()),
+  );
+  locator.registerLazySingleton(
+    () => SaveUserDataUseCase(authRepository: locator()),
+  );
+  locator.registerLazySingleton(
+    () => GetUserDataUseCase(authRepository: locator()),
+  );
+  locator.registerLazySingleton(
+    () => CheckAuthenticationUseCase(authRepository: locator()),
+  );
 }

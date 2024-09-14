@@ -1,11 +1,17 @@
-part of '../injector.dart';
+import 'package:get_it/get_it.dart';
 
-_registerDataSources() {
+import '../../features/auth/data/data_sources/auth_local_data_source.dart';
+import '../../features/auth/data/data_sources/auth_remote_data_source.dart';
+
+final locator = GetIt.instance;
+
+registerDataSources() {
   /// Auth
-  getIt.registerLazySingleton<AuthRemoteDataSource>(
-    () => AuthRemoteDataSourceImplementation(networkService: getIt()),
+  locator.registerLazySingleton<AuthRemoteDataSource>(
+    () => AuthRemoteDataSourceImplementation(dioClient: locator()),
   );
-  getIt.registerLazySingleton<AuthLocalDataSource>(
-    () => AuthLocalDataSourceImplementation(localDatabase: getIt()),
+
+  locator.registerLazySingleton<AuthLocalDataSource>(
+    () => AuthLocalDataSourceImplementation(localDatabase: locator()),
   );
 }

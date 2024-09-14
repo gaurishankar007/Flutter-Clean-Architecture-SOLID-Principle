@@ -1,65 +1,116 @@
-# Clean Architecture Bloc Boilerplate 🚀🚀🚀
+# Clean Architecture Boilerplate With Bloc 🚀🚀🚀
 
 ## Getting Started With Pattern (Folder Structure)
 
 - Config
   - Routes
+    - Helper
+      - `Auth Guard`
+      - `Page Transition`
   - Theme
+    - `Theme Data`
+    - `Themes`
 - Core
   - Constants
-    - API Paths
-    - Assets
-    - Colors
-    - Constants
-  - Error
-    - ErrorData
-    - Exception Handler
-  - Extensions
-    - BuildContext Extension
-    - String Extension
-  - Navigation
-    - Navigator
-    - Routes Data
-  - Resources
-    - DataState
-  - Services
-    - Local Database
-    - Network Service
-    - Network Status
-    - User Service
-  - UseCase
-    - UseCase Contract
-  - Utils
-- Feature
-  - Domain
-    - Entity
-    - Repository
-    - UseCase
+    - `Api Endpoint`
+    - `App Color`
+    - `App Icons`
   - Data
-    - Model
-    - DataSources
-    - Repository Implementation
-  - Presentation
-    - Cubit
-    - Pages
-    - Widget
-- Injection
-  - Singleton Getters
-  - Injection
-- Initializer
-- Main App
+    - Api
+      - `Api Response`
+      - `Refresh Token Request`
+      - `Refresh Token Response`
+    - Errors
+      - `Data Handler`
+      - `Error Handler`
+      - `Error Types`
+    - States
+      - `Data Error Type`
+      - `Data State`
+      - `Failure State`
+      - `Loading State`
+      - `Success State`
+  - Extensions
+    - `BuildContext Extension`
+    - `String Extension`
+    - `Num Extension`
+    - `.....`
+  - Services
+    - Dio
+      - `Dio Client`
+      - `Dio Interception`
+      - `Dio MultiPartClient`
+    - Image Picker
+      - `Image Picker Service`
+    - Message
+      - `Toast Message Service`
+    - Navigation
+      - `Navigation Data`
+      - `Navigation Service`
+    - `Internet Service`
+    - `Local Database Service`
+    - `User Data Service`
+  - Utils
+    - Base Cubit
+      - `Base Cubit Service Mixin`
+      - `Base Cubit`
+    - Screen Util
+      - `Screen Type`
+      - `Screen Util`
+    - UseCase
+      - `User Case`
+    - `Debounce Time`
+    - `Type Definitions`
+    - `UI Helper`
+    - `Validator`
+- Feature
+  - App
+    - .....
+  - Auth
+    - Data
+      - Models
+      - DataSources
+      - Repository Implementations
+    - Domain
+      - Entities
+      - Repositories
+      - UseCases
+    - Presentation
+      - Cubits
+      - Pages
+        - Widgets
+      - Widgets
+  - Dashboard
+    - .....
+- Injector
+  - Injections
+    - `Bloc Injections`
+    - `.....`
+  - `Injector Dev`
+  - `Injector Prod`
+  - `Injector Stg`
+  - `Injector`
+- `App Config`
+- `Application`
+- `Main Dev`
+- `Main Prod`
+- `Main Stg`
+- `Service Initializer`
 
 ## Project Features
 
 - Dependency injection
 - Internet Connection Checking
-- Responsive Design
-- Error Handling
-- Local Storage
+- Api Request and Response handling Automation
+- Token Refreshing
+- Http Request/Response Inspector
+- Responsive Design With Screen Util
+- Robust Error Handling
+- Offline Data Storage
+- Navigation, Toast Message, and Image Picker Services
 - Custom Widgets
-- Glassmorphism
 - Theme Customization
-- Unit testing with mocktail and bloc_test
 
 ## Visual Representation
+
 ![Clean Architecture Visual Representation](https://media.licdn.com/dms/image/D4D22AQG-qyukqfBqEA/feedshare-shrink_800/0/1702383484984?e=1714608000&v=beta&t=LKhnmVWvh6j0PEyAVJPH-xB_0l9nWrUVGjfawI3aIIQ)

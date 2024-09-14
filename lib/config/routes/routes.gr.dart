@@ -8,47 +8,20 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i4;
-import 'package:boilerplate/features/auth/presentation/pages/sign_in.dart'
-    as _i2;
-import 'package:boilerplate/features/auth/presentation/pages/sign_up.dart'
+import 'package:auto_route/auto_route.dart' as _i5;
+import 'package:clean_architecture/features/auth/presentation/pages/login/login_page.dart'
     as _i3;
-import 'package:boilerplate/features/dashboard/presentation/pages/dashboard.dart'
+import 'package:clean_architecture/features/dashboard/presentation/pages/dashboard/dashboard_page.dart'
     as _i1;
-import 'package:flutter/material.dart' as _i5;
-
-abstract class $AppRouter extends _i4.RootStackRouter {
-  $AppRouter({super.navigatorKey});
-
-  @override
-  final Map<String, _i4.PageFactory> pagesMap = {
-    DashboardRoute.name: (routeData) {
-      return _i4.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const _i1.Dashboard(),
-      );
-    },
-    SignInRoute.name: (routeData) {
-      final args = routeData.argsAs<SignInRouteArgs>(
-          orElse: () => const SignInRouteArgs());
-      return _i4.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: _i2.SignIn(key: args.key),
-      );
-    },
-    SignUpRoute.name: (routeData) {
-      return _i4.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const _i3.SignUp(),
-      );
-    },
-  };
-}
+import 'package:clean_architecture/features/dashboard/presentation/pages/home/home_page.dart'
+    as _i2;
+import 'package:clean_architecture/features/dashboard/presentation/pages/setting/setting_page.dart'
+    as _i4;
 
 /// generated route for
-/// [_i1.Dashboard]
-class DashboardRoute extends _i4.PageRouteInfo<void> {
-  const DashboardRoute({List<_i4.PageRouteInfo>? children})
+/// [_i1.DashboardPage]
+class DashboardRoute extends _i5.PageRouteInfo<void> {
+  const DashboardRoute({List<_i5.PageRouteInfo>? children})
       : super(
           DashboardRoute.name,
           initialChildren: children,
@@ -56,48 +29,67 @@ class DashboardRoute extends _i4.PageRouteInfo<void> {
 
   static const String name = 'DashboardRoute';
 
-  static const _i4.PageInfo<void> page = _i4.PageInfo<void>(name);
+  static _i5.PageInfo page = _i5.PageInfo(
+    name,
+    builder: (data) {
+      return const _i1.DashboardPage();
+    },
+  );
 }
 
 /// generated route for
-/// [_i2.SignIn]
-class SignInRoute extends _i4.PageRouteInfo<SignInRouteArgs> {
-  SignInRoute({
-    _i5.Key? key,
-    List<_i4.PageRouteInfo>? children,
-  }) : super(
-          SignInRoute.name,
-          args: SignInRouteArgs(key: key),
-          initialChildren: children,
-        );
-
-  static const String name = 'SignInRoute';
-
-  static const _i4.PageInfo<SignInRouteArgs> page =
-      _i4.PageInfo<SignInRouteArgs>(name);
-}
-
-class SignInRouteArgs {
-  const SignInRouteArgs({this.key});
-
-  final _i5.Key? key;
-
-  @override
-  String toString() {
-    return 'SignInRouteArgs{key: $key}';
-  }
-}
-
-/// generated route for
-/// [_i3.SignUp]
-class SignUpRoute extends _i4.PageRouteInfo<void> {
-  const SignUpRoute({List<_i4.PageRouteInfo>? children})
+/// [_i2.HomePage]
+class HomeRoute extends _i5.PageRouteInfo<void> {
+  const HomeRoute({List<_i5.PageRouteInfo>? children})
       : super(
-          SignUpRoute.name,
+          HomeRoute.name,
           initialChildren: children,
         );
 
-  static const String name = 'SignUpRoute';
+  static const String name = 'HomeRoute';
 
-  static const _i4.PageInfo<void> page = _i4.PageInfo<void>(name);
+  static _i5.PageInfo page = _i5.PageInfo(
+    name,
+    builder: (data) {
+      return const _i2.HomePage();
+    },
+  );
+}
+
+/// generated route for
+/// [_i3.LoginPage]
+class LoginRoute extends _i5.PageRouteInfo<void> {
+  const LoginRoute({List<_i5.PageRouteInfo>? children})
+      : super(
+          LoginRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'LoginRoute';
+
+  static _i5.PageInfo page = _i5.PageInfo(
+    name,
+    builder: (data) {
+      return const _i3.LoginPage();
+    },
+  );
+}
+
+/// generated route for
+/// [_i4.SettingPage]
+class SettingRoute extends _i5.PageRouteInfo<void> {
+  const SettingRoute({List<_i5.PageRouteInfo>? children})
+      : super(
+          SettingRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'SettingRoute';
+
+  static _i5.PageInfo page = _i5.PageInfo(
+    name,
+    builder: (data) {
+      return const _i4.SettingPage();
+    },
+  );
 }
