@@ -21,17 +21,17 @@ class AppConfig {
   });
 
   const AppConfig.production()
-      : appTitle = "CGWarehouse App",
+      : appTitle = "CleanArchitecture App",
         apiBaseUrl = ApiEndpoint.baseProduction,
         flavor = Flavor.production;
 
   const AppConfig.staging()
-      : appTitle = "CGWarehouse App Staging",
+      : appTitle = "CleanArchitecture App Staging",
         apiBaseUrl = ApiEndpoint.baseStaging,
         flavor = Flavor.staging;
 
   const AppConfig.development()
-      : appTitle = "CGWarehouse App Development",
+      : appTitle = "CleanArchitecture App Development",
         apiBaseUrl = ApiEndpoint.baseDevelopment,
         flavor = Flavor.development;
 }

@@ -11,7 +11,7 @@ showCloseAppDialog(BuildContext context) {
     builder: (dialogContext) {
       return AlertDialog(
         backgroundColor: AppColor.white,
-        title: const Text("Warehouse App"),
+        title: const Text("CleanArchitecture App"),
         content: const Text("Are you sure you want to close the app?"),
         actionsPadding: UIHelper.sMediumAllPadding,
         actions: [
