@@ -35,6 +35,6 @@ mixin BaseCubitServiceMixin {
   setUserData(UserData model) => _userDataService.setUserData = model;
 
   /// Image Picker Service
-  Future<String?> pickImage({required ImageSource source}) =>
+  Future<String?> pickImage([ImageSource source = ImageSource.camera]) =>
       _imagePickerService.pickImage(source: source);
 }

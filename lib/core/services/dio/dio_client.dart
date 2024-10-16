@@ -9,6 +9,7 @@ import '../../constants/api_endpoint.dart';
 import '../../data/api/api_response.dart';
 import '../../data/api/refresh_token_request.dart';
 import '../../data/api/refresh_token_response.dart';
+import '../../utils/type_defs.dart';
 import '../user_data_service.dart';
 
 part 'dio_interceptor.dart';

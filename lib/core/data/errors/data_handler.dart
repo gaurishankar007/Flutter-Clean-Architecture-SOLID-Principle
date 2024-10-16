@@ -56,20 +56,36 @@ class DataHandler {
       () async {
         final response = await request();
         ApiResponse apiResponse = ApiResponse.fromResponse(response);
+        final message = apiResponse.message;
         final apiData = apiResponse.data;
         T? data;
 
-        if (!apiResponse.success) {
-          return FailureState<T>(error: apiResponse.message);
-        } else if (fromJson == null) {
-          return SuccessState(data: data);
-        } else if (apiData is MapDynamic) {
-          data = fromJson(apiData) as T;
-        } else if (apiData is List) {
-          data = apiData.map((json) => fromJson(json)).toList() as T;
+        /// If api response did not succeed
+        if (!apiResponse.success) return FailureState<T>(error: message);
+
+        /// If from json (mapper) is provided
+        if (fromJson != null) {
+          if (apiData is MapDynamic) {
+            data = fromJson(apiData) as T;
+          } else if (apiData is List) {
+            data = apiData.map((json) => fromJson(json)).toList() as T;
+          }
+
+          /// If api data is neither map or list and from json is provided
+          /// just to return custom data without mapping api data
+          else {
+            data = fromJson({}) as T;
+          }
         }
 
-        return SuccessState(data: data);
+        /// If from json (mapper) is not provided
+        else if (apiData is List) {
+          data = apiData.map((e) => e as R).toList() as T;
+        } else if (apiData is num || apiData is String || apiData is bool) {
+          data = apiData as T;
+        }
+
+        return SuccessState(data: data, message: message);
       },
     );
   }

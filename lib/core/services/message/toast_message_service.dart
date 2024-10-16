@@ -66,7 +66,7 @@ class ToastMessageService {
   /// Shows success or error message based on success and failure state
   showDataStateToast(DataState dataState, {String message = ""}) {
     if (dataState is! SuccessState) {
-      showError(dataState.error!);
+      showError(dataState.message!);
     } else if (message.isNotEmpty) {
       showSuccess(message);
     }

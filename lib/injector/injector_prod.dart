@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 
 import '../app_config.dart';
@@ -16,10 +15,7 @@ void initializeProdDependencies() {
     () => DioClient(
       appConfig: locator(),
       interceptors: [
-        DioInterceptor(
-          dio: Dio(),
-          userDataService: locator(),
-        ),
+        DioInterceptor(userDataService: locator()),
       ],
     ),
   );

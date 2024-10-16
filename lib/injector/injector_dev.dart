@@ -1,6 +1,5 @@
 import 'package:alice/alice.dart';
 import 'package:awesome_dio_interceptor/awesome_dio_interceptor.dart';
-import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 
 import '../app_config.dart';
@@ -19,10 +18,7 @@ void initializeDevDependencies() {
     () => DioClient(
       appConfig: locator(),
       interceptors: [
-        DioInterceptor(
-          dio: Dio(),
-          userDataService: locator(),
-        ),
+        DioInterceptor(userDataService: locator()),
         Alice(
           navigatorKey: locator<NavigationService>().navigatorKey,
           showNotification: true,

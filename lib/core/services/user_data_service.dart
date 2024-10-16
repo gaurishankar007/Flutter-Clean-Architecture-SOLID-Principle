@@ -52,6 +52,8 @@ class UserDataService {
 
   bool get isLoggedIn => _userData.accessToken.isNotEmpty;
   UserData get userData => _userData;
+  String get refreshToken => _userData.refreshToken;
+  String get accessToken => _userData.accessToken;
   String get fullName =>
       "${_userData.user.firstName} ${_userData.user.lastName}";
 }

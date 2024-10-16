@@ -11,7 +11,7 @@ class FailureState<T> extends DataState<T> {
   const FailureState({
     String error = DEFAULT_ERROR,
     DataErrorType errorType = DataErrorType.unknown,
-  }) : super(error: error, errorType: errorType);
+  }) : super(message: error, hasError: true, errorType: errorType);
 
   /// A failure data state when type error occurs
   factory FailureState.typeError() => const FailureState(
