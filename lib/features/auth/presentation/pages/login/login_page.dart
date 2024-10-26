@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:get_it/get_it.dart';
 
-import '../../../../../core/extensions/string_extension.dart';
+import '../../../../../core/utils/extensions/string_extension.dart';
 import '../../../../../core/services/message/toast_message_service.dart';
 import '../../../../../core/utils/ui_helper.dart';
 import '../../../../app/presentation/base_widgets/scaffold_widget.dart';

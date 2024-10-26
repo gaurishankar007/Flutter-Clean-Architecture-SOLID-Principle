@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../../../core/constants/app_color.dart';
-import '../../../../core/extensions/build_context_extension.dart';
+import '../../../../core/utils/extensions/build_context_extension.dart';
 import '../../../../core/utils/screen_util/screen_util.dart';
 
 class ScaffoldWidget extends StatelessWidget {

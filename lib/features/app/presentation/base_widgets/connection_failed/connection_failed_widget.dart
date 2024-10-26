@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../core/constants/app_color.dart';
-import '../../../../../core/extensions/num_extension.dart';
+import '../../../../../core/utils/extensions/num_extension.dart';
 import '../../../../../core/utils/ui_helper.dart';
 import '../action/primary_button_widget.dart';
 import '../text/text_widget.dart';

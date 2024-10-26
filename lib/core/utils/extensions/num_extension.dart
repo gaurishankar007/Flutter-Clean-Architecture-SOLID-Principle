@@ -1,4 +1,4 @@
-import '../utils/screen_util/screen_util.dart';
+import '../screen_util/screen_util.dart';
 
 extension NumberExtension<T extends num> on T {
   /// Required percentage of height with limitation
