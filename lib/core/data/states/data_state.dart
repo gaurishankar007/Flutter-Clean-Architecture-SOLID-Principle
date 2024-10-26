@@ -12,15 +12,15 @@ part 'success_state.dart';
 sealed class DataState<T> extends Equatable {
   final T? data;
   final String? message;
-  final bool? hasData;
-  final bool? hasError;
+  final bool hasData;
+  final bool hasError;
   final DataErrorType? errorType;
 
   const DataState({
     this.data,
     this.message,
-    this.hasData,
-    this.hasError,
+    this.hasData = false,
+    this.hasError = false,
     this.errorType,
   });
 
