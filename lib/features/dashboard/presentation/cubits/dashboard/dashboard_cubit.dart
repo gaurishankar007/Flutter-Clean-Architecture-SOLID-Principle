@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 
-import '../../../../../core/data/states/data_state.dart';
 import '../../../../../core/services/navigation/navigation_service.dart';
 import '../../../../../core/utils/base_cubit/base_cubit.dart';
 import '../../../../../core/utils/type_defs.dart';
@@ -42,5 +41,5 @@ class DashboardCubit extends BaseCubit<DashboardState> {
   }
 
   /// Check whether the token is expired or not
-  FutureBool _verifyToken() async => await _useCases.checkAuthentication.call();
+  FutureBool verifyToken() async => await _useCases.checkAuthentication.call();
 }

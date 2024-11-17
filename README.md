@@ -30,11 +30,6 @@
       - `Failure State`
       - `Loading State`
       - `Success State`
-  - Extensions
-    - `BuildContext Extension`
-    - `String Extension`
-    - `Num Extension`
-    - `.....`
   - Services
     - Dio
       - `Dio Client`
@@ -54,6 +49,11 @@
     - Base Cubit
       - `Base Cubit Service Mixin`
       - `Base Cubit`
+    - Extensions
+      - `BuildContext Extension`
+      - `String Extension`
+      - `Num Extension`
+      - `.....`
     - Screen Util
       - `Screen Type`
       - `Screen Util`
