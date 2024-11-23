@@ -7,7 +7,14 @@ import '../../constants/app_color.dart';
 import '../../data/states/data_state.dart';
 import '../../utils/ui_helper.dart';
 
-class ToastMessageService {
+abstract class ToastMessageService {
+  setContext(BuildContext context);
+  showSuccess(String message, {Duration? duration});
+  showError(String message, {Duration? duration});
+  showDataStateToast(DataState dataState, {String message = ""});
+}
+
+class ToastMessageServiceImplementation implements ToastMessageService {
   BuildContext? _context;
   final _toastSetting = const SlidingToastSetting(
     displayDuration: Duration(seconds: 2),
@@ -23,8 +30,10 @@ class ToastMessageService {
 
   /// Configure context for toast message,
   /// so that it can be shown without context later.
+  @override
   setContext(BuildContext context) => _context = context;
 
+  @override
   showSuccess(String message, {Duration? duration}) {
     if (_context == null) return;
     InteractiveToast.slide(
@@ -44,6 +53,7 @@ class ToastMessageService {
     );
   }
 
+  @override
   showError(String message, {Duration? duration}) {
     if (_context == null) return;
     InteractiveToast.slide(
@@ -64,6 +74,7 @@ class ToastMessageService {
   }
 
   /// Shows success or error message based on success and failure state
+  @override
   showDataStateToast(DataState dataState, {String message = ""}) {
     if (dataState is! SuccessState) {
       showError(dataState.message!);

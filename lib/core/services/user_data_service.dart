@@ -7,12 +7,25 @@ import '../../features/auth/domain/entities/user_data.dart';
 import 'local_database_service.dart';
 import 'navigation/navigation_service.dart';
 
+abstract class UserDataService {
+  checkForUserCredential();
+  set setUserData(UserData model);
+  storeUserCredential(UserDataModel userData);
+  refreshAccessToken(String accessToken);
+  logOut();
+  bool get isLoggedIn;
+  UserData get userData;
+  String get refreshToken;
+  String get accessToken;
+  String get fullName;
+}
+
 /// A class that stores user data
-class UserDataService {
+class UserDataServiceImplementation implements UserDataService {
   final LocalDatabaseService localDatabase;
   final NavigationService navigationService;
 
-  UserDataService({
+  UserDataServiceImplementation({
     required this.localDatabase,
     required this.navigationService,
   });
@@ -20,6 +33,7 @@ class UserDataService {
   UserData _userData = const UserData.empty();
 
   /// Check user's logged in credentials and store it before starting the app
+  @override
   checkForUserCredential() async {
     try {
       String userData = await localDatabase.getString("userData") ?? "";
@@ -28,9 +42,11 @@ class UserDataService {
     } catch (_) {}
   }
 
+  @override
   set setUserData(UserData model) => _userData = model;
 
   /// Store user's logged in credentials
+  @override
   storeUserCredential(UserDataModel userData) async {
     setUserData = userData;
     final data = jsonEncode(userData.toJson());
@@ -38,22 +54,29 @@ class UserDataService {
   }
 
   /// Store new access token if it is expired.
+  @override
   refreshAccessToken(String accessToken) async {
     setUserData = _userData.copyWith(accessToken: accessToken);
     final data = jsonEncode(userData.toJson());
     await localDatabase.setString("userData", data);
   }
 
+  @override
   logOut() async {
     localDatabase.clear();
     _userData = const UserData.empty();
     navigationService.replaceRoute(LOGIN_PATH);
   }
 
+  @override
   bool get isLoggedIn => _userData.accessToken.isNotEmpty;
+  @override
   UserData get userData => _userData;
+  @override
   String get refreshToken => _userData.refreshToken;
+  @override
   String get accessToken => _userData.accessToken;
+  @override
   String get fullName =>
       "${_userData.user.firstName} ${_userData.user.lastName}";
 }

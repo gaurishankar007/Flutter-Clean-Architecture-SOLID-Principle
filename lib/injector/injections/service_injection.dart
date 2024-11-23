@@ -11,16 +11,28 @@ import '../../core/services/user_data_service.dart';
 final locator = GetIt.instance;
 
 registerServices() {
-  locator.registerLazySingleton(() => NavigationService());
-  locator.registerLazySingleton(() => ImagePickerService());
-  locator.registerLazySingleton(() => ToastMessageService());
-  locator.registerLazySingleton(() => InternetService());
-  locator.registerLazySingleton(() => LocalDatabaseService());
-  locator.registerLazySingleton(
-    () => UserDataService(
+  locator.registerLazySingleton<NavigationService>(
+    () => NavigationServiceImplementation(),
+  );
+  locator.registerLazySingleton<ImagePickerService>(
+    () => ImagePickerServiceImplementation(),
+  );
+  locator.registerLazySingleton<ToastMessageService>(
+    () => ToastMessageServiceImplementation(),
+  );
+  locator.registerLazySingleton<InternetService>(
+    () => InternetServiceImplementation(),
+  );
+  locator.registerLazySingleton<LocalDatabaseService>(
+    () => LocalDatabaseServiceImplementation(),
+  );
+  locator.registerLazySingleton<UserDataService>(
+    () => UserDataServiceImplementation(
       localDatabase: locator(),
       navigationService: locator(),
     ),
   );
-  locator.registerLazySingleton(() => DioMultiPartClient());
+  locator.registerLazySingleton<DioMultiPartClient>(
+    () => DioMultiPartClientImplementation(),
+  );
 }

@@ -15,11 +15,61 @@ import '../user_data_service.dart';
 part 'dio_interceptor.dart';
 part 'dio_multi_part_client.dart';
 
+abstract class DioClient {
+  Future<Response> get<T>(
+    String path, {
+    final Object? data,
+    final Map<String, dynamic>? queryParameters,
+    final Options? options,
+    final CancelToken? cancelToken,
+    final ProgressCallback? onSendProgress,
+    final ProgressCallback? onReceiveProgress,
+  });
+
+  Future<Response> post<T>(
+    String path, {
+    final Object? data,
+    final Map<String, dynamic>? queryParameters,
+    final Options? options,
+    final CancelToken? cancelToken,
+    final ProgressCallback? onSendProgress,
+    final ProgressCallback? onReceiveProgress,
+  });
+
+  Future<Response> put<T>(
+    String path, {
+    final Object? data,
+    final Map<String, dynamic>? queryParameters,
+    final Options? options,
+    final CancelToken? cancelToken,
+    final ProgressCallback? onSendProgress,
+    final ProgressCallback? onReceiveProgress,
+  });
+
+  Future<Response> patch<T>(
+    String path, {
+    final Object? data,
+    final Map<String, dynamic>? queryParameters,
+    final Options? options,
+    final CancelToken? cancelToken,
+    final ProgressCallback? onSendProgress,
+    final ProgressCallback? onReceiveProgress,
+  });
+
+  Future<Response> delete<T>(
+    String path, {
+    final Object? data,
+    final Map<String, dynamic>? queryParameters,
+    final Options? options,
+    final CancelToken? cancelToken,
+  });
+}
+
 /// Convenience methods to make an HTTP PATCH request.
-class DioClient {
+class DioClientImplementation implements DioClient {
   final Dio _dio = Dio();
 
-  DioClient({
+  DioClientImplementation({
     required AppConfig appConfig,
     List<Interceptor>? interceptors,
   }) {
@@ -34,6 +84,7 @@ class DioClient {
     if (interceptors != null) _dio.interceptors.addAll(interceptors);
   }
 
+  @override
   Future<Response> get<T>(
     String path, {
     final Object? data,
@@ -52,6 +103,7 @@ class DioClient {
         onReceiveProgress: onReceiveProgress,
       );
 
+  @override
   Future<Response> post<T>(
     String path, {
     final Object? data,
@@ -71,6 +123,7 @@ class DioClient {
         onReceiveProgress: onReceiveProgress,
       );
 
+  @override
   Future<Response> put<T>(
     String path, {
     final Object? data,
@@ -90,6 +143,7 @@ class DioClient {
         onReceiveProgress: onReceiveProgress,
       );
 
+  @override
   Future<Response> patch<T>(
     String path, {
     final Object? data,
@@ -109,6 +163,7 @@ class DioClient {
         onReceiveProgress: onReceiveProgress,
       );
 
+  @override
   Future<Response> delete<T>(
     String path, {
     final Object? data,

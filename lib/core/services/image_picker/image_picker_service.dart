@@ -3,9 +3,21 @@ import 'dart:io';
 import 'package:get_it/get_it.dart';
 import 'package:image_picker/image_picker.dart';
 
+abstract class ImagePickerService {
+  Future<String?> pickImage({
+    required ImageSource source,
+    double? maxWidth,
+    double? maxHeight,
+    int? imageQuality,
+    CameraDevice preferredCameraDevice = CameraDevice.rear,
+    bool requestFullMetadata = true,
+  });
+}
+
 /// Image picker service class for picking single/multiple images
-class ImagePickerService {
+class ImagePickerServiceImplementation implements ImagePickerService {
   /// Pick single image
+  @override
   Future<String?> pickImage({
     required ImageSource source,
     double? maxWidth,

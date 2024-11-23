@@ -19,21 +19,33 @@ class AppConfig {
     required this.apiBaseUrl,
     required this.flavor,
   });
+}
 
-  const AppConfig.production()
-      : appTitle = "CleanArchitecture App",
-        apiBaseUrl = ApiEndpoint.baseProduction,
-        flavor = Flavor.production;
+class AppConfigProduction extends AppConfig {
+  const AppConfigProduction()
+      : super(
+          appTitle: "Clean Architecture App",
+          apiBaseUrl: ApiEndpoint.baseProduction,
+          flavor: Flavor.production,
+        );
+}
 
-  const AppConfig.staging()
-      : appTitle = "CleanArchitecture App Staging",
-        apiBaseUrl = ApiEndpoint.baseStaging,
-        flavor = Flavor.staging;
+class AppConfigStaging extends AppConfig {
+  const AppConfigStaging()
+      : super(
+          appTitle: "Clean Architecture App Staging",
+          apiBaseUrl: ApiEndpoint.baseStaging,
+          flavor: Flavor.staging,
+        );
+}
 
-  const AppConfig.development()
-      : appTitle = "CleanArchitecture App Development",
-        apiBaseUrl = ApiEndpoint.baseDevelopment,
-        flavor = Flavor.development;
+class AppConfigDevelopment extends AppConfig {
+  const AppConfigDevelopment()
+      : super(
+          appTitle: "Clean Architecture App Development",
+          apiBaseUrl: ApiEndpoint.baseDevelopment,
+          flavor: Flavor.development,
+        );
 }
 
 /// A util class for accessing [AppConfig]

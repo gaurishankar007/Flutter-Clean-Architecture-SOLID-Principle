@@ -12,10 +12,10 @@ final locator = GetIt.instance;
 void initializeDevDependencies() {
   initializeDependencies();
 
-  locator.registerLazySingleton(() => const AppConfig.development());
+  locator.registerLazySingleton<AppConfig>(() => const AppConfigDevelopment());
 
-  locator.registerLazySingleton(
-    () => DioClient(
+  locator.registerLazySingleton<DioClient>(
+    () => DioClientImplementation(
       appConfig: locator(),
       interceptors: [
         DioInterceptor(userDataService: locator()),

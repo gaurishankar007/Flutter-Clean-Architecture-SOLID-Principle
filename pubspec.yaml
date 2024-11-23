@@ -1,5 +1,5 @@
 name: clean_architecture
-description: Clean Architecture Boilerplate
+description: Clean Architecture && SOLID Principle
 publish_to: "none"
 
 version: 1.0.0+1
@@ -12,7 +12,7 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.8
   # Equality
-  equatable: ^2.0.5
+  equatable: ^2.0.7
   # Dependency Injector
   get_it: ^7.7.0
   # Network
@@ -26,7 +26,6 @@ dependencies:
   # Local
   shared_preferences: ^2.3.2
   isar: ^3.1.0+1
-  isar_flutter_libs: ^3.1.0+1
   path_provider: ^2.1.5
   # State Management
   flutter_bloc: ^8.1.6
@@ -34,7 +33,7 @@ dependencies:
   # Image Picker
   image_picker: ^1.1.2
   # Animation
-  flutter_sliding_toast: ^1.4.2
+  flutter_sliding_toast: ^1.4.3
 
 dev_dependencies:
   flutter_test:

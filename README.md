@@ -1,6 +1,6 @@
-# Clean Architecture Boilerplate With Bloc 🚀🚀🚀
+# Flutter Clean Architecture && SOLID Principle 🚀🚀🚀
 
-## Getting Started With Pattern (Folder Structure)
+## Getting Started
 
 - Config
   - Routes
@@ -44,6 +44,7 @@
       - `Navigation Service`
     - `Internet Service`
     - `Local Database Service`
+    - `Isar Database Service`
     - `User Data Service`
   - Utils
     - Base Cubit
@@ -99,19 +100,14 @@
 
 ## Project Features
 
+- Use of solid principles along with dependency injection
 - Build flavors for development, staging, and production
-- Dependency injections
-- Navigation service with nested navigation
-- Theme data customization
-- Robust api and internal error handling
-- Automated api request and response handling
-- Token refreshing and updating
-- Http request and response inspector
-- Toast message service for displaying message without context
-- Internet service for checking internet connectivity
-- Local data service for storing and getting user data
-- User data service for accessing user credential easily
-- Base bloc for easy access of services like navigation, toast message
-- Screen util for storing device screen type and its dimensions
-- Base custom widgets which are used everywhere in the app
-- Well structured folders and dart files
+- Robust api and internal error handling mechanism
+- Automated api request/response handling, inspecting and token refreshing
+- Services for navigation, internet, local database, internet, toast message, and user credential
+- Reusable UI components and theme data customization
+- Utils for Screen size, spacing, extensions, mixins, generics, and form validation
+
+## Visual Representation
+
+![Clean Architecture With SOLID Principle](https://miro.medium.com/v2/resize:fit:720/format:webp/0*1w080Y72qaOdoC3W.png)
