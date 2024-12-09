@@ -51,115 +51,121 @@ A comprehensive guide to building scalable and maintainable Flutter applications
 
 ## Getting Started 🛠️
 
-### **Config**
-- **Routes**
-  - ✅ **Helper**
-    - `Auth Guard`
-    - `Page Transition`
-- **Theme**
-  - ✅ `Theme Data`
-  - ✅ `Themes`
-
----
-
-### **Core**
-- **Constants**
-  - ✅ `Api Endpoint`
-  - ✅ `App Color`
-  - ✅ `App Icons`
-- **Data**
-  - ✅ **API**
-    - `Api Response`
-    - `Refresh Token Request`
-    - `Refresh Token Response`
-  - ✅ **Errors**
-    - `Data Handler`
-    - `Error Handler`
-    - `Error Types`
-  - ✅ **States**
-    - `Data Error Type`
-    - `Data State`
-    - `Failure State`
-    - `Loading State`
-    - `Success State`
-- **Services**
-  - ✅ **Dio**
-    - `Dio Client`
-    - `Dio Interception`
-    - `Dio MultiPartClient`
-  - ✅ **Image Picker**
-    - `Image Picker Service`
-  - ✅ **Message**
-    - `Toast Message Service`
-  - ✅ **Navigation**
-    - `Navigation Data`
-    - `Navigation Service`
-  - ✅ `Internet Service`
-  - ✅ `Local Database Service`
-  - ✅ `Isar Database Service`
-  - ✅ `User Data Service`
-- **Utils**
-  - ✅ **Base Cubit**
-    - `Base Cubit Service Mixin`
-    - `Base Cubit`
-  - ✅ **Extensions**
-    - `BuildContext Extension`
-    - `String Extension`
-    - `Num Extension`
-    - `.....`
-  - ✅ **Screen Util**
-    - `Screen Type`
-    - `Screen Util`
-  - ✅ **UseCase**
-    - `User Case`
-  - ✅ `Debounce Time`
-  - ✅ `Type Definitions`
-  - ✅ `UI Helper`
-  - ✅ `Validator`
-
----
-
-### **Feature**
-- **App**
-  - `.....`
-- **Auth**
-  - ✅ **Data**
-    - `Models`
-    - `DataSources`
-    - `Repository Implementations`
-  - ✅ **Domain**
-    - `Entities`
-    - `Repositories`
-    - `UseCases`
-  - ✅ **Presentation**
-    - `Cubits`
-    - **Pages**
-      - `Widgets`
-    - `Widgets`
-- **Dashboard**
-  - `.....`
-
----
-
-### **Injector**
-- ✅ **Injections**
-  - `Bloc Injections`
-  - `.....`
-- ✅ `Injector Dev`
-- ✅ `Injector Prod`
-- ✅ `Injector Stg`
-- ✅ `Injector`
-
----
-
-### **Other Components**
-- ✅ `App Config`
-- ✅ `Application`
-- ✅ `Main Dev`
-- ✅ `Main Prod`
-- ✅ `Main Stg`
-- ✅ `Service Initializer`
-
+```
+lib/
+│
+├── config/
+│   ├── routes/
+│   │   ├── helper/
+│   │   │   ├── auth_guard.dart
+│   │   │   └── sliding_auto_route.dart
+│   │   ├── routes.dart
+│   │   └── routes.gr.dart
+│   ├── theme/
+│   │   ├── theme_data.dart
+│   │   └── themes.dart
+│
+├── core/
+│   ├── constants/
+│   │   ├── api_endpoint.dart
+│   │   ├── app_color.dart
+│   │   └── app_icons.dart
+│   ├── data/
+│   │   ├── api/
+│   │   │   ├── api_response.dart
+│   │   │   ├── refresh_token_request.dart
+│   │   │   └── refresh_token_response.dart
+│   │   ├── errors/
+│   │   │   ├── data_handler.dart
+│   │   │   ├── error_handler.dart
+│   │   │   └── error_types.dart
+│   │   ├── states/
+│   │   │   ├── data_error_type.dart
+│   │   │   ├── data_state.dart
+│   │   │   ├── failure_state.dart
+│   │   │   ├── loading_state.dart
+│   │   │   └── success_state.dart
+│   ├── services/
+│   │   ├── dio/
+│   │   │   ├── dio_client.dart
+│   │   │   ├── dio_interception.dart
+│   │   │   └── dio_multipart_client.dart
+│   │   ├── image_picker/
+│   │   │   └── image_picker_service.dart
+│   │   ├── message/
+│   │   │   └── toast_message_service.dart
+│   │   ├── navigation/
+│   │   │   ├── navigation_data.dart
+│   │   │   └── navigation_service.dart
+│   │   ├── internet_service.dart
+│   │   ├── local_database_service.dart
+│   │   ├── isar_database_service.dart
+│   │   └── user_data_service.dart
+│   ├── utils/
+│   │   ├── base_cubit/
+│   │   │   ├── base_cubit_service_mixin.dart
+│   │   │   └── base_cubit.dart
+│   │   ├── extensions/
+│   │   │   ├── build_context_extension.dart
+│   │   │   ├── double_extension.dart
+│   │   │   ├── duration_extension.dart
+│   │   │   ├── num_extension.dart
+│   │   │   ├── page_controller_extension.dart
+│   │   │   └── string_extension.dart
+│   │   ├── screen_util/
+│   │   │   ├── screen_type.dart
+│   │   │   └── screen_util.dart
+│   │   ├── use_case/
+│   │   │   └── use_case.dart
+│   │   ├── debounce_time.dart
+│   │   ├── type_defs.dart
+│   │   ├── ui_helper.dart
+│   │   └── validator.dart
+│
+├── feature/
+│   ├── app/
+│   │   ├── data/
+│   │   │   └── models/
+│   │   ├── domain/
+│   │   │   └── entities/
+│   │   └── presentation/
+│   │       ├── base_widgets/
+│   │       ├── widgets/
+│   ├── auth/
+│   │   ├── data/
+│   │   │   ├── models/
+│   │   │   ├── data_sources/
+│   │   │   └── repository_implementations/
+│   │   ├── domain/
+│   │   │   ├── entities/
+│   │   │   ├── repositories/
+│   │   │   └── use_cases/
+│   │   └── presentation/
+│   │       ├── cubits/
+│   │       ├── pages/
+│   │       └── widgets/
+│   ├── dashboard/
+│   │   └── ... (dashboard-specific files like auth feature)
+│
+├── injector/
+│   ├── injections/
+│   │   ├── bloc_injection.dart
+│   │   ├── data_source_injection.dart
+│   │   ├── repository_implementation_injection.dart
+│   │   ├── service_injection.dart
+│   │   └── use_case_injection.dart
+│   ├── injector_dev.dart
+│   ├── injector_prod.dart
+│   ├── injector_stg.dart
+│   └── injector.dart
+│
+├── app_config.dart
+├── application.dart
+├── main_dev.dart
+├── main_prod.dart
+├── main_stg.dart
+└── service_initializer.dart
+```
 ---
 
 ## Project Features ✨
