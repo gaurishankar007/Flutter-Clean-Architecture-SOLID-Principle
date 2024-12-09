@@ -1,0 +1,24 @@
+name: clean_cubit_feature
+description: A new brick for creating clean architecture features based on cubit.
+
+version: 0.1.0+1
+
+environment:
+  mason: ^0.1.0
+
+vars:
+  name:
+    type: string
+    description: Feature name
+    default: feature
+    prompt: What is feature name?
+  cubit:
+    type: string
+    description: Cubit name
+    default: cubit
+    prompt: What is cubit name?
+  page:
+    type: string
+    description: Page name
+    default: page
+    prompt: What is page name?

@@ -6,22 +6,26 @@ A comprehensive guide to building scalable and maintainable Flutter applications
 
 ## What is Clean Architecture? 🏗️
 
-**Clean Architecture** is a software design philosophy that promotes separation of concerns through clearly defined layers. Each layer has a specific responsibility, making the codebase modular, testable, and easier to maintain. 
+**Clean Architecture** is a software design philosophy that promotes separation of concerns through clearly defined layers. Each layer has a specific responsibility, making the codebase modular, testable, and easier to maintain.
 
 ### Core Layers of Clean Architecture:
-1. **Presentation Layer**  
-   - Contains the UI and state management (e.g., Cubits, Widgets, Pages).  
+
+1. **Presentation Layer**
+
+   - Contains the UI and state management (e.g., Cubits, Widgets, Pages).
    - Responsible for displaying data and handling user interactions.
 
-2. **Domain Layer**  
-   - The heart of the application. Contains **Entities**, **UseCases**, and **Repositories**.  
+2. **Domain Layer**
+
+   - The heart of the application. Contains **Entities**, **UseCases**, and **Repositories**.
    - Focuses purely on business logic, independent of frameworks.
 
-3. **Data Layer**  
-   - Manages data sources (e.g., APIs, local databases).  
+3. **Data Layer**
+   - Manages data sources (e.g., APIs, local databases).
    - Implements repositories to provide data to the domain layer.
 
 ### Benefits of Clean Architecture:
+
 - Promotes **independence** from frameworks, UI, and external data sources.
 - Ensures **modularity**, enabling easier testing and maintenance.
 - Supports **scalability** and flexibility for future feature additions.
@@ -166,6 +170,7 @@ lib/
 ├── main_stg.dart
 └── service_initializer.dart
 ```
+
 ---
 
 ## Project Features ✨
@@ -180,6 +185,52 @@ lib/
 - 🎨 **Reusable UI Components**: Customizable themes and reusable widgets.
 - ⚙️ **Utilities**:
   - Screen size handling, extensions, mixins, generics, and form validation utilities.
+
+---
+
+## Feature Template Generation Using Mason 🧱
+
+This project uses **Mason** to generate feature templates for consistent and efficient development.
+
+### Steps to Generate a New Feature Template
+
+1. **Activate the `mason_cli` globally**:
+
+   ```bash
+   dart pub global activate mason_cli
+   ```
+
+2. **Fetch the bricks for the project**:
+
+   ```bash
+   mason get
+   ```
+
+3. **Generate a new feature using the `clean_cubit_feature` brick**:
+   ```bash
+   mason make clean_cubit_feature -c config.json
+   ```
+
+### What Does `clean_cubit_feature` Do?
+
+The `clean_cubit_feature` brick generates a feature template following the **Clean Architecture** structure, including:
+
+- **Data Layer**:
+  - Data Sources
+  - Models
+  - Repositories
+- **Domain Layer**:
+  - Entities
+  - Repositories
+  - Use cases
+- **Presentation Layer**:
+  - Cubits
+  - Pages
+  - Widgets
+
+### Configuration
+
+The generation process relies on a `config.json` file, which includes details such as feature, cubit, page names and entity name with it's variables type, name. Ensure that the `config.json` is correctly defined before running the generation command.
 
 ---
 
