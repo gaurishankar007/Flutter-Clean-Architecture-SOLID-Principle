@@ -1,3 +1,4 @@
+import 'package:injectable/injectable.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -10,6 +11,7 @@ abstract class IsarDatabaseService {
   Future<void> clearAll();
 }
 
+@LazySingleton(as: IsarDatabaseService)
 class IsarDatabaseServiceImplementation implements IsarDatabaseService {
   late final Isar _isar;
 

@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:injectable/injectable.dart';
+
 import '../../../../core/data/errors/data_handler.dart';
 import '../../../../core/data/states/data_state.dart';
 import '../../../../core/services/local_database_service.dart';
@@ -12,6 +14,7 @@ abstract class AuthLocalDataSource {
   FutureData<UserDataModel> getUserData();
 }
 
+@LazySingleton(as: AuthLocalDataSource)
 class AuthLocalDataSourceImplementation implements AuthLocalDataSource {
   final LocalDatabaseService localDatabase;
   AuthLocalDataSourceImplementation({required this.localDatabase});

@@ -2,8 +2,8 @@
 
 import 'package:flutter/widgets.dart';
 
-class AppIcons {
-  AppIcons._();
+class AppIcon {
+  AppIcon._();
 
   static const _kFontFam = 'AppIcon';
   // static const String? _kFontPkg = null;

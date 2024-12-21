@@ -1,9 +1,12 @@
+import 'package:injectable/injectable.dart';
 
 import '../../../../core/services/internet_service.dart';
 import '../../domain/repositories/{{name.snakeCase()}}_repository.dart';
 import '../data_sources/{{name.snakeCase()}}_local_data_source.dart';
 import '../data_sources/{{name.snakeCase()}}_remote_data_source.dart';
 
+
+@LazySingleton(as: {{name.pascalCase()}}Repository)
 class {{name.pascalCase()}}RepositoryImplementation implements {{name.pascalCase()}}Repository {
   final InternetService _internetService;
   final {{name.pascalCase()}}RemoteDataSource _remoteDataSource;

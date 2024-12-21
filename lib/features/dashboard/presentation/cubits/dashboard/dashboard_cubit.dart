@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:injectable/injectable.dart';
 
 import '../../../../../core/services/navigation/navigation_service.dart';
 import '../../../../../core/utils/base_cubit/base_cubit.dart';
@@ -7,6 +8,7 @@ import '../../../domain/entities/dashboard_use_cases.dart';
 
 part 'dashboard_state.dart';
 
+@injectable
 class DashboardCubit extends BaseCubit<DashboardState> {
   final DashboardUseCases _useCases;
   int _activeIndex = 0;

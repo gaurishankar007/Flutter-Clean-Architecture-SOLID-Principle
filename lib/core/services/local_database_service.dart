@@ -1,3 +1,4 @@
+import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class LocalDatabaseService {
@@ -7,6 +8,7 @@ abstract class LocalDatabaseService {
   Future<void> clear();
 }
 
+@LazySingleton(as: LocalDatabaseService)
 class LocalDatabaseServiceImplementation implements LocalDatabaseService {
   late final Future<SharedPreferences> sharedPreferences;
 

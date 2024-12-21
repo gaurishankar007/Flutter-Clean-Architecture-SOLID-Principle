@@ -1,8 +1,11 @@
+import 'package:injectable/injectable.dart';
+
 import '../../../../core/utils/type_defs.dart';
 import '../../../../core/utils/use_case/use_case.dart';
 import '../entities/user_data.dart';
 import '../repositories/auth_repository.dart';
 
+@LazySingleton()
 class SaveUserDataUseCase extends UseCase<bool, UserData> {
   final AuthRepository _authRepository;
 

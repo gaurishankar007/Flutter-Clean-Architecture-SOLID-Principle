@@ -1,7 +1,10 @@
+import 'package:injectable/injectable.dart';
+
 import '../../../../core/services/dio/dio_client.dart';
 
 abstract class {{name.pascalCase()}}RemoteDataSource {}
 
+@LazySingleton(as: {{name.pascalCase()}}RemoteDataSource)
 class {{name.pascalCase()}}RemoteDataSourceImplementation implements {{name.pascalCase()}}RemoteDataSource {
   final DioClient _dioClient;
 

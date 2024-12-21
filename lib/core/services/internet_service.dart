@@ -1,6 +1,7 @@
 import 'dart:async' show StreamSubscription;
 
 import 'package:get_it/get_it.dart';
+import 'package:injectable/injectable.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
 abstract class InternetService {
@@ -12,6 +13,7 @@ abstract class InternetService {
 }
 
 /// Check whether the device is online or offline
+@LazySingleton(as: InternetService)
 class InternetServiceImplementation implements InternetService {
   final _internetConnection = InternetConnection();
   StreamSubscription<InternetStatus>? _subscription;

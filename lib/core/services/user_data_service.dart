@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:get_it/get_it.dart';
+import 'package:injectable/injectable.dart';
 
 import '../../features/auth/data/models/user_data_model.dart';
 import '../../features/auth/domain/entities/user_data.dart';
@@ -21,6 +22,7 @@ abstract class UserDataService {
 }
 
 /// A class that stores user data
+@LazySingleton(as: UserDataService)
 class UserDataServiceImplementation implements UserDataService {
   final LocalDatabaseService localDatabase;
   final NavigationService navigationService;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../../core/constants/app_color.dart';
-import '../../../../../../core/constants/app_icons.dart';
+import '../../../../../../core/constants/app_icon.dart';
 import '../../../../../../core/services/navigation/navigation_service.dart';
 import '../../../../../../core/utils/ui_helper.dart';
 import '../../../../../app/presentation/base_widgets/text/text_widget.dart';
@@ -16,7 +16,7 @@ class SettingItemsWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColor.white,
         borderRadius: UIHelper.smallCRadius,
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             color: AppColor.black15,
             blurRadius: 24,
@@ -29,7 +29,7 @@ class SettingItemsWidget extends StatelessWidget {
         children: [
           settingItemWidget(
             CHANGE_PASSWORD_PATH,
-            AppIcons.lock,
+            AppIcon.lock,
             "Change Password",
           ),
         ],
@@ -49,7 +49,7 @@ class SettingItemsWidget extends StatelessWidget {
         horizontalTitleGap: 8,
         leading: Icon(iconData, size: 22),
         title: TextWidget.bodyLarge(name),
-        trailing: const Icon(AppIcons.arrow_right, size: 22),
+        trailing: const Icon(AppIcon.arrow_right, size: 22),
       ),
     );
   }

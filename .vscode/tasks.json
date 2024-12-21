@@ -1,0 +1,82 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "flutter",
+      "command": "flutter",
+      "args": ["clean"],
+      "group": "build",
+      "problemMatcher": [],
+      "label": "flutter: Clean Build",
+      "detail": ""
+    },
+    {
+      "type": "flutter",
+      "command": "flutter",
+      "args": ["pub", "get"],
+      "group": "build",
+      "problemMatcher": [],
+      "label": "flutter: Get Dependencies",
+      "detail": ""
+    },
+    {
+      "type": "dart",
+      "command": "dart",
+      "args": ["run", "build_runner", "watch", "--delete-conflicting-outputs"],
+      "group": "build",
+      "problemMatcher": [],
+      "label": "flutter: Builder Runner Watch",
+      "detail": ""
+    },
+    {
+      "type": "flutter",
+      "command": "flutter",
+      "args": [
+        "run",
+        "debug",
+        "--flavor",
+        "development",
+        "--target",
+        "lib/main_dev.dart"
+      ],
+      "group": "build",
+      "problemMatcher": [],
+      "label": "flutter: Run Debug Development",
+      "detail": ""
+    },
+    {
+      "type": "flutter",
+      "command": "flutter",
+      "args": [
+        "build",
+        "apk",
+        "release",
+        "--flavor",
+        "staging",
+        "--target",
+        "lib/main_stg.dart"
+      ],
+      "group": "build",
+      "problemMatcher": [],
+      "label": "flutter: Build Release Staging Apk",
+      "detail": ""
+    },
+    {
+      "type": "flutter",
+      "command": "flutter",
+      "args": [
+        "build",
+        "apk",
+        "release",
+        "--flavor",
+        "production",
+        "--target",
+        "lib/main_prod.dart"
+      ],
+      "group": "build",
+      "problemMatcher": [],
+      "label": "flutter: Build Release Production Apk",
+      "detail": ""
+    }
+  ]
+}

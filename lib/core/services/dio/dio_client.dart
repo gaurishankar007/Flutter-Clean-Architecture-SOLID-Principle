@@ -4,7 +4,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http_parser/http_parser.dart';
 
-import '../../../app_config.dart';
 import '../../constants/api_endpoint.dart';
 import '../../data/api/api_response.dart';
 import '../../data/api/refresh_token_request.dart';
@@ -12,9 +11,10 @@ import '../../data/api/refresh_token_response.dart';
 import '../../utils/type_defs.dart';
 import '../user_data_service.dart';
 
-part 'dio_interceptor.dart';
+part 'authentication_interceptor.dart';
 part 'dio_multi_part_client.dart';
 
+/// Convenience methods to make an HTTP PATCH request.
 abstract class DioClient {
   Future<Response> get<T>(
     String path, {
@@ -63,119 +63,4 @@ abstract class DioClient {
     final Options? options,
     final CancelToken? cancelToken,
   });
-}
-
-/// Convenience methods to make an HTTP PATCH request.
-class DioClientImplementation implements DioClient {
-  final Dio _dio = Dio();
-
-  DioClientImplementation({
-    required AppConfig appConfig,
-    List<Interceptor>? interceptors,
-  }) {
-    _dio.options = BaseOptions(
-      baseUrl: appConfig.apiBaseUrl,
-      connectTimeout: const Duration(seconds: 15),
-      receiveTimeout: const Duration(seconds: 15),
-      sendTimeout: const Duration(seconds: 15),
-      headers: {"Content-Type": "application/json"},
-    );
-
-    if (interceptors != null) _dio.interceptors.addAll(interceptors);
-  }
-
-  @override
-  Future<Response> get<T>(
-    String path, {
-    final Object? data,
-    final Map<String, dynamic>? queryParameters,
-    final Options? options,
-    final CancelToken? cancelToken,
-    final ProgressCallback? onSendProgress,
-    final ProgressCallback? onReceiveProgress,
-  }) async =>
-      await _dio.get(
-        path,
-        data: data,
-        queryParameters: queryParameters,
-        options: options,
-        cancelToken: cancelToken,
-        onReceiveProgress: onReceiveProgress,
-      );
-
-  @override
-  Future<Response> post<T>(
-    String path, {
-    final Object? data,
-    final Map<String, dynamic>? queryParameters,
-    final Options? options,
-    final CancelToken? cancelToken,
-    final ProgressCallback? onSendProgress,
-    final ProgressCallback? onReceiveProgress,
-  }) async =>
-      await _dio.post(
-        path,
-        data: data,
-        queryParameters: queryParameters,
-        options: options,
-        cancelToken: cancelToken,
-        onSendProgress: onSendProgress,
-        onReceiveProgress: onReceiveProgress,
-      );
-
-  @override
-  Future<Response> put<T>(
-    String path, {
-    final Object? data,
-    final Map<String, dynamic>? queryParameters,
-    final Options? options,
-    final CancelToken? cancelToken,
-    final ProgressCallback? onSendProgress,
-    final ProgressCallback? onReceiveProgress,
-  }) async =>
-      await _dio.put(
-        path,
-        data: data,
-        queryParameters: queryParameters,
-        options: options,
-        cancelToken: cancelToken,
-        onSendProgress: onSendProgress,
-        onReceiveProgress: onReceiveProgress,
-      );
-
-  @override
-  Future<Response> patch<T>(
-    String path, {
-    final Object? data,
-    final Map<String, dynamic>? queryParameters,
-    final Options? options,
-    final CancelToken? cancelToken,
-    final ProgressCallback? onSendProgress,
-    final ProgressCallback? onReceiveProgress,
-  }) async =>
-      await _dio.patch(
-        path,
-        data: data,
-        queryParameters: queryParameters,
-        options: options,
-        cancelToken: cancelToken,
-        onSendProgress: onSendProgress,
-        onReceiveProgress: onReceiveProgress,
-      );
-
-  @override
-  Future<Response> delete<T>(
-    String path, {
-    final Object? data,
-    final Map<String, dynamic>? queryParameters,
-    final Options? options,
-    final CancelToken? cancelToken,
-  }) async =>
-      await _dio.delete(
-        path,
-        data: data,
-        queryParameters: queryParameters,
-        options: options,
-        cancelToken: cancelToken,
-      );
 }

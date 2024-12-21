@@ -16,10 +16,7 @@ class NetworkTowerWidget extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: [
-            deepPurple.withOpacity(.075),
-            purpleAccent.withOpacity(.075)
-          ],
+          colors: [deepPurple.withAlpha(19), purpleAccent.withAlpha(19)],
         ),
         shape: BoxShape.circle,
       ),
@@ -29,7 +26,10 @@ class NetworkTowerWidget extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [deepPurple.withOpacity(.1), purpleAccent.withOpacity(.1)],
+            colors: [
+              deepPurple.withAlpha(25),
+              purpleAccent.withAlpha(25),
+            ],
           ),
           shape: BoxShape.circle,
         ),
@@ -39,10 +39,7 @@ class NetworkTowerWidget extends StatelessWidget {
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: [
-                deepPurple.withOpacity(.125),
-                purpleAccent.withOpacity(.125)
-              ],
+              colors: [deepPurple.withAlpha(32), purpleAccent.withAlpha(32)],
             ),
             shape: BoxShape.circle,
           ),
@@ -58,7 +55,7 @@ class NetworkTowerWidget extends StatelessWidget {
               ),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(.2),
+                  color: Colors.black.withAlpha(51),
                   spreadRadius: 1,
                   blurRadius: 3,
                 ),

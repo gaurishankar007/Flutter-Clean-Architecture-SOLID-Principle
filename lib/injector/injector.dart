@@ -1,22 +1,8 @@
-import 'injections/bloc_injection.dart';
-import 'injections/data_source_injection.dart';
-import 'injections/repository_implementation_injection.dart';
-import 'injections/service_injection.dart';
-import 'injections/use_case_injection.dart';
+import 'package:get_it/get_it.dart';
+import 'package:injectable/injectable.dart';
 
-void initializeDependencies() {
-  /// Blocs
-  registerBlocs();
+import 'injector.config.dart';
 
-  /// Use Cases
-  registerUseCases();
-
-  /// Repository Implementations
-  registerRepositoryImplementations();
-
-  /// Data Sources
-  registerDataSources();
-
-  /// Core
-  registerServices();
-}
+@InjectableInit(initializerName: "initialize")
+void configureDependencies({String? environment}) =>
+    GetIt.I.initialize(environment: environment);

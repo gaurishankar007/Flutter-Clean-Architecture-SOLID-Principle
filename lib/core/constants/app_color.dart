@@ -5,14 +5,14 @@ class AppColor {
   static const white = Colors.white;
   static const black = Colors.black;
   static const blackE1 = Color(0xFF1E1E1E);
-  static final black05 = Colors.black.withOpacity(.05);
-  static final black10 = Colors.black.withOpacity(.1);
-  static final black15 = Colors.black.withOpacity(.15);
-  static final black20 = Colors.black.withOpacity(.2);
-  static final black25 = Colors.black.withOpacity(.25);
-  static final black60 = Colors.black.withOpacity(.6);
-  static final black70 = Colors.black.withOpacity(.7);
-  static final black95 = Colors.black.withOpacity(.95);
+  static const black05 = Color(0x0D000000); // 0.05 opacity
+  static const black10 = Color(0x1A000000); // 0.1 opacity
+  static const black15 = Color(0x26000000); // 0.15 opacity
+  static const black20 = Color(0x33000000); // 0.2 opacity
+  static const black25 = Color(0x40000000); // 0.25 opacity
+  static const black60 = Color(0x99000000); // 0.6 opacity
+  static const black70 = Color(0xB3000000); // 0.7 opacity
+  static const black95 = Color(0xF2000000); // 0.95 opacity
 
   // Border of text field, drop down
   static const border = Color(0XFFDBE1E5);

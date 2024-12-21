@@ -3,9 +3,9 @@ import 'package:clean_architecture/features/app/presentation/widgets/title_widge
 import 'package:flutter/material.dart';
 
 import '../../../../../core/constants/app_color.dart';
-import '../../../../../core/constants/app_icons.dart';
+import '../../../../../core/constants/app_icon.dart';
 import '../../../../../core/services/user_data_service.dart';
-import '../../../../app/presentation/base_widgets/app_bar_widget.dart';
+import '../../../../app/presentation/base_widgets/app_bar/app_bar_widget.dart';
 import '../../../../app/presentation/base_widgets/scaffold_widget.dart';
 import 'widgets/close_app_dialog.dart';
 
@@ -19,7 +19,7 @@ class HomePage extends StatelessWidget {
       onPopInvokedWithResult: () => showCloseAppDialog(context),
       onRefresh: () async {},
       appBar: AppBarWidget(
-        leading: const Icon(AppIcons.user, size: 20, color: AppColor.base),
+        leading: const Icon(AppIcon.user, size: 20, color: AppColor.base),
         title: UserDataUtil.I.fullName,
         titleFontWeight: FontWeight.w600,
       ),

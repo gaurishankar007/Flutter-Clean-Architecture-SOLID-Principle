@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:injectable/injectable.dart';
 
 import '../../../config/routes/routes.dart';
 import '../../../config/routes/routes.gr.dart';
@@ -20,6 +21,7 @@ abstract class NavigationService {
   PageRouteInfo<dynamic>? getRoute(String path, {dynamic argument});
 }
 
+@LazySingleton(as: NavigationService)
 class NavigationServiceImplementation implements NavigationService {
   final AppRouter _appRouter = AppRouter();
 

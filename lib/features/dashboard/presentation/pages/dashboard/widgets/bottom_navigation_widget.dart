@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../core/constants/app_color.dart';
-import '../../../../../../core/constants/app_icons.dart';
+import '../../../../../../core/constants/app_icon.dart';
 import '../../../../../../core/utils/screen_util/screen_util.dart';
 import '../../../../../../core/utils/ui_helper.dart';
 import '../../../../../app/presentation/base_widgets/action/icon_button_widget.dart';
@@ -14,8 +14,8 @@ class BottomNavigationWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final icons = [
-      AppIcons.home,
-      AppIcons.setting,
+      AppIcon.home,
+      AppIcon.setting,
     ];
 
     return Container(
@@ -24,7 +24,7 @@ class BottomNavigationWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColor.white,
         borderRadius: UIHelper.sMediumTRadius,
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             color: AppColor.black10,
             spreadRadius: 2,
@@ -51,7 +51,7 @@ class BottomNavigationWidget extends StatelessWidget {
                     size: 20,
                     color: index == state.activeIndex
                         ? AppColor.primary
-                        : AppColor.fade.withOpacity(.6),
+                        : AppColor.fade.withAlpha(153),
                   ),
                 );
               },

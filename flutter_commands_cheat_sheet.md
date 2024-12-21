@@ -29,6 +29,7 @@ A collection of essential and frequently used Flutter commands to boost your pro
 - ✅ `flutter clean`: Delete build data.
 - ✅ `flutter pub get`: Get project dependencies.
 - ✅ `flutter pub upgrade`: Upgrades all dependencies to their latest compatible versions.
+- ✅ `flutter pub upgrade --major-versions`: Upgrades all dependencies to their latest major versions (including breaking changes, if any).
 - ✅ `flutter pub add <package_name>`: Adds a new dependency to the pubspec.yaml file.
 - ✅ `flutter pub remove <package_name>`: Removes a dependency from the pubspec.yaml file.
 - ✅ `flutter pub deps`: Lists all dependencies and their versions.

@@ -1,3 +1,5 @@
+import 'package:injectable/injectable.dart';
+
 import '../../../../core/data/errors/data_handler.dart';
 import '../../../../core/services/internet_service.dart';
 import '../../../../core/utils/type_defs.dart';
@@ -7,6 +9,7 @@ import '../../domain/repositories/auth_repository.dart';
 import '../data_sources/auth_local_data_source.dart';
 import '../data_sources/auth_remote_data_source.dart';
 
+@LazySingleton(as: AuthRepository)
 class AuthRepositoryImplementation implements AuthRepository {
   final InternetService internet;
   final AuthRemoteDataSource remoteDataSource;

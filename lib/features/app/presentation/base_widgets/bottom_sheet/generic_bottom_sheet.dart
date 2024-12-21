@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../core/constants/app_color.dart';
-import '../../../../../core/constants/app_icons.dart';
+import '../../../../../core/constants/app_icon.dart';
 import '../../../../../core/services/navigation/navigation_service.dart';
 import '../../../../../core/utils/screen_util/screen_util.dart';
 import '../../../../../core/utils/ui_helper.dart';

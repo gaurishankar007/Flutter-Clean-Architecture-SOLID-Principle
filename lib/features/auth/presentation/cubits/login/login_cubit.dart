@@ -1,5 +1,6 @@
 // import 'dart:io';
 import 'package:equatable/equatable.dart';
+import 'package:injectable/injectable.dart';
 
 import '../../../../../core/data/states/data_state.dart';
 import '../../../../../core/services/navigation/navigation_service.dart';
@@ -11,6 +12,7 @@ import '../../../domain/entities/user_data.dart';
 
 part 'login_state.dart';
 
+@injectable
 class LoginCubit extends BaseCubit<LoginState> {
   final LoginUseCases _useCases;
   bool _passwordVisibility = false;

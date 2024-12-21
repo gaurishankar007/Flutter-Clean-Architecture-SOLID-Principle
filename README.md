@@ -91,8 +91,10 @@ lib/
 │   │   │   └── success_state.dart
 │   ├── services/
 │   │   ├── dio/
+│   │   │   ├── authentication_interception.dart
+│   │   │   ├── dio_client_dev.dart
+│   │   │   ├── dio_client_prod.dart
 │   │   │   ├── dio_client.dart
-│   │   │   ├── dio_interception.dart
 │   │   │   └── dio_multipart_client.dart
 │   │   ├── image_picker/
 │   │   │   └── image_picker_service.dart
@@ -152,18 +154,10 @@ lib/
 │   │   └── ... (dashboard-specific files like auth feature)
 │
 ├── injector/
-│   ├── injections/
-│   │   ├── bloc_injection.dart
-│   │   ├── data_source_injection.dart
-│   │   ├── repository_implementation_injection.dart
-│   │   ├── service_injection.dart
-│   │   └── use_case_injection.dart
-│   ├── injector_dev.dart
-│   ├── injector_prod.dart
-│   ├── injector_stg.dart
+│   ├── injector.config.dart
 │   └── injector.dart
 │
-├── app_config.dart
+├── app_configuration.dart
 ├── application.dart
 ├── main_dev.dart
 ├── main_prod.dart

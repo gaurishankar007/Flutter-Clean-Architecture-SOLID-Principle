@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
 
 import '../../../../core/constants/api_endpoint.dart';
 import '../../../../core/data/errors/data_handler.dart';
@@ -12,6 +13,7 @@ abstract class AuthRemoteDataSource {
   FutureBool checkAUth();
 }
 
+@LazySingleton(as: AuthRemoteDataSource)
 class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
   final DioClient _dioClient;
 

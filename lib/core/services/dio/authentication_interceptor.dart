@@ -4,7 +4,7 @@ part of 'dio_client.dart';
 /// * Add headers
 /// * Modify data
 /// * Refresh tokens
-class DioInterceptor extends Interceptor {
+class AuthenticationInterceptor extends Interceptor {
   final Dio _dio = Dio();
 
   /// This flag is to prevent multiple refresh token requests. If the request
@@ -18,7 +18,7 @@ class DioInterceptor extends Interceptor {
 
   final UserDataService userDataService;
 
-  DioInterceptor({required this.userDataService});
+  AuthenticationInterceptor({required this.userDataService});
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {

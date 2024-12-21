@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sliding_toast/flutter_sliding_toast.dart';
 import 'package:get_it/get_it.dart';
+import 'package:injectable/injectable.dart';
 
 import '../../../features/app/presentation/base_widgets/text/text_widget.dart';
 import '../../constants/app_color.dart';
@@ -14,6 +15,7 @@ abstract class ToastMessageService {
   showDataStateToast(DataState dataState, {String message = ""});
 }
 
+@LazySingleton(as: ToastMessageService)
 class ToastMessageServiceImplementation implements ToastMessageService {
   BuildContext? _context;
   final _toastSetting = const SlidingToastSetting(
@@ -22,8 +24,8 @@ class ToastMessageServiceImplementation implements ToastMessageService {
     toastAlignment: Alignment.topCenter,
   );
   final EdgeInsets _padding = UIHelper.xSmallAllPadding;
-  final BoxShadow _boxShadow = BoxShadow(
-    color: Colors.black.withOpacity(.05),
+  final BoxShadow _boxShadow = const BoxShadow(
+    color: AppColor.black05,
     spreadRadius: 2,
     blurRadius: 4,
   );
