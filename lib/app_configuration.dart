@@ -1,7 +1,7 @@
 import 'package:get_it/get_it.dart';
+import 'package:injectable/injectable.dart';
 
 import 'core/constants/api_endpoint.dart';
-
 
 class Flavor {
   Flavor._();
@@ -24,8 +24,9 @@ class AppConfiguration {
   });
 }
 
-class AppConfigProduction extends AppConfiguration {
-  const AppConfigProduction()
+@LazySingleton(as: AppConfiguration, env: [Flavor.production])
+class ProdAppConfiguration extends AppConfiguration {
+  const ProdAppConfiguration()
       : super(
           appTitle: "Clean Architecture App",
           apiBaseUrl: ApiEndpoint.baseProduction,
@@ -33,8 +34,9 @@ class AppConfigProduction extends AppConfiguration {
         );
 }
 
-class AppConfigStaging extends AppConfiguration {
-  const AppConfigStaging()
+@LazySingleton(as: AppConfiguration, env: [Flavor.staging])
+class StgAppConfiguration extends AppConfiguration {
+  const StgAppConfiguration()
       : super(
           appTitle: "Clean Architecture App Staging",
           apiBaseUrl: ApiEndpoint.baseStaging,
@@ -42,8 +44,9 @@ class AppConfigStaging extends AppConfiguration {
         );
 }
 
-class AppConfigDevelopment extends AppConfiguration {
-  const AppConfigDevelopment()
+@LazySingleton(as: AppConfiguration, env: [Flavor.development])
+class DevAppConfiguration extends AppConfiguration {
+  const DevAppConfiguration()
       : super(
           appTitle: "Clean Architecture App Development",
           apiBaseUrl: ApiEndpoint.baseDevelopment,

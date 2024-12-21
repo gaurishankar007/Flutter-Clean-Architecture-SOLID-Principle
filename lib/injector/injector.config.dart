@@ -56,8 +56,8 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
 const String _staging = 'staging';
-const String _development = 'development';
 const String _production = 'production';
+const String _development = 'development';
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -69,6 +69,10 @@ extension GetItInjectableX on _i174.GetIt {
       this,
       environment,
       environmentFilter,
+    );
+    gh.lazySingleton<_i562.AppConfiguration>(
+      () => const _i562.StgAppConfiguration(),
+      registerFor: {_staging},
     );
     gh.lazySingleton<_i42.LocalDatabaseService>(
         () => _i42.LocalDatabaseServiceImplementation());
@@ -82,6 +86,35 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i1005.NavigationServiceImplementation());
     gh.lazySingleton<_i481.InternetService>(
         () => _i481.InternetServiceImplementation());
+    gh.lazySingleton<_i562.AppConfiguration>(
+      () => const _i562.ProdAppConfiguration(),
+      registerFor: {_production},
+    );
+    gh.lazySingleton<_i322.AuthLocalDataSource>(() =>
+        _i322.AuthLocalDataSourceImplementation(
+            localDatabase: gh<_i42.LocalDatabaseService>()));
+    gh.lazySingleton<_i562.AppConfiguration>(
+      () => const _i562.DevAppConfiguration(),
+      registerFor: {_development},
+    );
+    gh.lazySingleton<_i931.UserDataService>(
+        () => _i931.UserDataServiceImplementation(
+              localDatabase: gh<_i42.LocalDatabaseService>(),
+              navigationService: gh<_i1005.NavigationService>(),
+            ));
+    gh.lazySingleton<_i495.AuthenticationInterceptor>(() =>
+        _i495.AuthenticationInterceptor(
+            userDataService: gh<_i931.UserDataService>()));
+    gh.lazySingleton<_i495.DioClient>(
+      () => _i265.ProdDioClientImplementation(
+        appConfig: gh<_i562.AppConfiguration>(),
+        authenticationInterceptor: gh<_i495.AuthenticationInterceptor>(),
+      ),
+      registerFor: {_production},
+    );
+    gh.lazySingleton<_i141.AuthRemoteDataSource>(() =>
+        _i141.AuthRemoteDataSourceImplementation(
+            dioClient: gh<_i495.DioClient>()));
     gh.lazySingleton<_i495.DioClient>(
       () => _i791.DevDioClientImplementation(
         appConfig: gh<_i562.AppConfiguration>(),
@@ -92,28 +125,6 @@ extension GetItInjectableX on _i174.GetIt {
         _development,
       },
     );
-    gh.factory<_i912.LoginCubit>(
-        () => _i912.LoginCubit(useCases: gh<_i756.LoginUseCases>()));
-    gh.lazySingleton<_i322.AuthLocalDataSource>(() =>
-        _i322.AuthLocalDataSourceImplementation(
-            localDatabase: gh<_i42.LocalDatabaseService>()));
-    gh.factory<_i278.DashboardCubit>(
-        () => _i278.DashboardCubit(useCases: gh<_i735.DashboardUseCases>()));
-    gh.lazySingleton<_i495.DioClient>(
-      () => _i265.ProdDioClientImplementation(
-        appConfig: gh<_i562.AppConfiguration>(),
-        authenticationInterceptor: gh<_i495.AuthenticationInterceptor>(),
-      ),
-      registerFor: {_production},
-    );
-    gh.lazySingleton<_i931.UserDataService>(
-        () => _i931.UserDataServiceImplementation(
-              localDatabase: gh<_i42.LocalDatabaseService>(),
-              navigationService: gh<_i1005.NavigationService>(),
-            ));
-    gh.lazySingleton<_i141.AuthRemoteDataSource>(() =>
-        _i141.AuthRemoteDataSourceImplementation(
-            dioClient: gh<_i495.DioClient>()));
     gh.lazySingleton<_i1003.AuthRepository>(
         () => _i154.AuthRepositoryImplementation(
               internet: gh<_i481.InternetService>(),
@@ -129,6 +140,16 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i68.LoginUseCase(authRepository: gh<_i1003.AuthRepository>()));
     gh.lazySingleton<_i661.SaveUserDataUseCase>(() =>
         _i661.SaveUserDataUseCase(authRepository: gh<_i1003.AuthRepository>()));
+    gh.lazySingleton<_i735.DashboardUseCases>(() => _i735.DashboardUseCases(
+        checkAuthentication: gh<_i481.CheckAuthenticationUseCase>()));
+    gh.lazySingleton<_i756.LoginUseCases>(() => _i756.LoginUseCases(
+          login: gh<_i68.LoginUseCase>(),
+          saveUserData: gh<_i661.SaveUserDataUseCase>(),
+        ));
+    gh.factory<_i912.LoginCubit>(
+        () => _i912.LoginCubit(useCases: gh<_i756.LoginUseCases>()));
+    gh.factory<_i278.DashboardCubit>(
+        () => _i278.DashboardCubit(useCases: gh<_i735.DashboardUseCases>()));
     return this;
   }
 }

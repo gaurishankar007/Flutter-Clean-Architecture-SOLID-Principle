@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http_parser/http_parser.dart';
+import 'package:injectable/injectable.dart';
 
 import '../../constants/api_endpoint.dart';
 import '../../data/api/api_response.dart';

@@ -4,6 +4,7 @@ part of 'dio_client.dart';
 /// * Add headers
 /// * Modify data
 /// * Refresh tokens
+@LazySingleton()
 class AuthenticationInterceptor extends Interceptor {
   final Dio _dio = Dio();
 
