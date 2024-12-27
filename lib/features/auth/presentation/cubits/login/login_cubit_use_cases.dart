@@ -1,14 +1,14 @@
 import 'package:injectable/injectable.dart';
 
-import '../use_cases/login_use_case.dart';
-import '../use_cases/save_user_data_use_case.dart';
+import '../../../domain/use_cases/login_use_case.dart';
+import '../../../domain/use_cases/save_user_data_use_case.dart';
 
 @LazySingleton()
-class LoginUseCases {
+class LoginCubitUseCases {
   final LoginUseCase login;
   final SaveUserDataUseCase saveUserData;
 
-  const LoginUseCases({
+  const LoginCubitUseCases({
     required this.login,
     required this.saveUserData,
   });

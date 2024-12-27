@@ -5,7 +5,7 @@ import 'package:injectable/injectable.dart';
 import '../../../../../core/data/states/data_state.dart';
 import '../../../../../core/services/navigation/navigation_service.dart';
 import '../../../../../core/utils/base_cubit/base_cubit.dart';
-import '../../../domain/entities/login_use_cases.dart';
+import 'login_cubit_use_cases.dart';
 // import '../../../domain/entities/requests/login_request.dart';
 import '../../../domain/entities/user.dart';
 import '../../../domain/entities/user_data.dart';
@@ -14,12 +14,12 @@ part 'login_state.dart';
 
 @injectable
 class LoginCubit extends BaseCubit<LoginState> {
-  final LoginUseCases _useCases;
+  final LoginCubitUseCases _useCases;
   bool _passwordVisibility = false;
   bool _saveUserCredential = false;
 
   LoginCubit({
-    required LoginUseCases useCases,
+    required LoginCubitUseCases useCases,
   })  : _useCases = useCases,
         super(const LoginState.initial());
 

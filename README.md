@@ -111,6 +111,7 @@ lib/
 │   │   ├── base_cubit/
 │   │   │   ├── base_cubit_service_mixin.dart
 │   │   │   └── base_cubit.dart
+│   │   │   └── state_status.dart
 │   │   ├── extensions/
 │   │   │   ├── build_context_extension.dart
 │   │   │   ├── double_extension.dart
@@ -130,10 +131,6 @@ lib/
 │
 ├── feature/
 │   ├── app/
-│   │   ├── data/
-│   │   │   └── models/
-│   │   ├── domain/
-│   │   │   └── entities/
 │   │   └── presentation/
 │   │       ├── base_widgets/
 │   │       ├── widgets/

@@ -5,7 +5,7 @@ import '../../../../core/constants/api_endpoint.dart';
 import '../../../../core/data/errors/data_handler.dart';
 import '../../../../core/services/dio/dio_client.dart';
 import '../../../../core/utils/type_defs.dart';
-import '../../domain/entities/requests/login_request.dart';
+import '../../domain/requests/login_request.dart';
 import '../models/user_data_model.dart';
 
 abstract class AuthRemoteDataSource {

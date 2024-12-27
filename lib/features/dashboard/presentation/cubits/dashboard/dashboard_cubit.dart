@@ -4,17 +4,17 @@ import 'package:injectable/injectable.dart';
 import '../../../../../core/services/navigation/navigation_service.dart';
 import '../../../../../core/utils/base_cubit/base_cubit.dart';
 import '../../../../../core/utils/type_defs.dart';
-import '../../../domain/entities/dashboard_use_cases.dart';
+import 'dashboard_cubit_use_cases.dart';
 
 part 'dashboard_state.dart';
 
 @injectable
 class DashboardCubit extends BaseCubit<DashboardState> {
-  final DashboardUseCases _useCases;
+  final DashboardCubitUseCases _useCases;
   int _activeIndex = 0;
 
   DashboardCubit({
-    required DashboardUseCases useCases,
+    required DashboardCubitUseCases useCases,
   })  : _useCases = useCases,
         super(DashboardState.initial());
 

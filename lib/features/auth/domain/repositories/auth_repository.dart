@@ -1,5 +1,5 @@
 import '../../../../core/utils/type_defs.dart';
-import '../entities/requests/login_request.dart';
+import '../requests/login_request.dart';
 import '../entities/user_data.dart';
 
 abstract class AuthRepository {

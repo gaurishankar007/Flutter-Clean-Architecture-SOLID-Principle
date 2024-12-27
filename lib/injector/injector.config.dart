@@ -34,8 +34,6 @@ import 'package:clean_architecture/features/auth/data/data_sources/auth_remote_d
     as _i141;
 import 'package:clean_architecture/features/auth/data/repositories/auth_repository_implementation.dart'
     as _i154;
-import 'package:clean_architecture/features/auth/domain/entities/login_use_cases.dart'
-    as _i756;
 import 'package:clean_architecture/features/auth/domain/repositories/auth_repository.dart'
     as _i1003;
 import 'package:clean_architecture/features/auth/domain/use_cases/check_authentication_use_case.dart'
@@ -48,10 +46,12 @@ import 'package:clean_architecture/features/auth/domain/use_cases/save_user_data
     as _i661;
 import 'package:clean_architecture/features/auth/presentation/cubits/login/login_cubit.dart'
     as _i912;
-import 'package:clean_architecture/features/dashboard/domain/entities/dashboard_use_cases.dart'
-    as _i735;
+import 'package:clean_architecture/features/auth/presentation/cubits/login/login_cubit_use_cases.dart'
+    as _i123;
 import 'package:clean_architecture/features/dashboard/presentation/cubits/dashboard/dashboard_cubit.dart'
     as _i278;
+import 'package:clean_architecture/features/dashboard/presentation/cubits/dashboard/dashboard_cubit_use_cases.dart'
+    as _i134;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
@@ -140,16 +140,17 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i68.LoginUseCase(authRepository: gh<_i1003.AuthRepository>()));
     gh.lazySingleton<_i661.SaveUserDataUseCase>(() =>
         _i661.SaveUserDataUseCase(authRepository: gh<_i1003.AuthRepository>()));
-    gh.lazySingleton<_i735.DashboardUseCases>(() => _i735.DashboardUseCases(
-        checkAuthentication: gh<_i481.CheckAuthenticationUseCase>()));
-    gh.lazySingleton<_i756.LoginUseCases>(() => _i756.LoginUseCases(
+    gh.lazySingleton<_i134.DashboardCubitUseCases>(() =>
+        _i134.DashboardCubitUseCases(
+            checkAuthentication: gh<_i481.CheckAuthenticationUseCase>()));
+    gh.lazySingleton<_i123.LoginCubitUseCases>(() => _i123.LoginCubitUseCases(
           login: gh<_i68.LoginUseCase>(),
           saveUserData: gh<_i661.SaveUserDataUseCase>(),
         ));
     gh.factory<_i912.LoginCubit>(
-        () => _i912.LoginCubit(useCases: gh<_i756.LoginUseCases>()));
-    gh.factory<_i278.DashboardCubit>(
-        () => _i278.DashboardCubit(useCases: gh<_i735.DashboardUseCases>()));
+        () => _i912.LoginCubit(useCases: gh<_i123.LoginCubitUseCases>()));
+    gh.factory<_i278.DashboardCubit>(() =>
+        _i278.DashboardCubit(useCases: gh<_i134.DashboardCubitUseCases>()));
     return this;
   }
 }
