@@ -1,3 +1,5 @@
 bricks:
-  clean_cubit_feature:
-    path: bricks/clean_cubit_feature
+ cubit_feature:
+    path: bricks/cubit_feature
+ cubit_page:
+    path: bricks/cubit_page

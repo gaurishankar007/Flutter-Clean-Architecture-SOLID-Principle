@@ -5,12 +5,14 @@ A collection of essential and frequently used Flutter commands to boost your pro
 ---
 
 ## 1. Check Flutter Installation Details
+
 - ✅ `flutter doctor`: Check Flutter installation and environment setup.
 - ✅ `flutter doctor --verbose`: View more details like the Java version used by Flutter.
 
 ---
 
 ## 2. Create Flutter Project
+
 - ✅ `flutter create my_app`: Create a Flutter project with the name `my_app` and all supported platforms.
 - ✅ `flutter create --org com.example my_app`: Create a Flutter project with a specified organization name.
 - ✅ `flutter create --platforms=android,ios,web .`: Add platforms to an existing Flutter project.
@@ -20,12 +22,14 @@ A collection of essential and frequently used Flutter commands to boost your pro
 ---
 
 ## 3. Dart Pub Dependencies
+
 - ✅ `dart pub get`: Fetch project dependencies.
 - ✅ `dart pub cache clean`: Clear the Dart pub dependency cache.
 
 ---
 
 ## 4. Flutter Pub Dependencies
+
 - ✅ `flutter clean`: Delete build data.
 - ✅ `flutter pub get`: Get project dependencies.
 - ✅ `flutter pub upgrade`: Upgrades all dependencies to their latest compatible versions.
@@ -38,6 +42,7 @@ A collection of essential and frequently used Flutter commands to boost your pro
 ---
 
 ## 5. Flutter Test
+
 - ✅ `flutter test`: Run Flutter tests.
 - ✅ `flutter test integration_test`: Perform integration tests.
 - ✅ `flutter test --coverage`: Generate test coverage reports.
@@ -45,18 +50,21 @@ A collection of essential and frequently used Flutter commands to boost your pro
 ---
 
 ## 6. Execute Flutter Build Runner
+
 - ✅ `dart run build_runner build --delete-conflicting-outputs`: Build generated files and resolve conflicts.
 - ✅ `dart run build_runner watch --delete-conflicting-outputs`: Watch for changes and automatically rebuild files.
 
 ---
 
 ## 7. Run Flutter Project
+
 - ✅ `flutter run`: Run the Flutter project.
 - ✅ `flutter run --flavor dev --target lib/main_dev.dart`: Run the Flutter project with a specific flavor and target file.
 
 ---
 
 ## 8. Build APK/App Bundle
+
 - ✅ `flutter build apk --release`: Build a release APK.
 - ✅ `flutter build appbundle --release`: Build an app bundle for Play Store uploads.
 - ✅ `flutter build apk --release --dart-define API_KEY=some-api-key`: Build an APK with an environment variable.
@@ -65,6 +73,7 @@ A collection of essential and frequently used Flutter commands to boost your pro
 ---
 
 ## 9. Flutter Shorebird
+
 - ✅ `shorebird init`: Initialize a Flutter project for Shorebird.
 - ✅ `shorebird release android/ios`: Release the Android or iOS app to the Shorebird server.
 - ✅ `shorebird preview`: Install the app on a selected device for preview.
@@ -72,7 +81,24 @@ A collection of essential and frequently used Flutter commands to boost your pro
 
 ---
 
-## 10. Flutter Firebase CLI (Windows)
+## 10. Flutter Mason CLI
+
+- ✅ `dart pub global activate mason_cli`: Activate mason cli globally.
+- ✅ `mason init`: Initialize a Mason project.
+- ✅ `mason activate <brick_name>`: Activate a specific brick globally.
+- ✅ `mason deactivate <brick_name>`: Deactivate a specific brick globally.
+- ✅ `mason new <brick_name>`: Create a new brick in the current Mason project.
+- ✅ `mason get`: Fetch all the bricks specified in the mason.yaml file.
+- ✅ `mason make <brick_name>`: Generate a template from a specific brick.
+- ✅ `mason make <brick_name> --config-path <path_to_config.json>`: Generate a template from a brick using a custom config.json file.
+- ✅ `mason remove <brick_name>`: Remove a specific brick from the current Mason configuration.
+- ✅ `mason upgrade`: Update Mason CLI to the latest version and fetch the latest versions of all bricks.
+- ✅ `mason cache clean`: Clear the Mason cache to remove old configurations and data.
+
+---
+
+## 11. Flutter Firebase CLI (Windows)
+
 - ✅ Add this path to the system's PATH:  
   `"C:\Users\{username}\AppData\Local\Pub\Cache\bin"`.
 - ✅ `npm install -g firebase-tools`: Install Node.js and the Firebase CLI.
@@ -82,7 +108,8 @@ A collection of essential and frequently used Flutter commands to boost your pro
 
 ---
 
-## 11. Change Java SDK Location Used by Flutter
+## 12. Change Java SDK Location Used by Flutter
+
 - ✅ `flutter configure --java-dir="<java-directory>"`: Change the Java SDK directory used by Flutter.
 
 ---
