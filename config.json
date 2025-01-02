@@ -1,0 +1,18 @@
+{
+  "feature": "test feature",
+  "entity": {
+    "name": "user",
+    "variables": [
+      {
+        "name": "id",
+        "type": "int"
+      },
+      {
+        "name": "name",
+        "type": "String"
+      }
+    ]
+  },
+  "cubit": "test1",
+  "page": "test1"
+}

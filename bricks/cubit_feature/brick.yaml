@@ -7,7 +7,7 @@ environment:
   mason: ^0.1.0
 
 vars:
-  name:
+  feature:
     type: string
     description: Feature name
     default: feature

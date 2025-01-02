@@ -111,13 +111,13 @@
         "make",
         "cubit_feature",
         "-c",
-        "feature_config.json"
+        "config.json"
       ],
       "group": "build",
       "problemMatcher": [],
     },
     {
-      "label": "mason: Make Page Cubit",
+      "label": "mason: Make Cubit Page Template",
       "detail": "",
       "type": "shell",
       "command": "mason",
@@ -125,7 +125,7 @@
         "make",
         "cubit_page",
         "-c",
-        "page_config.json"
+        "config.json"
       ],
       "group": "build",
       "problemMatcher": [],
