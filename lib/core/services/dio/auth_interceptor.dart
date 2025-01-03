@@ -5,7 +5,7 @@ part of 'dio_client.dart';
 /// * Modify data
 /// * Refresh tokens
 @LazySingleton()
-class AuthenticationInterceptor extends Interceptor {
+class AuthInterceptor extends Interceptor {
   final Dio _dio = Dio();
 
   /// This flag is to prevent multiple refresh token requests. If the request
@@ -19,7 +19,7 @@ class AuthenticationInterceptor extends Interceptor {
 
   final UserDataService userDataService;
 
-  AuthenticationInterceptor({required this.userDataService});
+  AuthInterceptor({required this.userDataService});
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {

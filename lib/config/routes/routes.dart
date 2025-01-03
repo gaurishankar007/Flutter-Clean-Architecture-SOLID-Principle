@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 
-import '../../core/services/navigation/navigation_service.dart';
 import 'helper/auth_guard.dart';
+import 'route_data.dart';
 import 'routes.gr.dart';
 
 @AutoRouterConfig(replaceInRouteName: 'Page,Route')

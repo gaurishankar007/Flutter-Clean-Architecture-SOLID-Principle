@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/services/local_database_service.dart';
+import '../../../../core/services/database/local_database_service.dart';
 
 abstract class {{feature.pascalCase()}}LocalDataSource {}
 

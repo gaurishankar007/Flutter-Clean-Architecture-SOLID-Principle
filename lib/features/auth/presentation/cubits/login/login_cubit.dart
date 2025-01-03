@@ -1,14 +1,13 @@
 // import 'dart:io';
-import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../../../../config/routes/routes.gr.dart';
 import '../../../../../core/data/states/data_state.dart';
-import '../../../../../core/services/navigation/navigation_service.dart';
 import '../../../../../core/utils/base_cubit/base_cubit.dart';
-import 'login_cubit_use_cases.dart';
 // import '../../../domain/entities/requests/login_request.dart';
 import '../../../domain/entities/user.dart';
 import '../../../domain/entities/user_data.dart';
+import 'login_cubit_use_cases.dart';
 
 part 'login_state.dart';
 
@@ -75,6 +74,6 @@ class LoginCubit extends BaseCubit<LoginState> {
     if (_saveUserCredential) {
       await _useCases.saveUserData.call(dataState.data!);
     }
-    replaceRoute(DASHBOARD_PATH);
+    replaceRoute(const HomeRoute());
   }
 }

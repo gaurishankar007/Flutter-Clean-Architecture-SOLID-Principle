@@ -1,4 +1,3 @@
-import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../../core/utils/base_cubit/base_cubit.dart';

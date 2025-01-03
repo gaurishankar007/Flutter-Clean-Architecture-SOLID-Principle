@@ -12,7 +12,7 @@ import '../../data/api/refresh_token_response.dart';
 import '../../utils/type_defs.dart';
 import '../user_data_service.dart';
 
-part 'authentication_interceptor.dart';
+part 'auth_interceptor.dart';
 part 'dio_multi_part_client.dart';
 
 /// Convenience methods to make an HTTP PATCH request.

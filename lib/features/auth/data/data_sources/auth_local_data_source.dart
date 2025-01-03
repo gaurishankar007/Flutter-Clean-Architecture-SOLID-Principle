@@ -4,7 +4,7 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../core/data/errors/data_handler.dart';
 import '../../../../core/data/states/data_state.dart';
-import '../../../../core/services/local_database_service.dart';
+import '../../../../core/services/database/local_database_service.dart';
 import '../../../../core/utils/type_defs.dart';
 import '../../domain/entities/user_data.dart';
 import '../models/user_data_model.dart';

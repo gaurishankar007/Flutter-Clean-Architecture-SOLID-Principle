@@ -5,12 +5,11 @@ import 'package:get_it/get_it.dart';
 
 import '../../../../../core/constants/app_color.dart';
 import '../../../../../core/services/message/toast_message_service.dart';
-import '../../../../../core/services/navigation/navigation_service.dart';
 import '../../../../../core/utils/screen_util/screen_util.dart';
 import '../../cubits/dashboard/dashboard_cubit.dart';
 import 'widgets/bottom_navigation_widget.dart';
 
-@RoutePage(name: DASHBOARD_ROUTE)
+@RoutePage()
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
 

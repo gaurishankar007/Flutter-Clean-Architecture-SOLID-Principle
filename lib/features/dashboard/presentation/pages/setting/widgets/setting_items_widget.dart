@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../../../core/constants/app_color.dart';
 import '../../../../../../core/constants/app_icon.dart';
-import '../../../../../../core/services/navigation/navigation_service.dart';
 import '../../../../../../core/utils/ui_helper.dart';
 import '../../../../../app/presentation/base_widgets/text/text_widget.dart';
 
@@ -27,17 +26,13 @@ class SettingItemsWidget extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         children: [
-          settingItemWidget(
-            CHANGE_PASSWORD_PATH,
-            AppIcon.lock,
-            "Change Password",
-          ),
+          settingItemWidget(AppIcon.lock, "Change Password"),
         ],
       ),
     );
   }
 
-  Widget settingItemWidget(String path, IconData iconData, String name) {
+  Widget settingItemWidget(IconData iconData, String name) {
     return Material(
       child: ListTile(
         onTap: () {},

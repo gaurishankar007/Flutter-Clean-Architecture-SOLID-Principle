@@ -1,7 +1,5 @@
 // ignore_for_file: constant_identifier_names
 
-part of "navigation_service.dart";
-
 // Authentication
 const String LOGIN_ROUTE = "LoginRoute";
 const String LOGIN_PATH = "/login";

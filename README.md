@@ -63,6 +63,7 @@ lib/
 │   │   ├── helper/
 │   │   │   ├── auth_guard.dart
 │   │   │   └── sliding_auto_route.dart
+│   │   ├── route_data.dart
 │   │   ├── routes.dart
 │   │   └── routes.gr.dart
 │   ├── theme/
@@ -73,7 +74,7 @@ lib/
 │   ├── constants/
 │   │   ├── api_endpoint.dart
 │   │   ├── app_color.dart
-│   │   └── app_icons.dart
+│   │   └── app_icon.dart
 │   ├── data/
 │   │   ├── api/
 │   │   │   ├── api_response.dart
@@ -90,26 +91,27 @@ lib/
 │   │   │   ├── loading_state.dart
 │   │   │   └── success_state.dart
 │   ├── services/
+│   │   ├── database/
+│   │   │   └── isar_database_service.dart
+│   │   │   └── local_database_service.dart
 │   │   ├── dio/
-│   │   │   ├── authentication_interception.dart
+│   │   │   ├── auth_interception.dart
 │   │   │   ├── dio_client_dev.dart
 │   │   │   ├── dio_client_prod.dart
 │   │   │   ├── dio_client.dart
 │   │   │   └── dio_multipart_client.dart
 │   │   ├── image_picker/
 │   │   │   └── image_picker_service.dart
+│   │   ├── internet/
+│   │   │   └── internet_service.dart
 │   │   ├── message/
 │   │   │   └── toast_message_service.dart
 │   │   ├── navigation/
-│   │   │   ├── navigation_data.dart
 │   │   │   └── navigation_service.dart
-│   │   ├── internet_service.dart
-│   │   ├── local_database_service.dart
-│   │   ├── isar_database_service.dart
 │   │   └── user_data_service.dart
 │   ├── utils/
 │   │   ├── base_cubit/
-│   │   │   ├── base_cubit_service_mixin.dart
+│   │   │   ├── base_cubit_mixin.dart
 │   │   │   └── base_cubit.dart
 │   │   │   └── state_status.dart
 │   │   ├── extensions/
@@ -197,27 +199,40 @@ This project uses **Mason** to generate feature templates for consistent and eff
    mason get
    ```
 
-3. **Generate a new feature using the `clean_cubit_feature` brick**:
+3. **Generate a new feature using the `cubit_feature` brick**:
+
    ```bash
-   mason make clean_cubit_feature -c config.json
+   mason make cubit_feature -c config.json
    ```
 
-### What Does `clean_cubit_feature` Do?
+4. **Generate a new cubit and page using the `cubit_page` brick**:
+   ```bash
+   mason make cubit_page -c config.json
+   ```
 
-The `clean_cubit_feature` brick generates a feature template following the **Clean Architecture** structure, including:
+### What do `cubit_feature` & `cubit_page` Do?
+
+The `cubit_feature` brick generates a feature template following the **Clean Architecture** structure, including:
 
 - **Data Layer**:
+
   - Data Sources
   - Models
   - Repositories
+
 - **Domain Layer**:
+
   - Entities
   - Repositories
   - Use cases
+
 - **Presentation Layer**:
+
   - Cubits
   - Pages
   - Widgets
+
+The `cubit_page` brick generates a cubit and a page templates inside the specified feature's presentation layer.
 
 ### Configuration
 

@@ -13,7 +13,7 @@ class DevDioClientImplementation implements DioClient {
 
   DevDioClientImplementation({
     required AppConfiguration appConfig,
-    required AuthenticationInterceptor authenticationInterceptor,
+    required AuthInterceptor authenticationInterceptor,
   }) {
     _dio.options = BaseOptions(
       baseUrl: appConfig.apiBaseUrl,

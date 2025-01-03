@@ -1,6 +1,6 @@
 part of 'login_cubit.dart';
 
-class LoginState extends Equatable {
+class LoginState extends BaseState {
   final bool passwordVisibility;
   final bool saveUserCredential;
 

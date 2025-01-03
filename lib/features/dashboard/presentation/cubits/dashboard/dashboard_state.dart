@@ -1,6 +1,6 @@
 part of 'dashboard_cubit.dart';
 
-class DashboardState extends Equatable {
+class DashboardState extends BaseState {
   final int activeIndex;
 
   const DashboardState({required this.activeIndex});

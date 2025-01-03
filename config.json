@@ -1,5 +1,5 @@
 {
-  "feature": "test feature",
+  "feature": "test",
   "entity": {
     "name": "user",
     "variables": [
@@ -13,6 +13,6 @@
       }
     ]
   },
-  "cubit": "test1",
-  "page": "test1"
+  "cubit": "test",
+  "page": "test"
 }

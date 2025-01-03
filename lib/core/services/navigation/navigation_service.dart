@@ -7,18 +7,14 @@ import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../config/routes/routes.dart';
-import '../../../config/routes/routes.gr.dart';
-
-part 'navigation_data.dart';
 
 abstract class NavigationService {
   RouterDelegate<Object>? get routerDelegate;
   RouteInformationParser<Object>? get routeInformationParser;
   GlobalKey<NavigatorState> get navigatorKey;
   Future popPage<T extends Object?>([T? result]);
-  replaceRoute(String path, {dynamic argument});
-  pushRoute(String path, {dynamic argument});
-  PageRouteInfo<dynamic>? getRoute(String path, {dynamic argument});
+  replaceRoute(PageRouteInfo<dynamic> route);
+  pushRoute(PageRouteInfo<dynamic> route);
 }
 
 @LazySingleton(as: NavigationService)
@@ -45,10 +41,9 @@ class NavigationServiceImplementation implements NavigationService {
 
   /// Replace all previous routes the new route
   @override
-  replaceRoute(String path, {dynamic argument}) async {
+  replaceRoute(PageRouteInfo<dynamic> route) async {
     try {
-      PageRouteInfo<dynamic>? route = getRoute(path, argument: argument);
-      return await _appRouter.replaceAll([route!]);
+      return await _appRouter.replaceAll([route]);
     } catch (error) {
       if (kDebugMode) log(error.toString());
     }
@@ -56,32 +51,11 @@ class NavigationServiceImplementation implements NavigationService {
 
   /// Adds the corresponding page to the given route
   @override
-  pushRoute(String path, {dynamic argument}) async {
+  pushRoute(PageRouteInfo<dynamic> route) async {
     try {
-      PageRouteInfo<dynamic>? route = getRoute(path, argument: argument);
-      return await _appRouter.push(route!);
+      return await _appRouter.push(route);
     } catch (error) {
       if (kDebugMode) log(error.toString());
-    }
-  }
-
-  @override
-  PageRouteInfo<dynamic>? getRoute(String path, {dynamic argument}) {
-    switch (path) {
-      case LOGIN_PATH:
-        return const LoginRoute();
-
-      case DASHBOARD_PATH:
-        return const HomeRoute();
-
-      case HOME_PATH:
-        return const HomeRoute();
-
-      case SETTING_PATH:
-        return const SettingRoute();
-
-      default:
-        return null;
     }
   }
 }

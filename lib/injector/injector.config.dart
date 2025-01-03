@@ -16,11 +16,11 @@ import 'package:clean_architecture/core/services/dio/dio_client_prod.dart'
     as _i265;
 import 'package:clean_architecture/core/services/image_picker/image_picker_service.dart'
     as _i257;
-import 'package:clean_architecture/core/services/internet_service.dart'
+import 'package:clean_architecture/core/services/internet/internet_service.dart'
     as _i481;
-import 'package:clean_architecture/core/services/isar_database_service.dart'
+import 'package:clean_architecture/core/services/database/isar_database_service.dart'
     as _i826;
-import 'package:clean_architecture/core/services/local_database_service.dart'
+import 'package:clean_architecture/core/services/database/local_database_service.dart'
     as _i42;
 import 'package:clean_architecture/core/services/message/toast_message_service.dart'
     as _i957;
@@ -102,13 +102,12 @@ extension GetItInjectableX on _i174.GetIt {
               localDatabase: gh<_i42.LocalDatabaseService>(),
               navigationService: gh<_i1005.NavigationService>(),
             ));
-    gh.lazySingleton<_i495.AuthenticationInterceptor>(() =>
-        _i495.AuthenticationInterceptor(
-            userDataService: gh<_i931.UserDataService>()));
+    gh.lazySingleton<_i495.AuthInterceptor>(() =>
+        _i495.AuthInterceptor(userDataService: gh<_i931.UserDataService>()));
     gh.lazySingleton<_i495.DioClient>(
       () => _i265.ProdDioClientImplementation(
         appConfig: gh<_i562.AppConfiguration>(),
-        authenticationInterceptor: gh<_i495.AuthenticationInterceptor>(),
+        authenticationInterceptor: gh<_i495.AuthInterceptor>(),
       ),
       registerFor: {_production},
     );
@@ -118,7 +117,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i495.DioClient>(
       () => _i791.DevDioClientImplementation(
         appConfig: gh<_i562.AppConfiguration>(),
-        authenticationInterceptor: gh<_i495.AuthenticationInterceptor>(),
+        authenticationInterceptor: gh<_i495.AuthInterceptor>(),
       ),
       registerFor: {
         _staging,

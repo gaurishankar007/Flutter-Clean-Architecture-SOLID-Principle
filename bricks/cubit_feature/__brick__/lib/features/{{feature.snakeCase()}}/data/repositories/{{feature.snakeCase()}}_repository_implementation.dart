@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/services/internet_service.dart';
+import '../../../../core/services/internet/internet_service.dart';
 import '../../domain/repositories/{{feature.snakeCase()}}_repository.dart';
 import '../data_sources/{{feature.snakeCase()}}_local_data_source.dart';
 import '../data_sources/{{feature.snakeCase()}}_remote_data_source.dart';

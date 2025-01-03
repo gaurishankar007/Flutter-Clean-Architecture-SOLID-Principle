@@ -3,9 +3,10 @@ import 'dart:convert';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../config/routes/routes.gr.dart';
 import '../../features/auth/data/models/user_data_model.dart';
 import '../../features/auth/domain/entities/user_data.dart';
-import 'local_database_service.dart';
+import 'database/local_database_service.dart';
 import 'navigation/navigation_service.dart';
 
 abstract class UserDataService {
@@ -67,7 +68,7 @@ class UserDataServiceImplementation implements UserDataService {
   logOut() async {
     localDatabase.clear();
     _userData = const UserData.empty();
-    navigationService.replaceRoute(LOGIN_PATH);
+    navigationService.replaceRoute(const LoginRoute());
   }
 
   @override

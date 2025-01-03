@@ -1,7 +1,6 @@
-import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../../core/services/navigation/navigation_service.dart';
+import '../../../../../config/routes/routes.gr.dart';
 import '../../../../../core/utils/base_cubit/base_cubit.dart';
 import '../../../../../core/utils/type_defs.dart';
 import 'dashboard_cubit_use_cases.dart';
@@ -32,10 +31,10 @@ class DashboardCubit extends BaseCubit<DashboardState> {
 
     switch (index) {
       case 0:
-        return replaceRoute(HOME_PATH);
+        return replaceRoute(const HomeRoute());
 
       case 1:
-        return replaceRoute(SETTING_PATH);
+        return replaceRoute(const SettingRoute());
 
       default:
         return;

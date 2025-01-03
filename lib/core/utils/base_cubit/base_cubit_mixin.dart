@@ -1,27 +1,20 @@
-import 'package:image_picker/image_picker.dart';
+part of 'base_cubit.dart';
 
-import '../../../features/auth/domain/entities/user_data.dart';
-import '../../data/states/data_state.dart';
-import '../../services/image_picker/image_picker_service.dart';
-import '../../services/message/toast_message_service.dart';
-import '../../services/navigation/navigation_service.dart';
-import '../../services/user_data_service.dart';
-
-mixin BaseCubitServiceMixin {
-  final _navigationServiceService = NavigationUtil.I;
+mixin BaseCubitMixin {
+  final _navigationService = NavigationUtil.I;
   final _toastService = ToastMessageUtil.I;
   final _userDataService = UserDataUtil.I;
   final _imagePickerService = ImagePickerUtil.I;
 
   /// Navigation Service
   Future popPage<T extends Object?>([T? result]) async =>
-      await _navigationServiceService.popPage(result);
+      await _navigationService.popPage(result);
 
-  replaceRoute(String path, {dynamic argument}) =>
-      _navigationServiceService.replaceRoute(path, argument: argument);
+  replaceRoute(PageRouteInfo<dynamic> route) =>
+      _navigationService.replaceRoute(route);
 
-  pushRoute(String path, {dynamic argument}) =>
-      _navigationServiceService.pushRoute(path, argument: argument);
+  pushRoute(PageRouteInfo<dynamic> route) =>
+      _navigationService.pushRoute(route);
 
   /// Toast Message Service
   showSuccessToast(String message) => _toastService.showSuccess(message);
