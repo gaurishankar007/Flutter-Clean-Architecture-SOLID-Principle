@@ -1,5 +1,4 @@
 import 'package:alice/alice.dart';
-import 'package:awesome_dio_interceptor/awesome_dio_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
@@ -7,11 +6,11 @@ import '../../../app_configuration.dart';
 import '../navigation/navigation_service.dart';
 import 'dio_client.dart';
 
-@LazySingleton(as: DioClient, env: [Flavor.development])
-class DevDioClientImplementation implements DioClient {
+@LazySingleton(as: DioClient, env: [Flavor.staging])
+class StgDioClientImplementation implements DioClient {
   final Dio _dio = Dio();
 
-  DevDioClientImplementation({
+  StgDioClientImplementation({
     required AppConfiguration appConfig,
     required AuthInterceptor authenticationInterceptor,
   }) {
@@ -30,10 +29,6 @@ class DevDioClientImplementation implements DioClient {
         showNotification: true,
         showInspectorOnShake: true,
       ).getDioInterceptor(),
-      AwesomeDioInterceptor(
-        logResponseHeaders: false,
-        logRequestTimeout: false,
-      ),
     ]);
   }
 

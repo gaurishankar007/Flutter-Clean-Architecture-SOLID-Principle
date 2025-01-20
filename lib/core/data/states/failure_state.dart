@@ -26,26 +26,8 @@ class FailureState<T> extends DataState<T> {
       );
 
   /// A failure data state when isar error occurs
-  factory FailureState.isarError(String error) => FailureState(
-        error: error,
-        errorType: DataErrorType.isarError,
-      );
-}
-
-/// A failure data state when there is no internet access
-class InternetUnavailableState<T> extends FailureState<T> {
-  const InternetUnavailableState({
-    super.error = "Internet is unavailable.",
-    super.errorType = DataErrorType.internetError,
-  });
-}
-
-/// A failure data state when the user's token is expired
-class TokenExpiredState<T> extends FailureState<T> {
-  const TokenExpiredState({
-    super.error = "Token is expired. Login again.",
-    super.errorType = DataErrorType.tokenError,
-  });
+  factory FailureState.isarError(String error) =>
+      FailureState(error: error, errorType: DataErrorType.isarError);
 }
 
 /// A failure data state when error occurs in the server
@@ -54,6 +36,12 @@ class BadRequestState<T> extends FailureState<T> {
     super.error = "Bad request. Please try again",
     super.errorType = DataErrorType.requestError,
   });
+
+  /// A failure data state when the user's token is expired
+  factory BadRequestState.tokenExpired() => const BadRequestState(
+        error: "Token is expired. Login again.",
+        errorType: DataErrorType.tokenError,
+      );
 }
 
 /// A failure data state when the response of the server is invalid
@@ -67,7 +55,15 @@ class BadResponseState<T> extends FailureState<T> {
 /// A failure data state when error occurs in the server
 class ServerFailureState<T> extends FailureState<T> {
   const ServerFailureState({
-    super.error = "Error occurred in server. $CUSTOMER_SUPPORT",
+    super.error = "Server error occurred. $CUSTOMER_SUPPORT",
     super.errorType = DataErrorType.serverError,
+  });
+}
+
+/// A failure data state when there is no internet access
+class NoInternetState<T> extends FailureState<T> {
+  const NoInternetState({
+    super.error = "No internet access.",
+    super.errorType = DataErrorType.internetError,
   });
 }

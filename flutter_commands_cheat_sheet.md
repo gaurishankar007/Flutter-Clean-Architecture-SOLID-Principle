@@ -4,14 +4,14 @@ A collection of essential and frequently used Flutter commands to boost your pro
 
 ---
 
-## 1. Check Flutter Installation Details
+## 1. Flutter Installation Details
 
 - ✅ `flutter doctor`: Check Flutter installation and environment setup.
 - ✅ `flutter doctor --verbose`: View more details like the Java version used by Flutter.
 
 ---
 
-## 2. Create Flutter Project
+## 2. Project
 
 - ✅ `flutter create my_app`: Create a Flutter project with the name `my_app` and all supported platforms.
 - ✅ `flutter create --org com.example my_app`: Create a Flutter project with a specified organization name.
@@ -28,7 +28,7 @@ A collection of essential and frequently used Flutter commands to boost your pro
 
 ---
 
-## 4. Flutter Pub Dependencies
+## 4. Pub Dependencies
 
 - ✅ `flutter clean`: Delete build data.
 - ✅ `flutter pub get`: Get project dependencies.
@@ -41,7 +41,7 @@ A collection of essential and frequently used Flutter commands to boost your pro
 
 ---
 
-## 5. Flutter Test
+## 5. Test
 
 - ✅ `flutter test`: Run Flutter tests.
 - ✅ `flutter test integration_test`: Perform integration tests.
@@ -49,30 +49,39 @@ A collection of essential and frequently used Flutter commands to boost your pro
 
 ---
 
-## 6. Execute Flutter Build Runner
+## 6. Build Runner
 
 - ✅ `dart run build_runner build --delete-conflicting-outputs`: Build generated files and resolve conflicts.
 - ✅ `dart run build_runner watch --delete-conflicting-outputs`: Watch for changes and automatically rebuild files.
 
 ---
 
-## 7. Run Flutter Project
+## 7. Run Project
 
 - ✅ `flutter run`: Run the Flutter project.
 - ✅ `flutter run --flavor dev --target lib/main_dev.dart`: Run the Flutter project with a specific flavor and target file.
 
 ---
 
-## 8. Build APK/App Bundle
+## 8. Install Project
+
+- ✅ `flutter Install`: Builds the APK and then installs it inside the selected device. If the apk is already build then installs whichever APK (release, debug) was last built.
+- ✅ `flutter install --use-application-binary=<APK-PATH>`: If the APK is already built and then replace <APK-PATH> with the path to your APK file to install it.
+
+---
+
+## 9. Build
 
 - ✅ `flutter build apk --release`: Build a release APK.
 - ✅ `flutter build appbundle --release`: Build an app bundle for Play Store uploads.
 - ✅ `flutter build apk --release --dart-define API_KEY=some-api-key`: Build an APK with an environment variable.
 - ✅ `flutter build apk --release --flavor stg --target lib/main_stg.dart`: Build an APK for a specific flavor and target.
+- ✅ `flutter build web`: Deploy Flutter apps as web applications.
+- ✅ `flutter build windows`: Create an executable file (.exe) for running the app on Windows.
 
 ---
 
-## 9. Flutter Shorebird
+## 10. Shorebird
 
 - ✅ `shorebird init`: Initialize a Flutter project for Shorebird.
 - ✅ `shorebird release android/ios`: Release the Android or iOS app to the Shorebird server.
@@ -81,7 +90,7 @@ A collection of essential and frequently used Flutter commands to boost your pro
 
 ---
 
-## 10. Flutter Mason CLI
+## 11. Mason CLI
 
 - ✅ `dart pub global activate mason_cli`: Activate mason cli globally.
 - ✅ `mason init`: Initialize a Mason project.
@@ -97,7 +106,7 @@ A collection of essential and frequently used Flutter commands to boost your pro
 
 ---
 
-## 11. Flutter Firebase CLI (Windows)
+## 12. Firebase CLI (Windows)
 
 - ✅ Add this path to the system's PATH:  
   `"C:\Users\{username}\AppData\Local\Pub\Cache\bin"`.
@@ -108,7 +117,7 @@ A collection of essential and frequently used Flutter commands to boost your pro
 
 ---
 
-## 12. Change Java SDK Location Used by Flutter
+## 13. Change Java SDK Location Used by Flutter
 
 - ✅ `flutter configure --java-dir="<java-directory>"`: Change the Java SDK directory used by Flutter.
 

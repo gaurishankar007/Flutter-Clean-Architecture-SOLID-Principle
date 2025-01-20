@@ -5,6 +5,7 @@ A collection of essential and frequently used git commands to boost your product
 ---
 
 ## 1. General
+
 - ✅ `git init`: Initializes a new Git repository.
 - ✅ `git clone <url>`: Clones an existing Git repository.
 - ✅ `git status`: Shows the current state of the working directory.
@@ -12,20 +13,39 @@ A collection of essential and frequently used git commands to boost your product
 - ✅ `git add ."`: Stage all your changes.
 - ✅ `git commit -m "<message>"`: Commits staged changes with a message.
 - ✅ `git remote add <remote_name> <url>`: Adds a new remote repository with a given name and URL.
-- ✅ `git push -u <remote_name> <branch_name>"`:  Push your local branch to a remote repository and `-u` flag sets the upstream branch for your local branch. This means that subsequent git push commands to the same remote and branch will push your commits directly without specifying the remote and branch names again.
+- ✅ `git push -u <remote_name> <branch_name>"`: Push your local branch to a remote repository and `-u` flag sets the upstream branch for your local branch. This means that subsequent git push commands to the same remote and branch will push your commits directly without specifying the remote and branch names again.
 
 ---
 
 ## 2. Committing
+
 - ✅ `git log`: Shows commit history.
-- ✅ `git diff`: Shows differences between commits, files, or branches.
+- ✅ `git diff <commit1> <commit2>`: Shows differences between commits, files, or branches.
+- ✅ `git diff --stat <commit1> <commit2>`: Shows a summary of the changes between commits, files, or branches.
 - ✅ `git reset --hard HEAD^`: Resets the current HEAD to the previous commit.
 - ✅ `git revert <commit>`: Reverts a specific commit.
 - ✅ `git tag <tag_name>`: Creates a tag at the current commit.
 
 ---
 
-## 3. Branch
+## 3. Tagging
+
+- ✅ `git tag`: Lists all available tags in the repository.
+- ✅ `git tag -l "v1.*"`: Lists tags matching the pattern "v1.\*" (e.g., v1.0, v1.1, v1.9).
+- ✅ `git tag <tagname>`: Creates a lightweight tag (a simple pointer to a commit).
+- ✅ `git tag -a <tagname> -m "message"`: Creates an annotated tag with a message.
+- ✅ `git tag -s <tagname> -m "message"`: Creates a GPG-signed tag with a message.
+- ✅ `git tag -f <tagname> <commit>`: Forcefully creates a tag at the specified commit, even if a tag with the same name already exists.
+- ✅ `git tag -d <tagname>`: Deletes the specified tag.
+- ✅ `git show <tagname>`: Shows details about the specified tag, including the commit it points to and any associated message.
+- ✅ `git push origin <tagname>`: Pushes the specified tag to the remote repository.
+- ✅ `git push origin --tags`: Pushes all tags to the remote repository.
+- ✅ `git fetch origin --tags`: Fetches all tags from the remote repository.
+
+---
+
+## 4. Branch
+
 - ✅ `git branch`: Lists all local branches.
 - ✅ `git branch -a`: Lists all local and remote branches.
 - ✅ `git branch -v`: Lists branches with additional information.
@@ -44,7 +64,8 @@ A collection of essential and frequently used git commands to boost your product
 
 ---
 
-## 4. Remote Repository
+## 5. Remote Repository
+
 - ✅ `git remote -v`: Lists all remote repositories configured for the current project.
 - ✅ `git remote add <name> <url>`: Adds a new remote repository with a given name and URL.
 - ✅ `git remote rm <name>`: Removes an existing remote repository.
@@ -58,7 +79,8 @@ A collection of essential and frequently used git commands to boost your product
 
 ---
 
-## 5. Merging
+## 6. Merging
+
 - ✅ `git merge <branch_name>`: Merges the specified branch into the current branch.
 - ✅ `git merge --no-commit <branch_name>`: Merges the specified branch but doesn't create a merge commit immediately. This allows you to review the changes before committing.
 - ✅ `git merge --abort`: Aborts an ongoing merge process.
@@ -69,14 +91,14 @@ A collection of essential and frequently used git commands to boost your product
 
 ---
 
-## 6. Stashing
+## 7. Stashing
+
 - ✅ `git stash`: Saves the current state of the working directory.
 - ✅ `git stash list`: Lists all stashed changes.
 - ✅ `git stash pop`: Removes the most recent stash and applies it to the current branch.
 - ✅ `git stash apply`: Applies the most recent stash without removing it.
 - ✅ `git stash drop`: Removes the most recent stash.
 - ✅ `git stash clear`: Removes all stashes.
-
 
 ---
 

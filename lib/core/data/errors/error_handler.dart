@@ -34,9 +34,6 @@ class ErrorHandler {
     DioExceptionType errorType = exception.type;
     int statusCode = exception.response?.statusCode ?? 0;
 
-    /// If token is expired
-    if (statusCode == 401) return const TokenExpiredState();
-
     /// If the server response contains error status codes
     bool isBadResponse = errorType == DioExceptionType.badResponse;
     bool hasResponse = exception.response != null;

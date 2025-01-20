@@ -9,19 +9,21 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:clean_architecture/app_configuration.dart' as _i562;
+import 'package:clean_architecture/core/services/database/isar_database_service.dart'
+    as _i700;
+import 'package:clean_architecture/core/services/database/local_database_service.dart'
+    as _i87;
 import 'package:clean_architecture/core/services/dio/dio_client.dart' as _i495;
 import 'package:clean_architecture/core/services/dio/dio_client_dev.dart'
     as _i791;
 import 'package:clean_architecture/core/services/dio/dio_client_prod.dart'
     as _i265;
+import 'package:clean_architecture/core/services/dio/dio_client_stg.dart'
+    as _i236;
 import 'package:clean_architecture/core/services/image_picker/image_picker_service.dart'
     as _i257;
 import 'package:clean_architecture/core/services/internet/internet_service.dart'
-    as _i481;
-import 'package:clean_architecture/core/services/database/isar_database_service.dart'
-    as _i826;
-import 'package:clean_architecture/core/services/database/local_database_service.dart'
-    as _i42;
+    as _i662;
 import 'package:clean_architecture/core/services/message/toast_message_service.dart'
     as _i957;
 import 'package:clean_architecture/core/services/navigation/navigation_service.dart'
@@ -74,34 +76,34 @@ extension GetItInjectableX on _i174.GetIt {
       () => const _i562.StgAppConfiguration(),
       registerFor: {_staging},
     );
-    gh.lazySingleton<_i42.LocalDatabaseService>(
-        () => _i42.LocalDatabaseServiceImplementation());
-    gh.lazySingleton<_i826.IsarDatabaseService>(
-        () => _i826.IsarDatabaseServiceImplementation());
+    gh.lazySingleton<_i700.IsarDatabaseService>(
+        () => _i700.IsarDatabaseServiceImplementation());
     gh.lazySingleton<_i257.ImagePickerService>(
         () => _i257.ImagePickerServiceImplementation());
     gh.lazySingleton<_i957.ToastMessageService>(
         () => _i957.ToastMessageServiceImplementation());
     gh.lazySingleton<_i1005.NavigationService>(
         () => _i1005.NavigationServiceImplementation());
-    gh.lazySingleton<_i481.InternetService>(
-        () => _i481.InternetServiceImplementation());
+    gh.lazySingleton<_i662.InternetService>(
+        () => _i662.InternetServiceImplementation());
+    gh.lazySingleton<_i87.LocalDatabaseService>(
+        () => _i87.LocalDatabaseServiceImplementation());
     gh.lazySingleton<_i562.AppConfiguration>(
       () => const _i562.ProdAppConfiguration(),
       registerFor: {_production},
     );
-    gh.lazySingleton<_i322.AuthLocalDataSource>(() =>
-        _i322.AuthLocalDataSourceImplementation(
-            localDatabase: gh<_i42.LocalDatabaseService>()));
     gh.lazySingleton<_i562.AppConfiguration>(
       () => const _i562.DevAppConfiguration(),
       registerFor: {_development},
     );
     gh.lazySingleton<_i931.UserDataService>(
         () => _i931.UserDataServiceImplementation(
-              localDatabase: gh<_i42.LocalDatabaseService>(),
+              localDatabase: gh<_i87.LocalDatabaseService>(),
               navigationService: gh<_i1005.NavigationService>(),
             ));
+    gh.lazySingleton<_i322.AuthLocalDataSource>(() =>
+        _i322.AuthLocalDataSourceImplementation(
+            localDatabase: gh<_i87.LocalDatabaseService>()));
     gh.lazySingleton<_i495.AuthInterceptor>(() =>
         _i495.AuthInterceptor(userDataService: gh<_i931.UserDataService>()));
     gh.lazySingleton<_i495.DioClient>(
@@ -111,25 +113,29 @@ extension GetItInjectableX on _i174.GetIt {
       ),
       registerFor: {_production},
     );
-    gh.lazySingleton<_i141.AuthRemoteDataSource>(() =>
-        _i141.AuthRemoteDataSourceImplementation(
-            dioClient: gh<_i495.DioClient>()));
     gh.lazySingleton<_i495.DioClient>(
       () => _i791.DevDioClientImplementation(
         appConfig: gh<_i562.AppConfiguration>(),
         authenticationInterceptor: gh<_i495.AuthInterceptor>(),
       ),
-      registerFor: {
-        _staging,
-        _development,
-      },
+      registerFor: {_development},
     );
+    gh.lazySingleton<_i141.AuthRemoteDataSource>(() =>
+        _i141.AuthRemoteDataSourceImplementation(
+            dioClient: gh<_i495.DioClient>()));
     gh.lazySingleton<_i1003.AuthRepository>(
         () => _i154.AuthRepositoryImplementation(
-              internet: gh<_i481.InternetService>(),
+              internet: gh<_i662.InternetService>(),
               remoteDataSource: gh<_i141.AuthRemoteDataSource>(),
               localDataSource: gh<_i322.AuthLocalDataSource>(),
             ));
+    gh.lazySingleton<_i495.DioClient>(
+      () => _i236.StgDioClientImplementation(
+        appConfig: gh<_i562.AppConfiguration>(),
+        authenticationInterceptor: gh<_i495.AuthInterceptor>(),
+      ),
+      registerFor: {_staging},
+    );
     gh.lazySingleton<_i481.CheckAuthenticationUseCase>(() =>
         _i481.CheckAuthenticationUseCase(
             authRepository: gh<_i1003.AuthRepository>()));

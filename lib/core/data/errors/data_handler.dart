@@ -19,7 +19,7 @@ class DataHandler {
   /// If internet is available and the performed task is success state,
   /// then performs another task [successCallback] if it is provided.
   /// If internet is not available, performs another task [localCallback]
-  /// only if it is provided. Otherwise, it returns [InternetUnavailableState]
+  /// only if it is provided. Otherwise, it returns [NoInternetState]
   static FutureData<T> guardNetwork<T>(
     bool isInternetConnected, {
     required FutureData<T> Function() remoteCallback,
@@ -36,7 +36,7 @@ class DataHandler {
     }
 
     /// If internet is not available
-    if (localCallback == null) return InternetUnavailableState<T>();
+    if (localCallback == null) return NoInternetState<T>();
     return await localCallback();
   }
 
