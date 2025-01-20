@@ -119,7 +119,7 @@ A collection of essential and frequently used Flutter commands to boost your pro
 
 ## 13. Change Java SDK Location Used by Flutter
 
-- ✅ `flutter configure --java-dir="<java-directory>"`: Change the Java SDK directory used by Flutter.
+- ✅ `flutter configure --jdk-dir="<java-directory>"`: Change the Java SDK directory used by Flutter.
 
 ---
 
