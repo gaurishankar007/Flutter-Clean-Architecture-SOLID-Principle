@@ -81,16 +81,29 @@ A collection of essential and frequently used Flutter commands to boost your pro
 
 ---
 
-## 10. Shorebird
+## 10. Localization
 
+- ✅ `flutter gen-l10n`: Generates localization files based on configuration defined in the l10n.yaml.
+- ✅ `flutter gen-l10n --arb-dir=lib/l10n --template-arb-file=app_en.arb --output-localization-file=app_localizations.dart --output-dir=lib/l10n`: Generates localization files based on command lines arguments.
+
+---
+
+## 11. Shorebird
+
+- ✅ `shorebird doctor`: Check Shorebird installation and environment setup.
+- ✅ `shorebird doctor --verbose`: View more details like the Java version used by Shorebird.
+- ✅ `shorebird login`: Login into the shorebird server.
+- ✅ `shorebird logout`: Logout from the shorebird server.
 - ✅ `shorebird init`: Initialize a Flutter project for Shorebird.
+- ✅ `shorebird init --force`: Overwrite your existing shorebird.yaml and create a new app/app_id. Existing apps will not be affected by re-initializing shorebird if you are initializing for the first time. If your app is already initialized and contains a release in the shorebird server than it is better not to re-initialized otherwise your old app will not receive updates because it will create new app with different app_id in the shorebird sever.
 - ✅ `shorebird release android/ios`: Release the Android or iOS app to the Shorebird server.
+- ✅ `shorebird release android/ios <appbundle/ipa location->`: Release the Android or iOS app to the Shorebird server if appbundle or ipa is already built.
 - ✅ `shorebird preview`: Install the app on a selected device for preview.
 - ✅ `shorebird patch android/ios`: Push updates to the Shorebird server.
 
 ---
 
-## 11. Mason CLI
+## 12. Mason CLI
 
 - ✅ `dart pub global activate mason_cli`: Activate mason cli globally.
 - ✅ `mason init`: Initialize a Mason project.
@@ -106,7 +119,14 @@ A collection of essential and frequently used Flutter commands to boost your pro
 
 ---
 
-## 12. Firebase CLI (Windows)
+## 13. Build Essential files before releasing android app to Google Play
+
+- ✅ `keytool -genkey -v -keystore upload-keystore.jks -storetype JKS -keyalg RSA -keysize 2048 -validity 10000 -alias upload`: Generate a keystore file to sign your APK.
+- ✅ `certutil -encode "keystore.jks" "keystore.b64"`: Generate the Base64 content of a .jks (Java Keystore) file and a .properties file on Windows for storing in GitHub Secrets.
+
+---
+
+## 14. Firebase CLI (Windows)
 
 - ✅ Add this path to the system's PATH:  
   `"C:\Users\{username}\AppData\Local\Pub\Cache\bin"`.
@@ -117,7 +137,12 @@ A collection of essential and frequently used Flutter commands to boost your pro
 
 ---
 
-## 13. Change Java SDK Location Used by Flutter
+## 15. Change Java SDK Location Used by Flutter
+
+By default flutter/shorebird uses the jdk version used by the android studio (C:\Program Files\Android\Android Studio\jbr) in windows.
+Flutter/Shorebird neglects the JAVA_HOME version in the system variables. Therefore, either the android studio jbr should be removed or flutter
+jdk location should be changed. In case of shorebird, there in commands for changing the jdk location used by it like flutter, so only options remains
+to remove the android studio jbr folder so that It will use the JAVA_HOME version in the system variables.
 
 - ✅ `flutter configure --jdk-dir="<java-directory>"`: Change the Java SDK directory used by Flutter.
 
