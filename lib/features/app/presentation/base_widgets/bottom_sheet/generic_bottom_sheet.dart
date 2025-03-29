@@ -14,10 +14,13 @@ part 'bottom_sheet_button_widget.dart';
 part 'bottom_sheet_container_widget.dart';
 part 'bottom_sheet_title_widget.dart';
 
-Future<T?> showGenericBottomSheet<T>(
-  BuildContext context, {
+Future<T?> showGenericBottomSheet<T>({
+  BuildContext? context,
   required Widget child,
 }) async {
+  context ??= NavigationUtil.I.navigatorKey.currentContext;
+  if (context == null) return null;
+
   return await showModalBottomSheet<T>(
     context: context,
     backgroundColor: AppColor.white,

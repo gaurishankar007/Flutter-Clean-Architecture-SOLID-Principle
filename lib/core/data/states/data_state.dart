@@ -15,6 +15,7 @@ sealed class DataState<T> extends Equatable {
   final bool hasData;
   final bool hasError;
   final DataErrorType? errorType;
+  final int? statusCode;
 
   const DataState({
     this.data,
@@ -22,7 +23,22 @@ sealed class DataState<T> extends Equatable {
     this.hasData = false,
     this.hasError = false,
     this.errorType,
+    this.statusCode,
   });
+
+  R when<R>({
+    required R Function(T data) success,
+    required R Function(String? message, DataErrorType? errorType) failure,
+    required R Function() loading,
+  }) {
+    if (hasData) {
+      return success(data as T);
+    } else if (hasError) {
+      return failure(message, errorType);
+    } else {
+      return loading();
+    }
+  }
 
   @override
   List<Object?> get props => [
@@ -31,5 +47,6 @@ sealed class DataState<T> extends Equatable {
         hasData,
         hasError,
         errorType,
+        statusCode,
       ];
 }

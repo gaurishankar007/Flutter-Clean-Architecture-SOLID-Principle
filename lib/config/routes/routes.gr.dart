@@ -1,3 +1,4 @@
+// dart format width=80
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
@@ -22,10 +23,7 @@ import 'package:clean_architecture/features/dashboard/presentation/pages/setting
 /// [_i1.DashboardPage]
 class DashboardRoute extends _i5.PageRouteInfo<void> {
   const DashboardRoute({List<_i5.PageRouteInfo>? children})
-      : super(
-          DashboardRoute.name,
-          initialChildren: children,
-        );
+    : super(DashboardRoute.name, initialChildren: children);
 
   static const String name = 'DashboardRoute';
 
@@ -41,10 +39,7 @@ class DashboardRoute extends _i5.PageRouteInfo<void> {
 /// [_i2.HomePage]
 class HomeRoute extends _i5.PageRouteInfo<void> {
   const HomeRoute({List<_i5.PageRouteInfo>? children})
-      : super(
-          HomeRoute.name,
-          initialChildren: children,
-        );
+    : super(HomeRoute.name, initialChildren: children);
 
   static const String name = 'HomeRoute';
 
@@ -60,10 +55,7 @@ class HomeRoute extends _i5.PageRouteInfo<void> {
 /// [_i3.LoginPage]
 class LoginRoute extends _i5.PageRouteInfo<void> {
   const LoginRoute({List<_i5.PageRouteInfo>? children})
-      : super(
-          LoginRoute.name,
-          initialChildren: children,
-        );
+    : super(LoginRoute.name, initialChildren: children);
 
   static const String name = 'LoginRoute';
 
@@ -79,10 +71,7 @@ class LoginRoute extends _i5.PageRouteInfo<void> {
 /// [_i4.SettingPage]
 class SettingRoute extends _i5.PageRouteInfo<void> {
   const SettingRoute({List<_i5.PageRouteInfo>? children})
-      : super(
-          SettingRoute.name,
-          initialChildren: children,
-        );
+    : super(SettingRoute.name, initialChildren: children);
 
   static const String name = 'SettingRoute';
 

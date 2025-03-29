@@ -5,5 +5,6 @@ class SuccessState<T> extends DataState<T> {
   const SuccessState({
     required super.data,
     super.message,
+    super.statusCode,
   }) : super(hasData: true);
 }

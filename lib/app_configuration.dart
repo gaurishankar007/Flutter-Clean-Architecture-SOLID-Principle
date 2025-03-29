@@ -1,7 +1,6 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
-
-import 'core/constants/api_endpoint.dart';
 
 class Flavor {
   Flavor._();
@@ -26,30 +25,33 @@ class AppConfiguration {
 
 @LazySingleton(as: AppConfiguration, env: [Flavor.production])
 class ProdAppConfiguration extends AppConfiguration {
-  const ProdAppConfiguration()
+  ProdAppConfiguration()
       : super(
           appTitle: "Clean Architecture App",
-          apiBaseUrl: ApiEndpoint.baseProduction,
+          apiBaseUrl: dotenv.maybeGet("BASE_PRODUCTION") ??
+              "https://development.com.np/",
           flavor: Flavor.production,
         );
 }
 
 @LazySingleton(as: AppConfiguration, env: [Flavor.staging])
 class StgAppConfiguration extends AppConfiguration {
-  const StgAppConfiguration()
+  StgAppConfiguration()
       : super(
           appTitle: "Clean Architecture App Staging",
-          apiBaseUrl: ApiEndpoint.baseStaging,
+          apiBaseUrl:
+              dotenv.maybeGet("BASE_STAGING") ?? "https://development.com.np/",
           flavor: Flavor.staging,
         );
 }
 
 @LazySingleton(as: AppConfiguration, env: [Flavor.development])
 class DevAppConfiguration extends AppConfiguration {
-  const DevAppConfiguration()
+  DevAppConfiguration()
       : super(
           appTitle: "Clean Architecture App Development",
-          apiBaseUrl: ApiEndpoint.baseDevelopment,
+          apiBaseUrl: dotenv.maybeGet("BASE_DEVELOPMENT") ??
+              "https://development.com.np/",
           flavor: Flavor.development,
         );
 }

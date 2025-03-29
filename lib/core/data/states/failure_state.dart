@@ -9,9 +9,14 @@ const String CHECK_INTERNET = "Please check your internet and try again.";
 /// A failure data state when error occurs
 class FailureState<T> extends DataState<T> {
   const FailureState({
-    String error = DEFAULT_ERROR,
-    DataErrorType errorType = DataErrorType.unknown,
-  }) : super(message: error, hasError: true, errorType: errorType);
+    String? error,
+    DataErrorType? errorType,
+    super.statusCode,
+  }) : super(
+          message: error ?? DEFAULT_ERROR,
+          hasError: true,
+          errorType: errorType ?? DataErrorType.unknown,
+        );
 
   /// A failure data state when type error occurs
   factory FailureState.typeError() => const FailureState(
@@ -35,6 +40,7 @@ class BadRequestState<T> extends FailureState<T> {
   const BadRequestState({
     super.error = "Bad request. Please try again",
     super.errorType = DataErrorType.requestError,
+    super.statusCode,
   });
 
   /// A failure data state when the user's token is expired
@@ -49,6 +55,7 @@ class BadResponseState<T> extends FailureState<T> {
   const BadResponseState({
     super.error = "Invalid server response.",
     super.errorType = DataErrorType.responseError,
+    super.statusCode,
   });
 }
 
@@ -57,6 +64,7 @@ class ServerFailureState<T> extends FailureState<T> {
   const ServerFailureState({
     super.error = "Server error occurred. $CUSTOMER_SUPPORT",
     super.errorType = DataErrorType.serverError,
+    super.statusCode,
   });
 }
 

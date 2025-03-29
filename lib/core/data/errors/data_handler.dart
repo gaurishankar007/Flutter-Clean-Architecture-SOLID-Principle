@@ -29,7 +29,7 @@ class DataHandler {
     /// If internet is available
     if (isInternetConnected) {
       final dataState = await remoteCallback();
-      if (successCallback != null && dataState is SuccessState) {
+      if (successCallback != null && dataState.hasData) {
         successCallback(dataState.data);
       }
       return dataState;
@@ -52,6 +52,7 @@ class DataHandler {
     required Future<Response> Function() request,
     R Function(MapDynamic json)? fromJson,
     bool isStructuredResponse = true,
+    bool ignoreResponseData = false,
   }) {
     return ErrorHandler.catchException(
       () async {
@@ -70,12 +71,16 @@ class DataHandler {
         }
 
         /// If api response did not succeeded
-        if (!isSuccess) return FailureState<T>(error: message);
-
-        if (fromJson != null) {
-          if (apiRawData is MapDynamic) {
+        if (!isSuccess) {
+          return FailureState<T>(
+            error: message,
+            statusCode: response.statusCode,
+          );
+        } else if (fromJson != null) {
+          /// If response data is Map or List and not ignored
+          if (apiRawData is MapDynamic && !ignoreResponseData) {
             data = fromJson(apiRawData) as T;
-          } else if (apiRawData is List) {
+          } else if (apiRawData is List && !ignoreResponseData) {
             data = apiRawData.map((json) => fromJson(json)).toList() as T;
           } else {
             /// Return custom data if api data is neither map or list
@@ -87,7 +92,11 @@ class DataHandler {
           data = apiRawData;
         }
 
-        return SuccessState(data: data, message: message);
+        return SuccessState(
+          data: data,
+          message: message,
+          statusCode: response.statusCode,
+        );
       },
     );
   }

@@ -1,3 +1,4 @@
+// dart format width=80
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
@@ -73,7 +74,7 @@ extension GetItInjectableX on _i174.GetIt {
       environmentFilter,
     );
     gh.lazySingleton<_i562.AppConfiguration>(
-      () => const _i562.StgAppConfiguration(),
+      () => _i562.StgAppConfiguration(),
       registerFor: {_staging},
     );
     gh.lazySingleton<_i700.IsarDatabaseService>(
@@ -89,11 +90,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i87.LocalDatabaseService>(
         () => _i87.LocalDatabaseServiceImplementation());
     gh.lazySingleton<_i562.AppConfiguration>(
-      () => const _i562.ProdAppConfiguration(),
+      () => _i562.ProdAppConfiguration(),
       registerFor: {_production},
     );
     gh.lazySingleton<_i562.AppConfiguration>(
-      () => const _i562.DevAppConfiguration(),
+      () => _i562.DevAppConfiguration(),
       registerFor: {_development},
     );
     gh.lazySingleton<_i931.UserDataService>(
@@ -107,6 +108,13 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i495.AuthInterceptor>(() =>
         _i495.AuthInterceptor(userDataService: gh<_i931.UserDataService>()));
     gh.lazySingleton<_i495.DioClient>(
+      () => _i791.DevDioClientImplementation(
+        appConfig: gh<_i562.AppConfiguration>(),
+        authInterceptor: gh<_i495.AuthInterceptor>(),
+      ),
+      registerFor: {_development},
+    );
+    gh.lazySingleton<_i495.DioClient>(
       () => _i265.ProdDioClientImplementation(
         appConfig: gh<_i562.AppConfiguration>(),
         authenticationInterceptor: gh<_i495.AuthInterceptor>(),
@@ -114,11 +122,11 @@ extension GetItInjectableX on _i174.GetIt {
       registerFor: {_production},
     );
     gh.lazySingleton<_i495.DioClient>(
-      () => _i791.DevDioClientImplementation(
+      () => _i236.StgDioClientImplementation(
         appConfig: gh<_i562.AppConfiguration>(),
-        authenticationInterceptor: gh<_i495.AuthInterceptor>(),
+        authInterceptor: gh<_i495.AuthInterceptor>(),
       ),
-      registerFor: {_development},
+      registerFor: {_staging},
     );
     gh.lazySingleton<_i141.AuthRemoteDataSource>(() =>
         _i141.AuthRemoteDataSourceImplementation(
@@ -129,22 +137,15 @@ extension GetItInjectableX on _i174.GetIt {
               remoteDataSource: gh<_i141.AuthRemoteDataSource>(),
               localDataSource: gh<_i322.AuthLocalDataSource>(),
             ));
-    gh.lazySingleton<_i495.DioClient>(
-      () => _i236.StgDioClientImplementation(
-        appConfig: gh<_i562.AppConfiguration>(),
-        authenticationInterceptor: gh<_i495.AuthInterceptor>(),
-      ),
-      registerFor: {_staging},
-    );
+    gh.lazySingleton<_i817.GetUserDataUseCase>(() =>
+        _i817.GetUserDataUseCase(authRepository: gh<_i1003.AuthRepository>()));
+    gh.lazySingleton<_i661.SaveUserDataUseCase>(() =>
+        _i661.SaveUserDataUseCase(authRepository: gh<_i1003.AuthRepository>()));
     gh.lazySingleton<_i481.CheckAuthenticationUseCase>(() =>
         _i481.CheckAuthenticationUseCase(
             authRepository: gh<_i1003.AuthRepository>()));
-    gh.lazySingleton<_i817.GetUserDataUseCase>(() =>
-        _i817.GetUserDataUseCase(authRepository: gh<_i1003.AuthRepository>()));
     gh.lazySingleton<_i68.LoginUseCase>(
         () => _i68.LoginUseCase(authRepository: gh<_i1003.AuthRepository>()));
-    gh.lazySingleton<_i661.SaveUserDataUseCase>(() =>
-        _i661.SaveUserDataUseCase(authRepository: gh<_i1003.AuthRepository>()));
     gh.lazySingleton<_i134.DashboardCubitUseCases>(() =>
         _i134.DashboardCubitUseCases(
             checkAuthentication: gh<_i481.CheckAuthenticationUseCase>()));

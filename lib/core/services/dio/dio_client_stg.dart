@@ -1,4 +1,8 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:alice/alice.dart';
+import 'package:alice/model/alice_configuration.dart';
+import 'package:alice_dio/alice_dio_adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
@@ -12,7 +16,7 @@ class StgDioClientImplementation implements DioClient {
 
   StgDioClientImplementation({
     required AppConfiguration appConfig,
-    required AuthInterceptor authenticationInterceptor,
+    required AuthInterceptor authInterceptor,
   }) {
     _dio.options = BaseOptions(
       baseUrl: appConfig.apiBaseUrl,
@@ -22,13 +26,21 @@ class StgDioClientImplementation implements DioClient {
       headers: {"Content-Type": "application/json"},
     );
 
-    _dio.interceptors.addAll([
-      authenticationInterceptor,
-      Alice(
+    /// Alice Configuration
+    final alice = Alice(
+      configuration: AliceConfiguration(
         navigatorKey: NavigationUtil.I.navigatorKey,
         showNotification: true,
         showInspectorOnShake: true,
-      ).getDioInterceptor(),
+        showShareButton: true,
+      ),
+    );
+    AliceDioAdapter aliceDioAdapter = AliceDioAdapter();
+    alice.addAdapter(aliceDioAdapter);
+
+    _dio.interceptors.addAll([
+      authInterceptor,
+      aliceDioAdapter,
     ]);
   }
 
