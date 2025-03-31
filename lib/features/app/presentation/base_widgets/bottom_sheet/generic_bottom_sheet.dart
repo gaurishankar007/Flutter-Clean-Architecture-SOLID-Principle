@@ -16,7 +16,7 @@ part 'bottom_sheet_title_widget.dart';
 
 Future<T?> showGenericBottomSheet<T>({
   BuildContext? context,
-  required Widget child,
+  Widget? child,
 }) async {
   context ??= NavigationUtil.I.navigatorKey.currentContext;
   if (context == null) return null;
