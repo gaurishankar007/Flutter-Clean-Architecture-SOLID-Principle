@@ -73,7 +73,7 @@ class DataHandler {
         /// If api response did not succeeded
         if (!isSuccess) {
           return FailureState<T>(
-            error: message,
+            message: message,
             statusCode: response.statusCode,
           );
         } else if (fromJson != null) {

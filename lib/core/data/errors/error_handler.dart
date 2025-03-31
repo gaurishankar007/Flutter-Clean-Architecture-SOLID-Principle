@@ -31,20 +31,16 @@ class ErrorHandler {
     try {
       String error = DEFAULT_ERROR;
       DioExceptionType errorType = exception.type;
-      int statusCode = exception.response?.statusCode ?? 0;
-      bool isBadResponse = errorType == DioExceptionType.badResponse;
-      bool hasResponse = exception.response != null;
+      Response? response = exception.response;
+      final statusCode = response?.statusCode ?? 0;
 
       /// If the server response contains error status codes
-      if (isBadResponse && hasResponse) {
+      if (errorType == DioExceptionType.badResponse && response != null) {
+        final message = response.data?['message'] as String?;
         if (statusCode >= 400 && statusCode < 500) {
-          final responseData = exception.response!.data;
-          return BadRequestState(
-            error: responseData['msg'] as String?,
-            statusCode: statusCode,
-          );
+          return BadRequestState(message: message, statusCode: statusCode);
         } else if (statusCode >= 500) {
-          return ServerFailureState(statusCode: statusCode);
+          return ServerFailureState(message: message, statusCode: statusCode);
         }
       }
 
@@ -64,14 +60,14 @@ class ErrorHandler {
       }
 
       return FailureState(
-        error: error,
-        errorType: DataErrorType.dioException,
+        message: error,
+        error: DataStateError.dioException,
         statusCode: statusCode,
       );
     } catch (error) {
       return FailureState(
-        error: error.toString(),
-        errorType: DataErrorType.unknown,
+        message: error.toString(),
+        error: DataStateError.unknown,
       );
     }
   }

@@ -85,7 +85,7 @@ lib/
 │   │   │   ├── error_handler.dart
 │   │   │   └── error_types.dart
 │   │   ├── states/
-│   │   │   ├── data_error_type.dart
+│   │   │   ├── data_state_error.dart
 │   │   │   ├── data_state.dart
 │   │   │   ├── failure_state.dart
 │   │   │   ├── loading_state.dart

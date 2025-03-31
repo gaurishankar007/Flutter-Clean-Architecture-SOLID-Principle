@@ -37,7 +37,7 @@ class AuthLocalDataSourceImplementation implements AuthLocalDataSource {
         return SuccessState(data: userDataModel);
       }
 
-      return const FailureState<UserDataModel>(error: "User data not found.");
+      return const FailureState<UserDataModel>(message: "User data not found.");
     });
   }
 }

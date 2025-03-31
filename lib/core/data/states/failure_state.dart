@@ -9,52 +9,52 @@ const String CHECK_INTERNET = "Please check your internet and try again.";
 /// A failure data state when error occurs
 class FailureState<T> extends DataState<T> {
   const FailureState({
-    String? error,
-    DataErrorType? errorType,
+    String? message,
+    DataStateError? error,
     super.statusCode,
   }) : super(
-          message: error ?? DEFAULT_ERROR,
+          message: message ?? DEFAULT_ERROR,
+          error: error ?? DataStateError.unknown,
           hasError: true,
-          errorType: errorType ?? DataErrorType.unknown,
         );
 
   /// A failure data state when type error occurs
   factory FailureState.typeError() => const FailureState(
-        error: "Error occurred. Unsupported data type is assigned.",
-        errorType: DataErrorType.typeError,
+        message: "Error occurred. Unsupported data type is assigned.",
+        error: DataStateError.typeError,
       );
 
   /// A failure data state when format exception occurs
   factory FailureState.formatException() => const FailureState(
-        error: "Error occurred. Operation on unsupported data format.",
-        errorType: DataErrorType.formatException,
+        message: "Error occurred. Operation on unsupported data format.",
+        error: DataStateError.formatException,
       );
 
   /// A failure data state when isar error occurs
   factory FailureState.isarError(String error) =>
-      FailureState(error: error, errorType: DataErrorType.isarError);
+      FailureState(message: error, error: DataStateError.isarError);
 }
 
 /// A failure data state when error occurs in the server
 class BadRequestState<T> extends FailureState<T> {
   const BadRequestState({
-    super.error = "Bad request. Please try again",
-    super.errorType = DataErrorType.requestError,
+    super.message = "Bad request. Please try again",
+    super.error = DataStateError.requestError,
     super.statusCode,
   });
 
   /// A failure data state when the user's token is expired
   factory BadRequestState.tokenExpired() => const BadRequestState(
-        error: "Token is expired. Login again.",
-        errorType: DataErrorType.tokenError,
+        message: "Token is expired. Login again.",
+        error: DataStateError.tokenError,
       );
 }
 
 /// A failure data state when the response of the server is invalid
 class BadResponseState<T> extends FailureState<T> {
   const BadResponseState({
-    super.error = "Invalid server response.",
-    super.errorType = DataErrorType.responseError,
+    super.message = "Invalid server response.",
+    super.error = DataStateError.responseError,
     super.statusCode,
   });
 }
@@ -62,8 +62,8 @@ class BadResponseState<T> extends FailureState<T> {
 /// A failure data state when error occurs in the server
 class ServerFailureState<T> extends FailureState<T> {
   const ServerFailureState({
-    super.error = "Server error occurred. $CUSTOMER_SUPPORT",
-    super.errorType = DataErrorType.serverError,
+    super.message = "Server error occurred. $CUSTOMER_SUPPORT",
+    super.error = DataStateError.serverError,
     super.statusCode,
   });
 }
@@ -71,7 +71,7 @@ class ServerFailureState<T> extends FailureState<T> {
 /// A failure data state when there is no internet access
 class NoInternetState<T> extends FailureState<T> {
   const NoInternetState({
-    super.error = "No internet access.",
-    super.errorType = DataErrorType.internetError,
+    super.message = "No internet access.",
+    super.error = DataStateError.internetError,
   });
 }

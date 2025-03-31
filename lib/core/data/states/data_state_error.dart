@@ -1,7 +1,7 @@
 part of 'data_state.dart';
 
 /// Different categories of data state failure
-enum DataErrorType {
+enum DataStateError {
   unknown,
   typeError,
   formatException,
