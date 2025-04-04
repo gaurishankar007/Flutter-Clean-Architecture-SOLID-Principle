@@ -9,19 +9,20 @@ class ErrorHandler {
   ) async {
     try {
       return await callBack();
-    } on DioException catch (error) {
-      return dioErrorToFailureState<T>(error);
+    } on DioException catch (exception, stackTrace) {
+      _debugError(exception, stackTrace);
+      return dioErrorToFailureState<T>(exception);
     } on ServerResponseError {
       if (kDebugMode) log("Invalid response from the server.");
       return BadResponseState<T>();
-    } on TypeError catch (error) {
-      if (kDebugMode) log(error.toString());
+    } on TypeError catch (error, stackTrace) {
+      _debugError(error, stackTrace);
       return FailureState.typeError();
-    } on FormatException catch (error) {
-      if (kDebugMode) log(error.toString());
+    } on FormatException catch (exception, stackTrace) {
+      _debugError(exception, stackTrace);
       return FailureState.formatException();
-    } catch (error) {
-      if (kDebugMode) log(error.toString());
+    } catch (error, stackTrace) {
+      _debugError(error, stackTrace);
       return FailureState<T>();
     }
   }
@@ -29,45 +30,59 @@ class ErrorHandler {
   /// Returns the respective data failure state base on the dio exception type.
   static FailureState<T> dioErrorToFailureState<T>(DioException exception) {
     try {
-      String error = DEFAULT_ERROR;
+      String errorMessage = ERROR_MESSAGE;
       DioExceptionType errorType = exception.type;
       Response? response = exception.response;
       final statusCode = response?.statusCode ?? 0;
 
       /// If the server response contains error status codes
       if (errorType == DioExceptionType.badResponse && response != null) {
-        final message = response.data?['message'] as String?;
+        if (response.data is Map) errorMessage = response.data?['message'];
+
         if (statusCode >= 400 && statusCode < 500) {
-          return BadRequestState(message: message, statusCode: statusCode);
+          return BadRequestState(message: errorMessage, statusCode: statusCode);
         } else if (statusCode >= 500) {
-          return ServerFailureState(message: message, statusCode: statusCode);
+          return ServerErrorState(
+            message: errorMessage,
+            statusCode: statusCode,
+          );
         }
       }
 
       /// Other errors
       if (errorType == DioExceptionType.connectionError) {
-        error = "Connection error, host lookup failed.";
+        errorMessage = "Connection error, host lookup failed.";
       } else if (errorType == DioExceptionType.cancel) {
-        error = "Request was cancelled";
+        errorMessage = "Request was cancelled";
       } else if (errorType == DioExceptionType.receiveTimeout) {
-        error = "Receive timeout in connection. $CHECK_INTERNET";
+        errorMessage = "Receive timeout in connection. $CHECK_INTERNET";
       } else if (errorType == DioExceptionType.sendTimeout) {
-        error = "Send timeout in connection. $CHECK_INTERNET";
+        errorMessage = "Send timeout in connection. $CHECK_INTERNET";
       } else if (errorType == DioExceptionType.connectionTimeout) {
-        error = "Connection timeout. $CHECK_INTERNET";
+        errorMessage = "Connection timeout. $CHECK_INTERNET";
       } else if (errorType == DioExceptionType.badCertificate) {
-        error = "Bad certificate. $CUSTOMER_SUPPORT";
+        errorMessage = "Bad certificate. $CUSTOMER_SUPPORT";
       }
 
       return FailureState(
-        message: error,
-        error: DataStateError.dioException,
+        message: errorMessage,
+        errorType: ErrorType.dioException,
         statusCode: statusCode,
       );
     } catch (error) {
       return FailureState(
         message: error.toString(),
-        error: DataStateError.unknown,
+        errorType: ErrorType.unknown,
+      );
+    }
+  }
+
+  static _debugError(Object? error, StackTrace? stackTrace) {
+    if (kDebugMode) {
+      log(
+        "<--------- Caught Exception ---------->",
+        error: error,
+        stackTrace: stackTrace,
       );
     }
   }

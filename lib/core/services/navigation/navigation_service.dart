@@ -44,8 +44,8 @@ class NavigationServiceImplementation implements NavigationService {
   replaceRoute(PageRouteInfo<dynamic> route) async {
     try {
       return await _appRouter.replaceAll([route]);
-    } catch (error) {
-      if (kDebugMode) log(error.toString());
+    } catch (error, stackTrace) {
+      _debugError(error, stackTrace);
     }
   }
 
@@ -54,8 +54,18 @@ class NavigationServiceImplementation implements NavigationService {
   pushRoute(PageRouteInfo<dynamic> route) async {
     try {
       return await _appRouter.push(route);
-    } catch (error) {
-      if (kDebugMode) log(error.toString());
+    } catch (error, stackTrace) {
+      _debugError(error, stackTrace);
+    }
+  }
+
+  static _debugError(Object? error, StackTrace? stackTrace) {
+    if (kDebugMode) {
+      log(
+        "<--------- Caught Exception ---------->",
+        error: error,
+        stackTrace: stackTrace,
+      );
     }
   }
 }

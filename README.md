@@ -4,6 +4,23 @@ A comprehensive guide to building scalable and maintainable Flutter applications
 
 ---
 
+## Table of Contents 📌
+
+- [Flutter Clean Architecture \& SOLID Principles 🚀🚀🚀](#flutter-clean-architecture--solid-principles-)
+  - [Table of Contents 📌](#table-of-contents-)
+  - [What is Clean Architecture? 🏗️](#what-is-clean-architecture-️)
+    - [Core Layers of Clean Architecture:](#core-layers-of-clean-architecture)
+    - [Benefits of Clean Architecture:](#benefits-of-clean-architecture)
+  - [What are SOLID Principles? 💡](#what-are-solid-principles-)
+  - [Getting Started 🛠️](#getting-started-️)
+  - [Project Features ✨](#project-features-)
+  - [Feature Template Generation Using Mason 🧱](#feature-template-generation-using-mason-)
+    - [Steps to Generate a New Feature Template](#steps-to-generate-a-new-feature-template)
+    - [What do `cubit_feature` \& `cubit_page` Do?](#what-do-cubit_feature--cubit_page-do)
+    - [Configuration](#configuration)
+  - [Visual Representation 📊](#visual-representation-)
+  - [Why Clean Architecture \& SOLID Principles? 🧩](#why-clean-architecture--solid-principles-)
+
 ## What is Clean Architecture? 🏗️
 
 **Clean Architecture** is a software design philosophy that promotes separation of concerns through clearly defined layers. Each layer has a specific responsibility, making the codebase modular, testable, and easier to maintain.
@@ -85,7 +102,6 @@ lib/
 │   │   │   ├── error_handler.dart
 │   │   │   └── error_types.dart
 │   │   ├── states/
-│   │   │   ├── data_state_error.dart
 │   │   │   ├── data_state.dart
 │   │   │   ├── failure_state.dart
 │   │   │   ├── loading_state.dart

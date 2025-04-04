@@ -1,18 +1,15 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart' show immutable;
 
-part 'data_state_error.dart';
 part 'failure_state.dart';
 part 'loading_state.dart';
 part 'success_state.dart';
 
-/// Stores the data received from the api.
-/// Also receives error if error is occurs in the path way.
 @immutable
 sealed class DataState<T> extends Equatable {
   final T? data;
   final String? message;
-  final DataStateError? error;
+  final ErrorType? errorType;
   final int? statusCode;
   final bool hasData;
   final bool hasError;
@@ -20,7 +17,7 @@ sealed class DataState<T> extends Equatable {
   const DataState({
     this.data,
     this.message,
-    this.error,
+    this.errorType,
     this.statusCode,
     this.hasData = false,
     this.hasError = false,
@@ -28,15 +25,36 @@ sealed class DataState<T> extends Equatable {
 
   R when<R>({
     required R Function(T data) success,
-    required R Function(String? message, DataStateError? error) failure,
+    required R Function(String? message, ErrorType? errorType) failure,
     required R Function() loading,
   }) {
-    if (hasData) {
-      return success(data as T);
-    } else if (hasError) {
-      return failure(message, error);
-    } else {
+    if (this is SuccessState<T>) {
+      return success((this as SuccessState<T>).data as T);
+    } else if (this is FailureState<T>) {
+      return failure(
+        (this as FailureState<T>).message,
+        (this as FailureState<T>).errorType,
+      );
+    } else if (this is LoadingState<T>) {
       return loading();
+    } else {
+      return loading(); //Default loading state.
+    }
+  }
+
+  R map<R>({
+    required R Function(SuccessState<T> value) success,
+    required R Function(FailureState<T> value) failure,
+    required R Function(LoadingState<T> value) loading,
+  }) {
+    if (this is SuccessState<T>) {
+      return success(this as SuccessState<T>);
+    } else if (this is FailureState<T>) {
+      return failure(this as FailureState<T>);
+    } else if (this is LoadingState<T>) {
+      return loading(this as LoadingState<T>);
+    } else {
+      return loading(LoadingState<T>()); //Default loading state.
     }
   }
 
@@ -44,7 +62,7 @@ sealed class DataState<T> extends Equatable {
   List<Object?> get props => [
         data,
         message,
-        error,
+        errorType,
         statusCode,
         hasData,
         hasError,

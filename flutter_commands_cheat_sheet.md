@@ -126,26 +126,4 @@ A collection of essential and frequently used Flutter commands to boost your pro
 
 ---
 
-## 14. Firebase CLI (Windows)
-
-- ✅ Add this path to the system's PATH:  
-  `"C:\Users\{username}\AppData\Local\Pub\Cache\bin"`.
-- ✅ `npm install -g firebase-tools`: Install Node.js and the Firebase CLI.
-- ✅ `firebase login`: Log in to Firebase.
-- ✅ `dart pub global activate flutterfire_cli`: Activate the FlutterFire CLI in a Flutter project.
-- ✅ `flutterfire configure`: Configure Firebase for your Flutter project.
-
----
-
-## 15. Change Java SDK Location Used by Flutter
-
-By default flutter/shorebird uses the jdk version used by the android studio (C:\Program Files\Android\Android Studio\jbr) in windows.
-Flutter/Shorebird neglects the JAVA_HOME version in the system variables. Therefore, either the android studio jbr should be removed or flutter
-jdk location should be changed. In case of shorebird, there in commands for changing the jdk location used by it like flutter, so only options remains
-to remove the android studio jbr folder so that It will use the JAVA_HOME version in the system variables.
-
-- ✅ `flutter configure --jdk-dir="<java-directory>"`: Change the Java SDK directory used by Flutter.
-
----
-
 With these commands, you're equipped to handle various aspects of Flutter development efficiently!
