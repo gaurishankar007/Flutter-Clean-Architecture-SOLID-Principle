@@ -20,6 +20,21 @@ A comprehensive guide to building scalable and maintainable Flutter applications
     - [Configuration](#configuration)
   - [Visual Representation 📊](#visual-representation-)
   - [Why Clean Architecture \& SOLID Principles? 🧩](#why-clean-architecture--solid-principles-)
+  - [Overview of API Workflow Layers 🧱](#overview-of-api-workflow-layers-)
+    - [Data Flow Summary 🔁](#data-flow-summary-)
+    - [Core Components 📦](#core-components-)
+      - [1. `AuthRepository`](#1-authrepository)
+      - [2. `AuthRemoteDataSource`](#2-authremotedatasource)
+      - [3. `DioClient`](#3-dioclient)
+      - [4. `AuthInterceptor`](#4-authinterceptor)
+      - [5. `DataHandler`](#5-datahandler)
+      - [6. `ErrorHandler`](#6-errorhandler)
+      - [7. `DataState<T>`](#7-datastatet)
+    - [Example: Login Flow 🔄](#example-login-flow-)
+      - [Internal Flow](#internal-flow)
+    - [Benefits ✅](#benefits-)
+    - [Debugging Tools 🔍](#debugging-tools-)
+    - [Testing Tips 🧪](#testing-tips-)
 
 ## What is Clean Architecture? 🏗️
 
@@ -272,3 +287,146 @@ The generation process relies on a `config.json` file, which includes details su
 - **Enhances Testing**: Decoupled modules and layers are more straightforward to test.
 
 **Start your journey toward building robust and scalable Flutter applications today! 🚀**
+
+---
+
+## Overview of API Workflow Layers 🧱
+
+```mermaid
+graph TD
+    UI -->|calls| AuthRepository
+    AuthRepository -->|calls| AuthRemoteDataSource
+    AuthRepository -->|calls| AuthLocalDataSource
+    AuthRemoteDataSource -->|uses| DioClient
+    DioClient -->|sends| API
+    AuthRepository -->|uses| InternetService
+    AuthRemoteDataSource -->|wrapped by| DataHandler
+    AuthRepository -->|handles| DataState
+```
+
+---
+
+### Data Flow Summary 🔁
+
+1. **UI calls AuthRepository (e.g., login)**
+2. **AuthRepository checks Internet availability** using `InternetService`
+3. If online:
+   - Calls `AuthRemoteDataSource`
+   - `AuthRemoteDataSource` uses `DioClient` to make the HTTP request
+   - Wraps response handling with `DataHandler.requestApi`
+   - Errors are caught via `ErrorHandler`
+4. If offline:
+   - It can optionally fall back to `localCallback`
+
+All outcomes are returned as **DataState<T>**: `SuccessState`, `FailureState`, or `LoadingState`.
+
+---
+
+### Core Components 📦
+
+#### 1. `AuthRepository`
+
+- Acts as the single source of truth for the domain layer.
+- Decides when to fetch from remote or local.
+- Uses `guardNetwork()` from `DataHandler` to handle connectivity gracefully.
+
+#### 2. `AuthRemoteDataSource`
+
+- Contains remote API methods like `login()` and `checkAuth()`.
+- Makes network calls via `DioClient`.
+
+#### 3. `DioClient`
+
+- Abstract layer over Dio.
+- Simplifies request methods like `get`, `post`, `put`, `patch`, `delete`.
+- Adds Alice debugger & interceptor.
+
+#### 4. `AuthInterceptor`
+
+- Used in Dio to intercept and modify requests and responses.
+- Automatically appends access tokens.
+- Catches 401 responses and refreshes tokens before retrying failed requests.
+
+#### 5. `DataHandler`
+
+- Wraps remote calls in `requestApi()`.
+- Validates and parses API responses.
+- Handles `SuccessState`, `FailureState`, and JSON parsing.
+
+#### 6. `ErrorHandler`
+
+- Catches various error types (`DioException`, `FormatException`, `TypeError`, etc.)
+- Converts errors into `FailureState` with meaningful messages.
+
+#### 7. `DataState<T>`
+
+- Sealed class for representing UI state.
+- Types:
+  - `SuccessState<T>`
+  - `FailureState<T>`
+  - `LoadingState<T>`
+
+```dart
+state.when(
+  success: (data) => print("Got data"),
+  failure: (msg, type) => print("Error: $msg"),
+  loading: () => print("Loading..."),
+);
+```
+
+---
+
+### Example: Login Flow 🔄
+
+```dart
+final dataState = await authRepository.login(LoginRequest(email, password));
+
+dataState.when(
+  success: (user) => print("Login success"),
+  failure: (msg, type) => print("Login failed: $msg"),
+  loading: () => print("Logging in..."),
+);
+
+/// Or
+
+if(dataState.hasData) {
+   // Do something
+} else if(dataState.hasError) {
+   // Do something else
+}
+```
+
+#### Internal Flow
+
+```mermaid
+graph TD
+    A[UI] --> B[AuthRepository.login()]
+    B -->|check internet| C[InternetService]
+    B -->|calls| D[remoteDataSource.login()]
+    D --> E[requestApi() via DioClient]
+    E --> F[Handles structured response]
+    F -->|success| G[SuccessState<User>]
+    F -->|failure| H[FailureState]
+```
+
+---
+
+### Benefits ✅
+
+- **Decoupled Layers**: Easier testing and maintenance.
+- **Unified Error Handling**: All API and type errors are gracefully caught.
+- **Clean Network Management**: Internet check, retries, and fallback handled centrally.
+- **Consistent UI State**: Always returns `DataState` for safe rendering.
+
+---
+
+### Debugging Tools 🔍
+
+- **Alice** integrated into `DioClient` for easy request/response inspection
+
+---
+
+### Testing Tips 🧪
+
+- You can mock `DioClient`, `AuthRemoteDataSource`, and `AuthRepository` easily.
+- Test each layer in isolation.
