@@ -23,13 +23,14 @@ A comprehensive guide to building scalable and maintainable Flutter applications
   - [Overview of API Workflow Layers 🧱](#overview-of-api-workflow-layers-)
     - [Data Flow Summary 🔁](#data-flow-summary-)
     - [Core Components 📦](#core-components-)
-      - [1. `AuthRepository`](#1-authrepository)
-      - [2. `AuthRemoteDataSource`](#2-authremotedatasource)
+      - [1. `Repository`](#1-repository)
+      - [2. `RemoteDataSource`](#2-remotedatasource)
       - [3. `DioClient`](#3-dioclient)
-      - [4. `AuthInterceptor`](#4-authinterceptor)
-      - [5. `DataHandler`](#5-datahandler)
-      - [6. `ErrorHandler`](#6-errorhandler)
-      - [7. `DataState<T>`](#7-datastatet)
+      - [4. `Interceptor`](#4-interceptor)
+      - [5. `LocalDataSource`](#5-localdatasource)
+      - [6. `DataHandler`](#6-datahandler)
+      - [7. `ErrorHandler`](#7-errorhandler)
+      - [8. `DataState<T>`](#8-datastatet)
     - [Example: Login Flow 🔄](#example-login-flow-)
       - [Internal Flow](#internal-flow)
     - [Benefits ✅](#benefits-)
@@ -294,45 +295,55 @@ The generation process relies on a `config.json` file, which includes details su
 
 ```mermaid
 graph TD
-    UI -->|calls| AuthRepository
-    AuthRepository -->|calls| AuthRemoteDataSource
-    AuthRepository -->|calls| AuthLocalDataSource
-    AuthRemoteDataSource -->|uses| DioClient
+    UI -->|calls| Cubit
+    Cubit -->|calls| UseCase
+    UseCase -->|calls| Repository
+    Repository -->|calls| RemoteDataSource
+    Repository -->|calls| LocalDataSource
+    Repository -->|uses| InternetService
+    Repository -->|wrapped by| DataHandler
+    Repository -->|handles| DataState
+    RemoteDataSource -->|uses| DioClient
+    RemoteDataSource -->|wrapped by| DataHandler
     DioClient -->|sends| API
-    AuthRepository -->|uses| InternetService
-    AuthRemoteDataSource -->|wrapped by| DataHandler
-    AuthRepository -->|handles| DataState
+    LocalDataSource -->|uses| LocalDatabaseService
+    LocalDataSource -->|wrapped by| ErrorHandler
+    LocalDatabaseService -->|sends| LocalDB
 ```
 
 ---
 
 ### Data Flow Summary 🔁
 
-1. **UI calls AuthRepository (e.g., login)**
-2. **AuthRepository checks Internet availability** using `InternetService`
-3. If online:
-   - Calls `AuthRemoteDataSource`
-   - `AuthRemoteDataSource` uses `DioClient` to make the HTTP request
+1. **UI calls Cubit which calls UseCase**
+2. **Cubit calls UseCase**
+3. **UseCase calls Repository**
+4. **Repository checks Internet availability** using `InternetService`
+5. If online:
+   - Calls `RemoteDataSource`
+   - `RemoteDataSource` uses `DioClient` to make the HTTP request
    - Wraps response handling with `DataHandler.requestApi`
    - Errors are caught via `ErrorHandler`
-4. If offline:
+6. If offline:
    - It can optionally fall back to `localCallback`
+   - The `localCallback` uses `LocalDataSource`
+7. **Repository sometimes also calls `LocalDataSource`** without depending on `InternetService`
 
-All outcomes are returned as **DataState<T>**: `SuccessState`, `FailureState`, or `LoadingState`.
+All outcomes are returned as **DataState<T>**: `SuccessState`, or `FailureState`.
 
 ---
 
 ### Core Components 📦
 
-#### 1. `AuthRepository`
+#### 1. `Repository`
 
 - Acts as the single source of truth for the domain layer.
 - Decides when to fetch from remote or local.
 - Uses `guardNetwork()` from `DataHandler` to handle connectivity gracefully.
 
-#### 2. `AuthRemoteDataSource`
+#### 2. `RemoteDataSource`
 
-- Contains remote API methods like `login()` and `checkAuth()`.
+- Contains remote API methods.
 - Makes network calls via `DioClient`.
 
 #### 3. `DioClient`
@@ -341,24 +352,29 @@ All outcomes are returned as **DataState<T>**: `SuccessState`, `FailureState`, o
 - Simplifies request methods like `get`, `post`, `put`, `patch`, `delete`.
 - Adds Alice debugger & interceptor.
 
-#### 4. `AuthInterceptor`
+#### 4. `Interceptor`
 
 - Used in Dio to intercept and modify requests and responses.
 - Automatically appends access tokens.
 - Catches 401 responses and refreshes tokens before retrying failed requests.
 
-#### 5. `DataHandler`
+#### 5. `LocalDataSource`
+
+- Manages data locally using LocalDatabaseService
+- Used for fallback or offline data storage
+
+#### 6. `DataHandler`
 
 - Wraps remote calls in `requestApi()`.
 - Validates and parses API responses.
 - Handles `SuccessState`, `FailureState`, and JSON parsing.
 
-#### 6. `ErrorHandler`
+#### 7. `ErrorHandler`
 
 - Catches various error types (`DioException`, `FormatException`, `TypeError`, etc.)
 - Converts errors into `FailureState` with meaningful messages.
 
-#### 7. `DataState<T>`
+#### 8. `DataState<T>`
 
 - Sealed class for representing UI state.
 - Types:
@@ -379,20 +395,45 @@ state.when(
 ### Example: Login Flow 🔄
 
 ```dart
-final dataState = await authRepository.login(LoginRequest(email, password));
 
-dataState.when(
-  success: (user) => print("Login success"),
-  failure: (msg, type) => print("Login failed: $msg"),
-  loading: () => print("Logging in..."),
-);
+@injectable
+class LoginCubit extends BaseCubit<LoginState> {
+  final LoginCubitUseCases _useCases;
 
-/// Or
+  LoginCubit({
+    required LoginCubitUseCases useCases,
+  })  : _useCases = useCases,
+        super(const LoginState.initial());
 
-if(dataState.hasData) {
-   // Do something
-} else if(dataState.hasError) {
-   // Do something else
+  login({required String username, required String password}) async {
+    final dataState = await _useCases.login.call(
+      LoginRequest(username: "", password: ""),
+    );
+
+    dataState.when(
+      success: (user) => print("Login success"),
+      failure: (msg, type) => print("Login failed: $msg"),
+      loading: () => print("Logging in..."),
+    );
+
+    /// Or
+
+    if (dataState.hasData) {
+      saveUserData(dataState.data!);
+    } else if (dataState.hasError) {
+      // Do something else
+    }
+  }
+
+  saveUserData(UserData userData) async {
+   final dataState = await _useCases.saveUserData.call(userData);
+
+   if (dataState.hasData) {
+      // Do something
+    } else if (dataState.hasError) {
+      // Do something else
+    }
+  }
 }
 ```
 
@@ -400,13 +441,26 @@ if(dataState.hasData) {
 
 ```mermaid
 graph TD
-    A[UI] --> B[AuthRepository.login()]
-    B -->|check internet| C[InternetService]
-    B -->|calls| D[remoteDataSource.login()]
-    D --> E[requestApi() via DioClient]
-    E --> F[Handles structured response]
-    F -->|success| G[SuccessState<User>]
-    F -->|failure| H[FailureState]
+   A[UI] --> B[LoginCubit]
+    B --> C[LoginUseCase]
+    B --> D[SaveUserDataUseCase]
+    C --> E[AuthRepository]
+    D --> E[AuthRepository]
+
+    %% Remote Data Flow
+    E -->|check internet| F[InternetService]
+    E -->|calls| G[AuthRemoteDataSource.login]
+    G --> H[Request API via DioClient]
+    H --> I[Handles API Response]
+    I -->|success| J[SuccessState]
+    I -->|failure| K[FailureState]
+
+    %% Local Data Flow
+    E -->|calls| L[AuthLocalDataSource.saveUserData]
+    L --> M[Request LocalDB via LocalDatabaseService]
+    M --> N[Handles LocalDB Response]
+    N -->|success| O[SuccessState]
+    N -->|failure| P[FailureState]
 ```
 
 ---
