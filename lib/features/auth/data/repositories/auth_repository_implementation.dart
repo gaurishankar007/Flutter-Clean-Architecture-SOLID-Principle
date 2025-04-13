@@ -3,9 +3,9 @@ import 'package:injectable/injectable.dart';
 import '../../../../core/data/errors/data_handler.dart';
 import '../../../../core/services/internet/internet_service.dart';
 import '../../../../core/utils/type_defs.dart';
-import '../../domain/requests/login_request.dart';
 import '../../domain/entities/user_data.dart';
 import '../../domain/repositories/auth_repository.dart';
+import '../../domain/requests/login_request.dart';
 import '../data_sources/auth_local_data_source.dart';
 import '../data_sources/auth_remote_data_source.dart';
 
@@ -23,7 +23,7 @@ class AuthRepositoryImplementation implements AuthRepository {
 
   @override
   FutureData<UserData> login(LoginRequest request) {
-    return DataHandler.guardNetwork(
+    return DataHandler.fetchWithFallback(
       internet.isConnected,
       remoteCallback: () => remoteDataSource.login(request),
     );
@@ -38,7 +38,7 @@ class AuthRepositoryImplementation implements AuthRepository {
 
   @override
   FutureBool checkAUth() {
-    return DataHandler.guardNetwork(
+    return DataHandler.fetchWithFallback(
       internet.isConnected,
       remoteCallback: () => remoteDataSource.checkAUth(),
     );

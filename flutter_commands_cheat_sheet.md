@@ -43,6 +43,7 @@ A collection of essential and frequently used Flutter commands to boost your pro
 
 ## 5. Test
 
+- ✅ `flutter analyze`: Analyze the Flutter project for potential issues.
 - ✅ `flutter test`: Run Flutter tests.
 - ✅ `flutter test integration_test`: Perform integration tests.
 - ✅ `flutter test --coverage`: Generate test coverage reports.
@@ -58,8 +59,32 @@ A collection of essential and frequently used Flutter commands to boost your pro
 
 ## 7. Run Project
 
-- ✅ `flutter run`: Run the Flutter project.
-- ✅ `flutter run --flavor dev --target lib/main_dev.dart`: Run the Flutter project with a specific flavor and target file.
+- 🔧 Debug Mode
+
+  - ✅ `flutter run`: Run the project (debug mode by default).
+  - ✅ `flutter run --debug`: Run in debug mode.
+  - ✅ `flutter run --debug -d android/ios/chrome`: Run in debug mode on Android or iOS or Web (chrome).
+
+- 🧪 Profile Mode
+
+  - ✅ `flutter run --profile`: Run in profile mode.
+  - ✅ `flutter run --profile -d android/ios/chrome`: Run in profile mode on Android or iOS or Web (chrome).
+
+- 📦 Release Mode
+
+  - ✅ `flutter run --release`: Run in release mode.
+  - ✅ `flutter run --release -d android/ios/chrome`: Run in release mode on Android or iOS or Web (chrome).
+
+- 🍦 Flavors
+
+  - ✅ `flutter run --flavor production --target lib/main_prod.dart`: Run the project with "production" flavor.
+  - ✅ `flutter run --flavor staging --target lib/main_stg.dart -d android/ios/macos`: Run "staging" flavor on Android or iOS or macOS.
+  - ✅ `flutter run --flavor development --target lib/main_dev.dart -d android/ios/macos`: Run "development" flavor on Android or iOS or macOS.
+
+- 🌐 Web Specific Options
+
+  - ✅ `flutter run -d chrome --web-browser-flag "--disable-web-security"`: Run on Chrome with web security disabled.
+  - ✅ `flutter run -d chrome --web-browser-flag "--disable-web-security" --web-browser-flag "--disable-site-isolation-trials"`: Run on Chrome with multiple browser flags.
 
 ---
 
@@ -76,19 +101,32 @@ A collection of essential and frequently used Flutter commands to boost your pro
 - ✅ `flutter build appbundle --release`: Build an app bundle for Play Store uploads.
 - ✅ `flutter build apk --release --dart-define API_KEY=some-api-key`: Build an APK with an environment variable.
 - ✅ `flutter build apk --release --flavor stg --target lib/main_stg.dart`: Build an APK for a specific flavor and target.
+- ✅ `flutter build ios --release`: Build a release version of the iOS app. Generates the .app bundle but does not create an .ipa file. Typically used for testing or archiving via Xcode.
+- ✅ `flutter build ipa`: Build a distributable .ipa file for TestFlight or App Store submission. This includes the .app inside a zipped .ipa.
+- ✅ `flutter build ipa --no-codesign`: Same as above, but skips code signing. Useful for CI/CD pipelines or unsigned builds.
 - ✅ `flutter build web`: Deploy Flutter apps as web applications.
 - ✅ `flutter build windows`: Create an executable file (.exe) for running the app on Windows.
 
+## 10. Analyze Build Size
+
+- ✅ `flutter build apk --analyze-size --target-platform=android-arm64`: Analyzes APK size for ARM64 architecture. You can also specify android-arm, android-arm64, android-x64, or a comma-separated list for multiple architectures.
+- ✅ `flutter build appbundle --analyze-size --target-platform=android-arm64`: Analyzes Android App Bundle (AAB) size for the specified architecture(s), useful for Play Store distribution.
+- ✅ `flutter build ios --analyze-size`: Analyzes the iOS app size in release mode. Must be run on macOS with Xcode installed.
+- ✅ `flutter build ipa --no-codesign --analyze-size`: Builds an unsigned .ipa file and analyzes its size. Useful for CI pipelines or when skipping code signing.
+- ✅ `flutter build linux --analyze-size`: Analyzes the release build size of the Linux desktop app.
+- ✅ `flutter build macos --analyze-size`: Analyzes the release build size of the macOS desktop app.
+- ✅ `flutter build windows --analyze-size`: Analyzes the release build size of the Windows desktop app.
+
 ---
 
-## 10. Localization
+## 11. Localization
 
 - ✅ `flutter gen-l10n`: Generates localization files based on configuration defined in the l10n.yaml.
 - ✅ `flutter gen-l10n --arb-dir=lib/l10n --template-arb-file=app_en.arb --output-localization-file=app_localizations.dart --output-dir=lib/l10n`: Generates localization files based on command lines arguments.
 
 ---
 
-## 11. Shorebird
+## 12. Shorebird
 
 - ✅ `shorebird doctor`: Check Shorebird installation and environment setup.
 - ✅ `shorebird doctor --verbose`: View more details like the Java version used by Shorebird.
@@ -103,7 +141,7 @@ A collection of essential and frequently used Flutter commands to boost your pro
 
 ---
 
-## 12. Mason CLI
+## 13. Mason CLI
 
 - ✅ `dart pub global activate mason_cli`: Activate mason cli globally.
 - ✅ `mason init`: Initialize a Mason project.
@@ -119,7 +157,7 @@ A collection of essential and frequently used Flutter commands to boost your pro
 
 ---
 
-## 13. Build Essential files before releasing android app to Google Play
+## 14. Build Essential files before releasing android app to Google Play
 
 - ✅ `keytool -genkey -v -keystore upload-keystore.jks -storetype JKS -keyalg RSA -keysize 2048 -validity 10000 -alias upload`: Generate a keystore file to sign your APK.
 - ✅ `certutil -encode "keystore.jks" "keystore.b64"`: Generate the Base64 content of a .jks (Java Keystore) file and a .properties file on Windows for storing in GitHub Secrets.

@@ -23,7 +23,7 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
 
   @override
   FutureData<UserDataModel> login(LoginRequest request) {
-    return DataHandler.requestApi(
+    return DataHandler.safeApiCall(
       request: () => _dioClient.post(
         ApiEndpoint.login,
         data: request.toJson(),
@@ -37,7 +37,7 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
 
   @override
   FutureBool checkAUth() {
-    return DataHandler.requestApi(
+    return DataHandler.safeApiCall(
       request: () => _dioClient.get(ApiEndpoint.checkAuth),
       fromJson: (json) => true,
     );

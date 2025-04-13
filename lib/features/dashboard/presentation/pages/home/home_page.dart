@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../core/constants/app_color.dart';
 import '../../../../../core/constants/app_icon.dart';
-import '../../../../../core/services/user_data_service.dart';
+import '../../../../../core/services/app_session_service.dart';
 import '../../../../app/presentation/base_widgets/app_bar/app_bar_widget.dart';
 import '../../../../app/presentation/base_widgets/scaffold_widget.dart';
 import 'widgets/close_app_dialog.dart';
@@ -20,7 +20,7 @@ class HomePage extends StatelessWidget {
       onRefresh: () async {},
       appBar: AppBarWidget(
         leading: const Icon(AppIcon.user, size: 20, color: AppColor.base),
-        title: UserDataUtil.I.fullName,
+        title: AppSessionUtil.I.fullName,
         titleFontWeight: FontWeight.w600,
       ),
       isScrollable: false,

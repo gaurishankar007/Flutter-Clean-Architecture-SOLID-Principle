@@ -2,6 +2,7 @@ import 'dart:developer' show log;
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart' show kDebugMode;
+import 'package:flutter/services.dart' show PlatformException;
 
 import '../../utils/type_defs.dart';
 import '../api/api_response.dart';
@@ -15,89 +16,93 @@ part 'error_types.dart';
 class DataHandler {
   DataHandler._();
 
-  /// Checks internet connection before performing the task [remoteCallback].
-  /// If internet is available and the performed task is success state,
-  /// then performs another task [successCallback] if it is provided.
-  /// If internet is not available, performs another task [localCallback]
-  /// only if it is provided. Otherwise, it returns [NoInternetState]
-  static FutureData<T> guardNetwork<T>(
+  /// Executes [remoteCallback] if internet is available.
+  /// If successful and [successCallback] is provided, it gets called with the result.
+  /// If offline, executes [localCallback] if provided; otherwise returns [NoInternetState].
+  static FutureData<T> fetchWithFallback<T>(
     bool isInternetConnected, {
     required FutureData<T> Function() remoteCallback,
-    Function(T? data)? successCallback,
+    Function(T data)? successCallback,
     FutureData<T> Function()? localCallback,
   }) async {
-    /// If internet is available
     if (isInternetConnected) {
       final dataState = await remoteCallback();
-      if (successCallback != null && dataState.hasData) {
-        successCallback(dataState.data);
-      }
+      final data = dataState.data;
+
+      if (data != null && successCallback != null) successCallback(data);
       return dataState;
     }
 
-    /// If internet is not available
-    if (localCallback == null) return NoInternetState<T>();
-    return await localCallback();
+    return localCallback != null ? await localCallback() : NoInternetState();
   }
 
-  /// Handles Dio, Type, Format, and other errors while performing api request
-  /// and returns the respective [FailureState]. If there is no errors, then
-  /// returns [SuccessState].
+  /// Executes an API request while handling network errors, formatting issues,
+  /// and response parsing. Wraps the result in a [FutureData] state:
+  /// [SuccessState] on success, or an appropriate [FailureState] on error.
   ///
-  /// Type [T] is the function's return type and Type [R] is the fromJson
-  /// function return type. [T] and [R] could be the same if the function is
-  /// returning a model or [T] could be List<[R]> if the function is returning
-  /// a list of model.
-  static FutureData<T> requestApi<T, R>({
+  /// Type [T] is the final return type of the API call (e.g., a model or list of models).
+  /// Type [R] is the raw deserialization type used in [fromJson]. Typically, [T] and [R]
+  /// are the same when returning a single model. When returning a list of models,
+  /// [T] would be `List<R>`.
+  ///
+  /// Parameters:
+  /// - [request]: A function that performs the actual API request.
+  /// - [fromJson]: A deserialization function to convert JSON (Map) into an object of type [R].
+  /// - [isStandardResponse]: If `true`, assumes the API response is wrapped in a standard
+  ///   structure (e.g., `{ data: ..., message: ... }`) and extracts the inner `data` field.
+  /// - [staticData]: Optional custom value to return instead of processing the API response.
+  ///   Useful when you want to bypass parsing and directly return a predefined value.
+  static FutureData<T> safeApiCall<T, R>({
     required Future<Response> Function() request,
     R Function(MapDynamic json)? fromJson,
-    bool isStructuredResponse = true,
-    bool ignoreResponseData = false,
+    bool isStandardResponse = true,
+    T? staticData,
   }) {
-    return ErrorHandler.catchException(
-      () async {
-        final response = await request();
-        Object? apiRawData = response.data;
-        bool isSuccess = true;
-        String message = "";
-        T? data;
+    return ErrorHandler.catchException(() async {
+      final response = await request();
+      Object? rawData = response.data;
+      bool isSuccess = true;
+      String? message;
+      T? data;
 
-        /// Whether the response data is in a fixed structured format or not.
-        if (isStructuredResponse) {
-          ApiResponse apiResponse = ApiResponse.fromResponse(response);
-          isSuccess = apiResponse.success;
-          message = apiResponse.message;
-          apiRawData = apiResponse.data;
-        }
+      /// Handle standard API structure
+      if (isStandardResponse) {
+        ApiResponse apiResponse = ApiResponse.fromResponse(response);
+        isSuccess = apiResponse.success;
+        message = apiResponse.message;
+        rawData = apiResponse.data;
+      }
 
-        /// If api response did not succeeded
-        if (!isSuccess) {
-          return FailureState<T>(
-            message: message,
-            statusCode: response.statusCode,
-          );
-        } else if (fromJson != null) {
-          /// If response data is Map or List and not ignored
-          if (apiRawData is MapDynamic && !ignoreResponseData) {
-            data = fromJson(apiRawData) as T;
-          } else if (apiRawData is List && !ignoreResponseData) {
-            data = apiRawData.map((json) => fromJson(json)).toList() as T;
-          } else {
-            /// Return custom data if api data is neither map or list
-            data = fromJson({}) as T;
-          }
-        } else if (apiRawData is List) {
-          data = apiRawData.map((e) => e as R).toList() as T;
-        } else if (apiRawData is T) {
-          data = apiRawData;
-        }
-
-        return SuccessState(
-          data: data,
+      /// If api response did not succeeded
+      if (!isSuccess) {
+        return FailureState<T>(
           message: message,
           statusCode: response.statusCode,
         );
-      },
-    );
+      }
+      if (staticData != null) {
+        data = staticData;
+      } else if (fromJson != null) {
+        if (rawData is MapDynamic) {
+          data = fromJson(rawData) as T;
+        } else if (rawData is List) {
+          data = rawData.map((json) => fromJson(json)).toList() as T;
+        } else {
+          throw FormatException(
+            'Expected Map or List but got ${rawData.runtimeType}.',
+          );
+        }
+      } else if (rawData is List) {
+        data = rawData.map((e) => e as R).toList() as T;
+      } else if (rawData is T) {
+        data = rawData;
+      }
+
+      return SuccessState(
+        data: data,
+        message: message,
+        statusCode: response.statusCode,
+      );
+    });
   }
 }

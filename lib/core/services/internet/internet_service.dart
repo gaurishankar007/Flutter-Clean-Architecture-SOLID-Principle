@@ -6,16 +6,17 @@ import 'package:internet_connection_checker_plus/internet_connection_checker_plu
 
 abstract class InternetService {
   bool get isConnected;
-  StreamSubscription<InternetStatus>? get subscription;
+  Stream<InternetStatus>? get connectivityStream;
   Future<bool> checkConnection();
-  Future<void> checkAndListenConnectivity();
-  void cancelSubscription();
+  Future<void> subscribeConnectivity();
+  void unSubscriptionConnectivity();
 }
 
 /// Check whether the device is online or offline
 @LazySingleton(as: InternetService)
 class InternetServiceImplementation implements InternetService {
   final _internetConnection = InternetConnection();
+  Stream<InternetStatus>? _connectivityStream;
   StreamSubscription<InternetStatus>? _subscription;
   bool _connection = true;
 
@@ -23,27 +24,28 @@ class InternetServiceImplementation implements InternetService {
   bool get isConnected => _connection;
 
   @override
-  StreamSubscription<InternetStatus>? get subscription => _subscription;
+  Stream<InternetStatus>? get connectivityStream => _connectivityStream;
 
   @override
   Future<bool> checkConnection() async =>
       await _internetConnection.hasInternetAccess;
 
-  /// Checks weather internet is available or not
-  /// and listens to the connectivity changes
+  /// Creates a broadcast stream and updates internet status
   @override
-  checkAndListenConnectivity() async {
-    if (_subscription != null) return;
+  subscribeConnectivity() async {
+    /// Broadcasts a stream which can be listen multiple times
+    _connectivityStream ??=
+        _internetConnection.onStatusChange.asBroadcastStream();
 
-    /// Listen to connectivity changes
-    _subscription = _internetConnection.onStatusChange.listen((status) async {
-      _connection = await checkConnection();
-    });
+    /// Listen to internet status changes
+    _subscription ??= _connectivityStream?.listen(
+      (status) async => _connection = await checkConnection(),
+    );
   }
 
-  /// Stop listening to the connectivity changes
+  /// Stop listening to the internet status changes
   @override
-  cancelSubscription() => _subscription?.cancel();
+  unSubscriptionConnectivity() => _subscription?.cancel();
 }
 
 /// A util class for accessing [InternetService]

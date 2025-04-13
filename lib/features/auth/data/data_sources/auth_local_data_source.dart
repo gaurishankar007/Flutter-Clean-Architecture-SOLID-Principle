@@ -12,17 +12,21 @@ import '../models/user_data_model.dart';
 abstract class AuthLocalDataSource {
   FutureBool saveUserData(UserData userData);
   FutureData<UserDataModel> getUserData();
+  FutureBool removeUserData();
 }
 
 @LazySingleton(as: AuthLocalDataSource)
 class AuthLocalDataSourceImplementation implements AuthLocalDataSource {
-  final LocalDatabaseService localDatabase;
-  AuthLocalDataSourceImplementation({required this.localDatabase});
+  final LocalDatabaseService _localDatabase;
+
+  const AuthLocalDataSourceImplementation({
+    required LocalDatabaseService localDatabase,
+  }) : _localDatabase = localDatabase;
 
   @override
   FutureBool saveUserData(UserData userData) async {
     return ErrorHandler.catchException(() async {
-      localDatabase.setString("userData", jsonEncode(userData.toJson()));
+      _localDatabase.setString("userData", jsonEncode(userData.toJson()));
       return const SuccessState(data: true);
     });
   }
@@ -30,7 +34,7 @@ class AuthLocalDataSourceImplementation implements AuthLocalDataSource {
   @override
   FutureData<UserDataModel> getUserData() async {
     return ErrorHandler.catchException(() async {
-      String userData = await localDatabase.getString("userData") ?? "";
+      String userData = await _localDatabase.getString("userData") ?? "";
 
       if (userData.isNotEmpty) {
         final userDataModel = UserDataModel.fromJson(jsonDecode(userData));
@@ -38,6 +42,14 @@ class AuthLocalDataSourceImplementation implements AuthLocalDataSource {
       }
 
       return const FailureState<UserDataModel>(message: "User data not found.");
+    });
+  }
+
+  @override
+  FutureBool removeUserData() {
+    return ErrorHandler.catchException(() async {
+      await _localDatabase.remove("userData");
+      return const SuccessState(data: true);
     });
   }
 }

@@ -1,4 +1,3 @@
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 part 'screen_type.dart';
@@ -8,27 +7,25 @@ class ScreenUtil {
   ScreenUtil._();
   static final ScreenUtil _singleton = ScreenUtil._();
 
-  /// Returns an object of [ScreenUtil] which is always the same
   factory ScreenUtil() => _singleton;
-
-  /// Returns an object of [ScreenUtil] which is always the same
   static ScreenUtil get I => ScreenUtil();
 
   double _width = 0;
   double _height = 0;
-  double _statusBarHeight = 0;
-  bool isTablet = false;
+  bool _isTablet = false;
   ScreenType _screenType = ScreenType.medium;
+  double _statusBarHeight = 0;
 
   double get height => _height;
   double get width => _width;
-
-  /// Height of the system top status bar
-  double get statusBarHeight => _statusBarHeight;
+  bool get isTablet => _isTablet;
 
   /// Screen type according to the width
   ///* small, medium, large, extraLarge
   ScreenType get screenType => _screenType;
+
+  /// Height of the system top status bar
+  double get statusBarHeight => _statusBarHeight;
 
   /// Set screen dimensions, orientation, screen type, etc.
   configureScreen(Size size) {
@@ -36,28 +33,13 @@ class ScreenUtil {
     _width = size.width;
     _statusBarHeight = 0;
 
-    _isTablet();
     _checkScreenType();
-
-    /// Setting orientation for the device
-    final orientation = isTablet
-        ? DeviceOrientation.landscapeLeft
-        : DeviceOrientation.portraitUp;
-    SystemChrome.setPreferredOrientations([orientation]);
-  }
-
-  /// Check whether the device is tablet or smartphone
-  _isTablet() {
-    final flutterView = WidgetsBinding.instance.platformDispatcher.views.first;
-
-    /// Checking if device is smartphone or tablet
-    double shortestSide =
-        flutterView.physicalSize.shortestSide / flutterView.devicePixelRatio;
-    isTablet = shortestSide > 600;
   }
 
   /// Check screen size according to the width
   _checkScreenType() {
+    _checkForTablet();
+
     if (_width <= 360) {
       _screenType = ScreenType.small;
     } else if (_width > 360 && _width <= 540) {
@@ -67,6 +49,16 @@ class ScreenUtil {
     } else {
       _screenType = ScreenType.extraLarge;
     }
+  }
+
+  /// Check whether the device is tablet or smartphone
+  _checkForTablet() {
+    final flutterView = WidgetsBinding.instance.platformDispatcher.views.first;
+
+    /// Checking if device is smartphone or tablet
+    double shortestSide =
+        flutterView.physicalSize.shortestSide / flutterView.devicePixelRatio;
+    _isTablet = shortestSide > 600;
   }
 
   /// Get the required number within the limitation
@@ -154,6 +146,10 @@ class ScreenUtil {
     if (screenType != ScreenType.small) return widthPercentage(5.55, max: 20);
     return 12;
   }
+
+  /// Width of the screen excluding left and right screen padding
+  double availableWidth({double extraSpace = 0}) =>
+      width - (horizontalPadding * 2) - extraSpace;
 
   /// Page padding
   EdgeInsets pagePadding({double? topPadding, double? bottomPadding}) =>

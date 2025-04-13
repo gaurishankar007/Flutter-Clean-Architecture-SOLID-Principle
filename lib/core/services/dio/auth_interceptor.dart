@@ -17,7 +17,7 @@ class AuthInterceptor extends Interceptor {
   /// token is expired, each requests are retried after refreshing token
   final List<DioRequestData> _pendingRequests = [];
 
-  final UserDataService userDataService;
+  final AppSessionService userDataService;
 
   AuthInterceptor({required this.userDataService});
 
@@ -89,9 +89,9 @@ class AuthInterceptor extends Interceptor {
         return true;
       }
     } on DioException catch (_) {
-      userDataService.logOut();
+      userDataService.clearSessionData();
     } catch (error) {
-      userDataService.logOut();
+      userDataService.clearSessionData();
       if (kDebugMode) log("Token refresh: ${error.toString()}");
     }
 

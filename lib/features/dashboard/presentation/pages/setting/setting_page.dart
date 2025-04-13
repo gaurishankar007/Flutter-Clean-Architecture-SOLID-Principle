@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/constants/app_color.dart';
-import '../../../../../core/services/user_data_service.dart';
+import '../../../../../core/services/app_session_service.dart';
 import '../../../../../core/utils/ui_helper.dart';
 import '../../../../app/presentation/base_widgets/action/primary_button_widget.dart';
 import '../../../../app/presentation/base_widgets/scaffold_widget.dart';
@@ -31,7 +31,7 @@ class SettingPage extends StatelessWidget {
                 const SettingItemsWidget(),
                 const Spacer(),
                 PrimaryButtonWidget(
-                  onTap: UserDataUtil.I.logOut,
+                  onTap: AppSessionUtil.I.clearSessionData,
                   text: "Logout",
                   color: AppColor.error,
                   expandWidth: true,

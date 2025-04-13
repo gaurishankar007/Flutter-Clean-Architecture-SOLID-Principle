@@ -9,14 +9,15 @@ const String CHECK_INTERNET = "Please check your internet and try again.";
 enum ErrorType {
   unknown,
   typeError,
-  formatException,
+  formatError,
   isarError,
-  dioException,
+  firebaseError,
+  dioError,
   internetError,
   requestError,
   responseError,
-  tokenError,
   serverError,
+  tokenError,
 }
 
 /// A failure data state when error occurs
@@ -35,14 +36,26 @@ class FailureState<T> extends DataState<T> {
       );
 
   /// A failure data state when format exception occurs
-  factory FailureState.formatException() => const FailureState(
+  factory FailureState.formatError() => const FailureState(
         message: "Error occurred. Operation on unsupported data format.",
-        errorType: ErrorType.formatException,
+        errorType: ErrorType.formatError,
       );
 
   /// A failure data state when isar error occurs
   factory FailureState.isarError(String errorMessage) =>
       FailureState(message: errorMessage, errorType: ErrorType.isarError);
+
+  /// A failure data state when firebase exception occurs
+  factory FailureState.firebaseError(String errorMessage) =>
+      FailureState(message: errorMessage, errorType: ErrorType.firebaseError);
+
+  /// A failure data state when dio exception occurs
+  factory FailureState.dioError(String errorMessage, {int? statusCode}) =>
+      FailureState(
+        message: errorMessage,
+        errorType: ErrorType.dioError,
+        statusCode: statusCode,
+      );
 }
 
 /// A failure data state when error occurs in the server

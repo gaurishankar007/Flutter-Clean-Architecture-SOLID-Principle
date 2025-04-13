@@ -143,9 +143,7 @@ lib/
 │   │   └── user_data_service.dart
 │   ├── utils/
 │   │   ├── base_cubit/
-│   │   │   ├── base_cubit_mixin.dart
 │   │   │   └── base_cubit.dart
-│   │   │   └── state_status.dart
 │   │   ├── extensions/
 │   │   │   ├── build_context_extension.dart
 │   │   │   ├── double_extension.dart
@@ -159,6 +157,7 @@ lib/
 │   │   ├── use_case/
 │   │   │   └── use_case.dart
 │   │   ├── debounce_time.dart
+│   │   ├── service_mixin.dart
 │   │   ├── type_defs.dart
 │   │   ├── ui_helper.dart
 │   │   └── validator.dart

@@ -15,11 +15,11 @@ class StgDioClientImplementation implements DioClient {
   final Dio _dio = Dio();
 
   StgDioClientImplementation({
-    required AppConfiguration appConfig,
+    required AppConfiguration appConfiguration,
     required AuthInterceptor authInterceptor,
   }) {
     _dio.options = BaseOptions(
-      baseUrl: appConfig.apiBaseUrl,
+      baseUrl: appConfiguration.apiBaseUrl,
       connectTimeout: const Duration(seconds: 15),
       receiveTimeout: const Duration(seconds: 15),
       sendTimeout: const Duration(seconds: 15),

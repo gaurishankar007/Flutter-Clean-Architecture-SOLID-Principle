@@ -1,19 +1,17 @@
-import 'dart:developer';
-
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../config/routes/routes.dart';
+import '../../data/errors/data_handler.dart';
 
 abstract class NavigationService {
   RouterDelegate<Object>? get routerDelegate;
   RouteInformationParser<Object>? get routeInformationParser;
   GlobalKey<NavigatorState> get navigatorKey;
   Future popPage<T extends Object?>([T? result]);
-  replaceRoute(PageRouteInfo<dynamic> route);
+  replaceAllRoute(PageRouteInfo<dynamic> route);
   pushRoute(PageRouteInfo<dynamic> route);
 }
 
@@ -41,11 +39,11 @@ class NavigationServiceImplementation implements NavigationService {
 
   /// Replace all previous routes the new route
   @override
-  replaceRoute(PageRouteInfo<dynamic> route) async {
+  replaceAllRoute(PageRouteInfo<dynamic> route) async {
     try {
-      return await _appRouter.replaceAll([route]);
+      await _appRouter.replaceAll([route]);
     } catch (error, stackTrace) {
-      _debugError(error, stackTrace);
+      ErrorHandler.debugError(error, stackTrace);
     }
   }
 
@@ -53,19 +51,9 @@ class NavigationServiceImplementation implements NavigationService {
   @override
   pushRoute(PageRouteInfo<dynamic> route) async {
     try {
-      return await _appRouter.push(route);
+      await _appRouter.push(route);
     } catch (error, stackTrace) {
-      _debugError(error, stackTrace);
-    }
-  }
-
-  static _debugError(Object? error, StackTrace? stackTrace) {
-    if (kDebugMode) {
-      log(
-        "<--------- Caught Exception ---------->",
-        error: error,
-        stackTrace: stackTrace,
-      );
+      ErrorHandler.debugError(error, stackTrace);
     }
   }
 }

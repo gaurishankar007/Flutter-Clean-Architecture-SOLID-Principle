@@ -9,18 +9,18 @@ class ProdDioClientImplementation implements DioClient {
   final Dio _dio = Dio();
 
   ProdDioClientImplementation({
-    required AppConfiguration appConfig,
-    required AuthInterceptor authenticationInterceptor,
+    required AppConfiguration appConfiguration,
+    required AuthInterceptor authInterceptor,
   }) {
     _dio.options = BaseOptions(
-      baseUrl: appConfig.apiBaseUrl,
+      baseUrl: appConfiguration.apiBaseUrl,
       connectTimeout: const Duration(seconds: 15),
       receiveTimeout: const Duration(seconds: 15),
       sendTimeout: const Duration(seconds: 15),
       headers: {"Content-Type": "application/json"},
     );
 
-    _dio.interceptors.add(authenticationInterceptor);
+    _dio.interceptors.add(authInterceptor);
   }
 
   @override

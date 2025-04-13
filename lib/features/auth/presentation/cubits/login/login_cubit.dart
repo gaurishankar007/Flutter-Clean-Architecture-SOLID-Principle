@@ -74,6 +74,6 @@ class LoginCubit extends BaseCubit<LoginState> {
     if (_saveUserCredential) {
       await _useCases.saveUserData.call(dataState.data!);
     }
-    replaceRoute(const HomeRoute());
+    replaceAllRoute(const HomeRoute());
   }
 }
