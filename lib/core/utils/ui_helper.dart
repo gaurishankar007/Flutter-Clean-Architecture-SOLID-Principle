@@ -48,7 +48,7 @@ class UIHelper {
   static const maxFiniteHSpace = SizedBox(width: double.maxFinite);
 
   /// Horizontal Space = screen padding
-  static final screenHSpace = SizedBox(width: ScreenUtil.I.horizontalPadding);
+  static final screenHSpace = SizedBox(width: ScreenUtil.I.horizontalSpace);
 
   //<========== Vertical Spacing ==========>
   /// Vertical Space = 4
@@ -87,7 +87,7 @@ class UIHelper {
 
   /// All Padding = screen padding
   static final screenAllPadding =
-      EdgeInsets.all(ScreenUtil.I.horizontalPadding);
+      EdgeInsets.all(ScreenUtil.I.horizontalSpace);
 
   //<========== Horizontal Padding ==========>
   /// Horizontal Padding = 12
@@ -100,7 +100,7 @@ class UIHelper {
 
   /// Horizontal Padding = screen horizontal padding
   static final screenHPadding =
-      EdgeInsets.symmetric(horizontal: ScreenUtil.I.horizontalPadding);
+      EdgeInsets.symmetric(horizontal: ScreenUtil.I.horizontalSpace);
 
   //<========== Vertical Padding ==========>
   /// Vertical Padding = 4
@@ -160,7 +160,7 @@ class UIHelper {
 
   /// Symmetric Padding = screen horizontal padding, 16 vertical
   static final screenHsMediumVPadding = EdgeInsets.symmetric(
-    horizontal: ScreenUtil.I.horizontalPadding,
+    horizontal: ScreenUtil.I.horizontalSpace,
     vertical: Space.sMedium.value,
   );
 
@@ -170,7 +170,7 @@ class UIHelper {
 
   /// Left Padding = screen horizontal padding
   static final screenLPadding = EdgeInsets.only(
-    left: ScreenUtil.I.horizontalPadding,
+    left: ScreenUtil.I.horizontalSpace,
   );
 
   //<========== Top Padding ==========>
@@ -186,7 +186,7 @@ class UIHelper {
 
   /// Right Padding = screen horizontal Padding
   static final screenRPadding = EdgeInsets.only(
-    right: ScreenUtil.I.horizontalPadding,
+    right: ScreenUtil.I.horizontalSpace,
   );
 
   //<========== Top Bottom Padding ==========>
@@ -284,9 +284,9 @@ class UIHelper {
   /// Only padding = left, right = screen horizontal padding, top, bottom = 16
   static screenLR({double? top, double? bottom}) => EdgeInsets.only(
         top: top ?? Space.sMedium.value,
-        right: ScreenUtil.I.horizontalPadding,
+        right: ScreenUtil.I.horizontalSpace,
         bottom: bottom ?? Space.sMedium.value,
-        left: ScreenUtil.I.horizontalPadding,
+        left: ScreenUtil.I.horizontalSpace,
       );
 
   //<========== Border Radius ==========>

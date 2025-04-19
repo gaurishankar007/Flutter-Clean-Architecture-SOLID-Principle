@@ -10,14 +10,18 @@ class CleanArchitectureSample extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.I.configureScreen(MediaQuery.of(context).size);
+    return LayoutBuilder(
+      builder: (context, constraint) {
+        ScreenUtil.I.configureScreen(constraint.biggest);
 
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      title: AppConfigurationUtil.I.appTitle,
-      theme: lightTheme,
-      routerDelegate: NavigationUtil.I.routerDelegate,
-      routeInformationParser: NavigationUtil.I.routeInformationParser,
+        return MaterialApp.router(
+          debugShowCheckedModeBanner: false,
+          title: AppConfigurationUtil.I.appTitle,
+          theme: lightTheme,
+          routerDelegate: NavigationUtil.I.routerDelegate,
+          routeInformationParser: NavigationUtil.I.routeInformationParser,
+        );
+      },
     );
   }
 }

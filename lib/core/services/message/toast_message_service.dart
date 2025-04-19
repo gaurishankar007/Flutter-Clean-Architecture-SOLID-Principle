@@ -7,9 +7,9 @@ import '../../../features/app/presentation/base_widgets/text/text_widget.dart';
 import '../../constants/app_color.dart';
 import '../../data/states/data_state.dart';
 import '../../utils/ui_helper.dart';
+import '../navigation/navigation_service.dart';
 
 abstract class ToastMessageService {
-  setContext(BuildContext context);
   showSuccess(String message, {Duration? duration});
   showError(String message, {Duration? duration});
   showDataStateToast(DataState dataState, {String message = ""});
@@ -17,34 +17,27 @@ abstract class ToastMessageService {
 
 @LazySingleton(as: ToastMessageService)
 class ToastMessageServiceImplementation implements ToastMessageService {
-  BuildContext? _context;
   final _toastSetting = const SlidingToastSetting(
-    displayDuration: Duration(seconds: 2),
+    displayDuration: Duration(milliseconds: 2500),
     toastStartPosition: ToastPosition.top,
     toastAlignment: Alignment.topCenter,
   );
-  final EdgeInsets _padding = UIHelper.xSmallAllPadding;
+  final EdgeInsets _padding = UIHelper.smallAllPadding;
   final BoxShadow _boxShadow = const BoxShadow(
     color: AppColor.black05,
-    spreadRadius: 2,
-    blurRadius: 4,
+    spreadRadius: 1,
+    blurRadius: 3,
   );
-
-  /// Configure context for toast message,
-  /// so that it can be shown without context later.
-  @override
-  setContext(BuildContext context) => _context = context;
 
   @override
   showSuccess(String message, {Duration? duration}) {
-    if (_context == null) return;
     InteractiveToast.slide(
-      _context!,
+      overlayState: NavigationUtil.I.navigatorKey.currentState?.overlay,
       title: Text(message),
       trailing: const Icon(
         Icons.check_circle_rounded,
         color: AppColor.green500,
-        size: 25,
+        size: 20,
       ),
       toastSetting: _toastSetting.copyWith(displayDuration: duration),
       toastStyle: ToastStyle(
@@ -57,14 +50,13 @@ class ToastMessageServiceImplementation implements ToastMessageService {
 
   @override
   showError(String message, {Duration? duration}) {
-    if (_context == null) return;
     InteractiveToast.slide(
-      _context!,
+      overlayState: NavigationUtil.I.navigatorKey.currentState?.overlay,
       title: TextWidget(message),
       trailing: const Icon(
         Icons.warning_rounded,
         color: AppColor.red600,
-        size: 25,
+        size: 20,
       ),
       toastSetting: _toastSetting.copyWith(displayDuration: duration),
       toastStyle: ToastStyle(

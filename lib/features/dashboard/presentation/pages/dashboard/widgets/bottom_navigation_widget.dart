@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../core/constants/app_color.dart';
 import '../../../../../../core/constants/app_icon.dart';
-import '../../../../../../core/utils/screen_util/screen_util.dart';
 import '../../../../../../core/utils/ui_helper.dart';
 import '../../../../../app/presentation/base_widgets/action/icon_button_widget.dart';
 import '../../../cubits/dashboard/dashboard_cubit.dart';
@@ -19,7 +18,7 @@ class BottomNavigationWidget extends StatelessWidget {
     ];
 
     return Container(
-      height: ScreenUtil.I.bottomNavigationHeight,
+      height: 50,
       width: double.maxFinite,
       decoration: BoxDecoration(
         color: AppColor.white,

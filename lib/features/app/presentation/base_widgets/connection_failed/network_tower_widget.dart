@@ -11,7 +11,7 @@ class NetworkTowerWidget extends StatelessWidget {
     const purpleAccent = Colors.purpleAccent;
 
     return Container(
-      padding: EdgeInsets.all(ScreenUtil.I.widthPercentage(8)),
+      padding: EdgeInsets.all(ScreenUtil.I.widthPart(8)),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
@@ -21,7 +21,7 @@ class NetworkTowerWidget extends StatelessWidget {
         shape: BoxShape.circle,
       ),
       child: Container(
-        padding: EdgeInsets.all(ScreenUtil.I.widthPercentage(6.5)),
+        padding: EdgeInsets.all(ScreenUtil.I.widthPart(6.5)),
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
@@ -34,7 +34,7 @@ class NetworkTowerWidget extends StatelessWidget {
           shape: BoxShape.circle,
         ),
         child: Container(
-          padding: EdgeInsets.all(ScreenUtil.I.widthPercentage(5)),
+          padding: EdgeInsets.all(ScreenUtil.I.widthPart(5)),
           decoration: BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topCenter,
@@ -44,8 +44,8 @@ class NetworkTowerWidget extends StatelessWidget {
             shape: BoxShape.circle,
           ),
           child: Container(
-            height: ScreenUtil.I.widthPercentage(35),
-            width: ScreenUtil.I.widthPercentage(35),
+            height: ScreenUtil.I.widthPart(35),
+            width: ScreenUtil.I.widthPart(35),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               gradient: const LinearGradient(
@@ -63,7 +63,7 @@ class NetworkTowerWidget extends StatelessWidget {
             ),
             child: Icon(
               Icons.cell_tower_rounded,
-              size: ScreenUtil.I.widthPercentage(25),
+              size: ScreenUtil.I.widthPart(25),
               color: Colors.white,
             ),
           ),

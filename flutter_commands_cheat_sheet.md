@@ -38,6 +38,8 @@ A collection of essential and frequently used Flutter commands to boost your pro
 - ✅ `flutter pub remove <package_name>`: Removes a dependency from the pubspec.yaml file.
 - ✅ `flutter pub deps`: Lists all dependencies and their versions.
 - ✅ `flutter pub outdated`: Checks for outdated dependencies and lists them.
+  - ✅ `flutter pub publish --dry-run`: Check if everything passes analysis before publishing the package to pub.dev.
+  - ✅ `flutter pub publish`: Publish the package to pub.dev.
 
 ---
 

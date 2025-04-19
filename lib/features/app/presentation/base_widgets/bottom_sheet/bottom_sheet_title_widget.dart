@@ -7,10 +7,7 @@ class BottomSheetTitleWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: ScreenUtil.I.pagePadding(
-        topPadding: 16,
-        bottomPadding: 16,
-      ),
+      padding: ScreenUtil.I.pagePadding().copyWith(top: 16, bottom: 16),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

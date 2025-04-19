@@ -3,11 +3,11 @@ import '../screen_util/screen_util.dart';
 extension NumberExtension<T extends num> on T {
   /// Required percentage of height with limitation
   double heightPart({double? min, double? max}) =>
-      ScreenUtil.I.heightPercentage(toDouble(), min: min, max: max);
+      ScreenUtil.I.heightPart(toDouble(), min: min, max: max);
 
   /// Required percentage of width with limitation
   double widthPart({double? min, double? max}) =>
-      ScreenUtil.I.widthPercentage(toDouble(), min: min, max: max);
+      ScreenUtil.I.widthPart(toDouble(), min: min, max: max);
 
   /// Get the adaptive number according to the screen type with the lower and upper bound
   double bounded({
@@ -15,9 +15,9 @@ extension NumberExtension<T extends num> on T {
     double? lower,
     double? upper,
   }) =>
-      ScreenUtil.I.adaptiveNumBound(
+      ScreenUtil.I.adaptiveBound(
         baseScreen: baseScreen,
-        baseSize: toDouble(),
+        baseValue: toDouble(),
         lowerBound: lower,
         upperBound: upper,
       );

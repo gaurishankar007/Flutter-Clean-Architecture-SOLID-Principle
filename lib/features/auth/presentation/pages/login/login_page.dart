@@ -5,7 +5,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../../../../core/utils/extensions/string_extension.dart';
-import '../../../../../core/services/message/toast_message_service.dart';
 import '../../../../../core/utils/ui_helper.dart';
 import '../../../../app/presentation/base_widgets/scaffold_widget.dart';
 import '../../cubits/login/login_cubit.dart';
@@ -19,9 +18,6 @@ class LoginPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Set the context for the Toast Message
-    ToastMessageUtil.I.setContext(context);
-
     final usernameController =
         useTextEditingController(text: "username".debugOnly);
     final passwordController =

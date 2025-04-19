@@ -31,7 +31,7 @@ class AppBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // AppBar padding
-    double horizontalPadding = ScreenUtil.I.horizontalPadding;
+    double horizontalPadding = ScreenUtil.I.horizontalSpace;
     // AppBar leading height and width
     double leadingSize = 25;
     // The maximum width of the AppBar leading

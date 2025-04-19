@@ -12,13 +12,12 @@ class ScreenUtil {
 
   double _width = 0;
   double _height = 0;
-  bool _isTablet = false;
-  ScreenType _screenType = ScreenType.medium;
+  ScreenType _screenType = ScreenType.unknown;
   double _statusBarHeight = 0;
+  double _devicePixelRatio = 0;
 
   double get height => _height;
   double get width => _width;
-  bool get isTablet => _isTablet;
 
   /// Screen type according to the width
   ///* small, medium, large, extraLarge
@@ -27,38 +26,32 @@ class ScreenUtil {
   /// Height of the system top status bar
   double get statusBarHeight => _statusBarHeight;
 
+  /// Physical pixels on the screen ↔️ Logical (Flutter) pixels you work with.
+  ///
+  /// 🔍 Example:
+  ///
+  /// Let’s say you're working on a phone with:
+  /// - A screen resolution of 1080 × 1920 (physical pixels)
+  /// - And the screen size in Flutter is 360 × 640 logical pixels
+  /// - Then the devicePixelRatio = 1080 / 360 = 3.0
+  double get devicePixelRatio => _devicePixelRatio;
+
   /// Set screen dimensions, orientation, screen type, etc.
   configureScreen(Size size) {
     _height = size.height;
     _width = size.width;
     _statusBarHeight = 0;
-
-    _checkScreenType();
+    _devicePixelRatio =
+        WidgetsBinding.instance.platformDispatcher.views.first.devicePixelRatio;
+    _screenType = _checkScreenType();
   }
 
   /// Check screen size according to the width
-  _checkScreenType() {
-    _checkForTablet();
-
-    if (_width <= 360) {
-      _screenType = ScreenType.small;
-    } else if (_width > 360 && _width <= 540) {
-      _screenType = ScreenType.medium;
-    } else if (_width > 540 && _width <= 720) {
-      _screenType = ScreenType.large;
-    } else {
-      _screenType = ScreenType.extraLarge;
-    }
-  }
-
-  /// Check whether the device is tablet or smartphone
-  _checkForTablet() {
-    final flutterView = WidgetsBinding.instance.platformDispatcher.views.first;
-
-    /// Checking if device is smartphone or tablet
-    double shortestSide =
-        flutterView.physicalSize.shortestSide / flutterView.devicePixelRatio;
-    _isTablet = shortestSide > 600;
+  ScreenType _checkScreenType() {
+    if (width <= 360) return ScreenType.small;
+    if (width <= 540) return ScreenType.medium;
+    if (width <= 720) return ScreenType.large;
+    return ScreenType.extraLarge;
   }
 
   /// Get the required number within the limitation
@@ -69,7 +62,7 @@ class ScreenUtil {
   }
 
   /// Required percentage of height with limitation
-  double heightPercentage(double percentage, {double? min, double? max}) {
+  double heightPart(double percentage, {double? min, double? max}) {
     double height = percentage / 100 * _height;
     if (min == null && max == null) return height;
 
@@ -77,28 +70,25 @@ class ScreenUtil {
   }
 
   /// Required percentage of width with limitation
-  double widthPercentage(double percentage, {double? min, double? max}) {
+  double widthPart(double percentage, {double? min, double? max}) {
     double width = percentage / 100 * _width;
     if (min == null && max == null) return width;
 
     return _limitedNumber(width, min: min, max: max);
   }
 
-  /// Get the adaptive number size according to the screen type with the lower and upper bound
+  /// Get the adaptive value based on the screen type with the lower and upper bound
   /// * [baseScreen] is the screen type that the text size is designed for
-  double adaptiveNumBound({
-    required ScreenType baseScreen,
-    required double baseSize,
-    double? lowerBound,
-    double? upperBound,
+  T adaptiveBound<T>({
+    ScreenType baseScreen = ScreenType.large,
+    required T baseValue,
+    T? lowerBound,
+    T? upperBound,
   }) {
-    if (_screenType == baseScreen) return baseSize;
-    if (lowerBound == null && upperBound == null) return baseSize;
-
+    if (_screenType == baseScreen) return baseValue;
     // If the screen type is smaller than the base screen type
-    if (_screenType.index < baseScreen.index) return lowerBound ?? baseSize;
-
-    return upperBound ?? baseSize;
+    if (_screenType.index < baseScreen.index) return lowerBound ?? baseValue;
+    return upperBound ?? baseValue;
   }
 
   /// Get the adaptive number according to the screen type
@@ -135,28 +125,27 @@ class ScreenUtil {
     return baseValue - differenceValue;
   }
 
-  /// Button, TextField, DropdownButton adaptive height according to the screen type
-  double get actionHeight => 50;
-
-  /// Navigation Bar height
-  double get bottomNavigationHeight => 50;
-
-  /// Page horizontal padding in smartphones
-  double get horizontalPadding {
-    if (screenType != ScreenType.small) return widthPercentage(5.55, max: 20);
-    return 12;
+  /// Page horizontal padding
+  double get horizontalSpace {
+    /// If the screen is small or medium size
+    if (_width < 540) return widthPart(5.55, max: 20);
+    return 24;
   }
+
+  /// Page vertical padding
+  double get verticalSpace => _width < 540 ? 24 : 32;
+
+  /// View horizontal padding
+  EdgeInsets get horizontalPadding =>
+      EdgeInsets.symmetric(horizontal: horizontalSpace);
+
+  /// View padding
+  EdgeInsets pagePadding() => EdgeInsets.symmetric(
+        horizontal: horizontalSpace,
+        vertical: verticalSpace,
+      );
 
   /// Width of the screen excluding left and right screen padding
   double availableWidth({double extraSpace = 0}) =>
-      width - (horizontalPadding * 2) - extraSpace;
-
-  /// Page padding
-  EdgeInsets pagePadding({double? topPadding, double? bottomPadding}) =>
-      EdgeInsets.only(
-        left: horizontalPadding,
-        right: horizontalPadding,
-        top: topPadding ?? 8,
-        bottom: bottomPadding ?? 12,
-      );
+      width - (horizontalSpace * 2) - extraSpace;
 }

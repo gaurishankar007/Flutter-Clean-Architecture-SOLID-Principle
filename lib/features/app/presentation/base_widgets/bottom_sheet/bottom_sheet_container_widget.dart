@@ -19,7 +19,7 @@ class BottomSheetContainerWidget extends StatelessWidget {
     return Container(
       width: double.maxFinite,
       margin: margin,
-      padding: padding ?? ScreenUtil.I.pagePadding(topPadding: 12),
+      padding: padding ?? ScreenUtil.I.pagePadding().copyWith(top: 12),
       decoration: BoxDecoration(
         border: Border.symmetric(
           horizontal: BorderSide(

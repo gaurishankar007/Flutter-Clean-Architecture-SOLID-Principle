@@ -4,8 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../../../../core/constants/app_color.dart';
-import '../../../../../core/services/message/toast_message_service.dart';
-import '../../../../../core/utils/screen_util/screen_util.dart';
 import '../../cubits/dashboard/dashboard_cubit.dart';
 import 'widgets/bottom_navigation_widget.dart';
 
@@ -15,8 +13,6 @@ class DashboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ToastMessageUtil.I.setContext(context);
-
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -29,7 +25,7 @@ class DashboardPage extends StatelessWidget {
           children: [
             Padding(
               padding: EdgeInsets.only(
-                bottom: ScreenUtil.I.bottomNavigationHeight,
+                bottom: 50,
               ),
               child: const AutoRouter(),
             ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../core/constants/app_color.dart';
-import '../../../../../core/utils/screen_util/screen_util.dart';
 import '../../../../../core/utils/ui_helper.dart';
 import '../text/text_widget.dart';
 
@@ -30,7 +29,7 @@ class DropDownWidget<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: ScreenUtil.I.actionHeight,
+      height: 50,
       decoration: BoxDecoration(
         borderRadius: UIHelper.smallCRadius,
         border: Border.all(color: AppColor.border),
