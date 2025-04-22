@@ -93,10 +93,11 @@ lib/
 │
 ├── config/
 │   ├── routes/
+│   │   ├── guards/
+│   │   │   ├── authenticated_guard.dart
 │   │   ├── helper/
-│   │   │   ├── auth_guard.dart
+│   │   │   ├── route_data.dart
 │   │   │   └── sliding_auto_route.dart
-│   │   ├── route_data.dart
 │   │   ├── routes.dart
 │   │   └── routes.gr.dart
 │   ├── theme/
@@ -140,7 +141,8 @@ lib/
 │   │   │   └── toast_message_service.dart
 │   │   ├── navigation/
 │   │   │   └── navigation_service.dart
-│   │   └── user_data_service.dart
+│   │   ├── session/
+│   │   │   └── session_manager.dart
 │   ├── utils/
 │   │   ├── base_cubit/
 │   │   │   └── base_cubit.dart

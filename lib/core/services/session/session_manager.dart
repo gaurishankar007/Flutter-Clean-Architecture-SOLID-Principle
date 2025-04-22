@@ -1,13 +1,13 @@
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../config/routes/routes.gr.dart';
-import '../../features/auth/data/data_sources/auth_local_data_source.dart';
-import '../../features/auth/data/models/user_data_model.dart';
-import '../../features/auth/domain/entities/user_data.dart';
-import 'navigation/navigation_service.dart';
+import '../../../config/routes/routes.gr.dart';
+import '../../../features/auth/data/data_sources/auth_local_data_source.dart';
+import '../../../features/auth/data/models/user_data_model.dart';
+import '../../../features/auth/domain/entities/user_data.dart';
+import '../navigation/navigation_service.dart';
 
-abstract class AppSessionService {
+abstract class SessionManager {
   bool get isLoggedIn;
   UserData get userData;
   String get refreshToken;
@@ -21,12 +21,12 @@ abstract class AppSessionService {
 }
 
 /// A class that stores user data
-@LazySingleton(as: AppSessionService)
-class AppSessionServiceImplementation implements AppSessionService {
+@LazySingleton(as: SessionManager)
+class SessionManagerImplementation implements SessionManager {
   final AuthLocalDataSource _authLocalDataSource;
   final NavigationService _navigationService;
 
-  AppSessionServiceImplementation({
+  SessionManagerImplementation({
     required AuthLocalDataSource authLocalDataSource,
     required NavigationService navigationService,
   })  : _authLocalDataSource = authLocalDataSource,
@@ -78,10 +78,10 @@ class AppSessionServiceImplementation implements AppSessionService {
   }
 }
 
-/// A util class for accessing [AppSessionService]
-class AppSessionUtil {
-  AppSessionUtil._();
+/// A util class for accessing [SessionManager]
+class SessionManagerUtil {
+  SessionManagerUtil._();
 
-  /// Returns the registered instance of [AppSessionService] which is always the same
-  static AppSessionService get I => GetIt.I<AppSessionService>();
+  /// Returns the registered instance of [SessionManager] which is always the same
+  static SessionManager get I => GetIt.I<SessionManager>();
 }

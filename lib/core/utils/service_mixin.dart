@@ -3,15 +3,15 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../features/auth/domain/entities/user_data.dart';
 import '../data/states/data_state.dart';
-import '../services/app_session_service.dart';
 import '../services/image_picker/image_picker_service.dart';
 import '../services/message/toast_message_service.dart';
 import '../services/navigation/navigation_service.dart';
+import '../services/session/session_manager.dart';
 
 mixin ServiceMixin {
   final _navigationService = NavigationUtil.I;
   final _toastService = ToastMessageUtil.I;
-  final _userDataService = AppSessionUtil.I;
+  final _sessionManager = SessionManagerUtil.I;
   final _imagePickerService = ImagePickerUtil.I;
 
   /// Navigation Service
@@ -33,7 +33,7 @@ mixin ServiceMixin {
       _toastService.showDataStateToast(dataState, message: message);
 
   /// User Data Service
-  setUserData(UserData model) => _userDataService.setUserData = model;
+  setUserData(UserData model) => _sessionManager.setUserData = model;
 
   /// Image Picker Service
   Future<String?> pickImage([ImageSource source = ImageSource.camera]) =>

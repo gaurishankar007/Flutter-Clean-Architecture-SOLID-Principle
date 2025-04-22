@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 
-import 'helper/auth_guard.dart';
-import 'route_data.dart';
+import 'guards/authenticated_guard.dart';
+import 'helper/route_data.dart';
 import 'routes.gr.dart';
 
 @AutoRouterConfig(replaceInRouteName: 'Page,Route')
@@ -16,7 +16,7 @@ class AppRouter extends RootStackRouter {
           path: DASHBOARD_PATH,
           page: DashboardRoute.page,
           initial: true,
-          guards: const [AuthGuard()],
+          guards: const [AuthenticatedGuard()],
           children: [
             AutoRoute(path: HOME_PATH, page: HomeRoute.page, initial: true),
             AutoRoute(path: SETTING_PATH, page: SettingRoute.page),

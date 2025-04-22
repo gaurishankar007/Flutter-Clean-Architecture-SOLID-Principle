@@ -10,7 +10,7 @@ import '../../data/api/api_response.dart';
 import '../../data/api/refresh_token_request.dart';
 import '../../data/api/refresh_token_response.dart';
 import '../../utils/type_defs.dart';
-import '../app_session_service.dart';
+import '../session/session_manager.dart';
 
 part 'auth_interceptor.dart';
 part 'dio_multi_part_client.dart';

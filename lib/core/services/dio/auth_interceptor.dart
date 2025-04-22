@@ -6,6 +6,7 @@ part of 'dio_client.dart';
 /// * Refresh tokens
 @LazySingleton()
 class AuthInterceptor extends Interceptor {
+  final SessionManager _sessionManager;
   final Dio _dio = Dio();
 
   /// This flag is to prevent multiple refresh token requests. If the request
@@ -17,16 +18,15 @@ class AuthInterceptor extends Interceptor {
   /// token is expired, each requests are retried after refreshing token
   final List<DioRequestData> _pendingRequests = [];
 
-  final AppSessionService userDataService;
-
-  AuthInterceptor({required this.userDataService});
+  AuthInterceptor({required SessionManager sessionManager})
+      : _sessionManager = sessionManager;
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     /// Add authorization token if the user is logged in
-    if (userDataService.isLoggedIn) {
+    if (_sessionManager.isLoggedIn) {
       options.headers.addAll({
-        "Authorization": "Bearer ${userDataService.accessToken}",
+        "Authorization": "Bearer ${_sessionManager.accessToken}",
       });
     }
 
@@ -73,7 +73,7 @@ class AuthInterceptor extends Interceptor {
   Future<bool> _refreshToken(RequestOptions requestOptions) async {
     try {
       final request = RefreshTokenRequest(
-        refreshToken: userDataService.refreshToken,
+        refreshToken: _sessionManager.refreshToken,
       );
       final response = await _dio.post(
         ApiEndpoint.refreshToken,
@@ -85,13 +85,13 @@ class AuthInterceptor extends Interceptor {
       ApiResponse<MapDynamic> apiResponse = ApiResponse.fromResponse(response);
       if (apiResponse.success) {
         final tokenResponse = RefreshTokenResponse.fromJson(apiResponse.data);
-        userDataService.refreshAccessToken(tokenResponse.accessToken);
+        _sessionManager.refreshAccessToken(tokenResponse.accessToken);
         return true;
       }
     } on DioException catch (_) {
-      userDataService.clearSessionData();
+      _sessionManager.clearSessionData();
     } catch (error) {
-      userDataService.clearSessionData();
+      _sessionManager.clearSessionData();
       if (kDebugMode) log("Token refresh: ${error.toString()}");
     }
 
@@ -102,7 +102,7 @@ class AuthInterceptor extends Interceptor {
     /// Reset authorization header
     requestOptions.headers.remove("Authorization");
     requestOptions.headers.addAll({
-      "Authorization": "Bearer ${userDataService.accessToken}",
+      "Authorization": "Bearer ${_sessionManager.accessToken}",
     });
 
     /// RequestOptions with the same method, path, data,

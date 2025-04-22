@@ -10,8 +10,6 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:clean_architecture/app_configuration.dart' as _i562;
-import 'package:clean_architecture/core/services/app_session_service.dart'
-    as _i532;
 import 'package:clean_architecture/core/services/bottom_sheet/bottom_sheet_service.dart'
     as _i883;
 import 'package:clean_architecture/core/services/database/isar_database_service.dart'
@@ -33,6 +31,8 @@ import 'package:clean_architecture/core/services/message/toast_message_service.d
     as _i957;
 import 'package:clean_architecture/core/services/navigation/navigation_service.dart'
     as _i1005;
+import 'package:clean_architecture/core/services/session/session_manager.dart'
+    as _i532;
 import 'package:clean_architecture/features/auth/data/data_sources/auth_local_data_source.dart'
     as _i322;
 import 'package:clean_architecture/features/auth/data/data_sources/auth_remote_data_source.dart'
@@ -104,13 +104,13 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i322.AuthLocalDataSource>(() =>
         _i322.AuthLocalDataSourceImplementation(
             localDatabase: gh<_i87.LocalDatabaseService>()));
-    gh.lazySingleton<_i532.AppSessionService>(
-        () => _i532.AppSessionServiceImplementation(
+    gh.lazySingleton<_i532.SessionManager>(
+        () => _i532.SessionManagerImplementation(
               authLocalDataSource: gh<_i322.AuthLocalDataSource>(),
               navigationService: gh<_i1005.NavigationService>(),
             ));
     gh.lazySingleton<_i495.AuthInterceptor>(() =>
-        _i495.AuthInterceptor(userDataService: gh<_i532.AppSessionService>()));
+        _i495.AuthInterceptor(sessionManager: gh<_i532.SessionManager>()));
     gh.lazySingleton<_i495.DioClient>(
       () => _i791.DevDioClientImplementation(
         appConfiguration: gh<_i562.AppConfiguration>(),
