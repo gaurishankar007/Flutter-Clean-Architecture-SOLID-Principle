@@ -72,6 +72,29 @@
       "program": "lib/main_prod.dart",
       "args": ["--flavor", "production", "--target", "lib/main_prod.dart"],
       "flutterMode": "release"
+    },
+    {
+      "name": "Debug-Web (Chrome)",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main_dev.dart",
+      "deviceId": "chrome",
+      "flutterMode": "debug",
+      "args": ["--web-hostname", "localhost", "--web-port 5000"]
+    },
+    {
+      "name": "Debug-Web (Chrome with CORS Disabled)",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main_dev.dart",
+      "deviceId": "chrome",
+      "flutterMode": "debug",
+      "args": [
+        "--web-browser-flag=--disable-web-security",
+        "--web-hostname",
+        "localhost",
+        "--web-port 5000"
+      ]
     }
   ]
 }
