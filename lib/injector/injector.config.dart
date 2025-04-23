@@ -9,7 +9,7 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:clean_architecture/app_configuration.dart' as _i562;
+import 'package:clean_architecture/app_config.dart' as _i562;
 import 'package:clean_architecture/core/services/bottom_sheet/bottom_sheet_service.dart'
     as _i883;
 import 'package:clean_architecture/core/services/database/isar_database_service.dart'
@@ -75,8 +75,8 @@ extension GetItInjectableX on _i174.GetIt {
       environment,
       environmentFilter,
     );
-    gh.lazySingleton<_i562.AppConfiguration>(
-      () => _i562.StgAppConfiguration(),
+    gh.lazySingleton<_i562.AppConfig>(
+      () => _i562.AppConfigStg(),
       registerFor: {_staging},
     );
     gh.lazySingleton<_i700.IsarDatabaseService>(
@@ -93,12 +93,12 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i662.InternetServiceImplementation());
     gh.lazySingleton<_i87.LocalDatabaseService>(
         () => _i87.LocalDatabaseServiceImplementation());
-    gh.lazySingleton<_i562.AppConfiguration>(
-      () => _i562.ProdAppConfiguration(),
+    gh.lazySingleton<_i562.AppConfig>(
+      () => _i562.AppConfigProd(),
       registerFor: {_production},
     );
-    gh.lazySingleton<_i562.AppConfiguration>(
-      () => _i562.DevAppConfiguration(),
+    gh.lazySingleton<_i562.AppConfig>(
+      () => _i562.AppConfigDev(),
       registerFor: {_development},
     );
     gh.lazySingleton<_i322.AuthLocalDataSource>(() =>
@@ -113,7 +113,7 @@ extension GetItInjectableX on _i174.GetIt {
         _i495.AuthInterceptor(sessionManager: gh<_i532.SessionManager>()));
     gh.lazySingleton<_i495.DioClient>(
       () => _i791.DevDioClientImplementation(
-        appConfiguration: gh<_i562.AppConfiguration>(),
+        appConfiguration: gh<_i562.AppConfig>(),
         authInterceptor: gh<_i495.AuthInterceptor>(),
       ),
       registerFor: {_development},
@@ -129,14 +129,14 @@ extension GetItInjectableX on _i174.GetIt {
             ));
     gh.lazySingleton<_i495.DioClient>(
       () => _i236.StgDioClientImplementation(
-        appConfiguration: gh<_i562.AppConfiguration>(),
+        appConfiguration: gh<_i562.AppConfig>(),
         authInterceptor: gh<_i495.AuthInterceptor>(),
       ),
       registerFor: {_staging},
     );
     gh.lazySingleton<_i495.DioClient>(
       () => _i265.ProdDioClientImplementation(
-        appConfiguration: gh<_i562.AppConfiguration>(),
+        appConfiguration: gh<_i562.AppConfig>(),
         authInterceptor: gh<_i495.AuthInterceptor>(),
       ),
       registerFor: {_production},

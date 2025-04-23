@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../app_configuration.dart';
+import '../../../app_config.dart';
 import 'dio_client.dart';
 
 @LazySingleton(as: DioClient, env: [Flavor.production])
@@ -9,7 +9,7 @@ class ProdDioClientImplementation implements DioClient {
   final Dio _dio = Dio();
 
   ProdDioClientImplementation({
-    required AppConfiguration appConfiguration,
+    required AppConfig appConfiguration,
     required AuthInterceptor authInterceptor,
   }) {
     _dio.options = BaseOptions(

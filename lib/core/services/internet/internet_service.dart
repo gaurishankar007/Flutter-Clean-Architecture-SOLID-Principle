@@ -8,8 +8,8 @@ abstract class InternetService {
   bool get isConnected;
   Stream<InternetStatus>? get connectivityStream;
   Future<bool> checkConnection();
-  Future<void> subscribeConnectivity();
-  void unSubscriptionConnectivity();
+  subscribeConnectivity();
+  unSubscriptionConnectivity();
 }
 
 /// Check whether the device is online or offline
@@ -32,7 +32,7 @@ class InternetServiceImplementation implements InternetService {
 
   /// Creates a broadcast stream and updates internet status
   @override
-  subscribeConnectivity() async {
+  subscribeConnectivity() {
     /// Broadcasts a stream which can be listen multiple times
     _connectivityStream ??=
         _internetConnection.onStatusChange.asBroadcastStream();

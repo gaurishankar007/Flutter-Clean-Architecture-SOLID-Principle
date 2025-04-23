@@ -11,21 +11,21 @@ class Flavor {
 }
 
 /// App configuration for different app flavors.
-class AppConfiguration {
+class AppConfig {
   final String appTitle;
   final String apiBaseUrl;
   final String flavor;
 
-  const AppConfiguration({
+  const AppConfig({
     required this.appTitle,
     required this.apiBaseUrl,
     required this.flavor,
   });
 }
 
-@LazySingleton(as: AppConfiguration, env: [Flavor.production])
-class ProdAppConfiguration extends AppConfiguration {
-  ProdAppConfiguration()
+@LazySingleton(as: AppConfig, env: [Flavor.production])
+class AppConfigProd extends AppConfig {
+  AppConfigProd()
       : super(
           appTitle: "Clean Architecture App",
           apiBaseUrl: dotenv.maybeGet("BASE_PRODUCTION") ??
@@ -34,9 +34,9 @@ class ProdAppConfiguration extends AppConfiguration {
         );
 }
 
-@LazySingleton(as: AppConfiguration, env: [Flavor.staging])
-class StgAppConfiguration extends AppConfiguration {
-  StgAppConfiguration()
+@LazySingleton(as: AppConfig, env: [Flavor.staging])
+class AppConfigStg extends AppConfig {
+  AppConfigStg()
       : super(
           appTitle: "Clean Architecture App Staging",
           apiBaseUrl:
@@ -45,9 +45,9 @@ class StgAppConfiguration extends AppConfiguration {
         );
 }
 
-@LazySingleton(as: AppConfiguration, env: [Flavor.development])
-class DevAppConfiguration extends AppConfiguration {
-  DevAppConfiguration()
+@LazySingleton(as: AppConfig, env: [Flavor.development])
+class AppConfigDev extends AppConfig {
+  AppConfigDev()
       : super(
           appTitle: "Clean Architecture App Development",
           apiBaseUrl: dotenv.maybeGet("BASE_DEVELOPMENT") ??
@@ -56,10 +56,10 @@ class DevAppConfiguration extends AppConfiguration {
         );
 }
 
-/// A util class for accessing [AppConfiguration]
-class AppConfigurationUtil {
-  AppConfigurationUtil._();
+/// A util class for accessing [AppConfig]
+class AppConfigUtil {
+  AppConfigUtil._();
 
-  /// Returns the registered instance of [AppConfiguration] which is always the same.
-  static AppConfiguration get I => GetIt.I<AppConfiguration>();
+  /// Returns the registered instance of [AppConfig] which is always the same.
+  static AppConfig get I => GetIt.I<AppConfig>();
 }

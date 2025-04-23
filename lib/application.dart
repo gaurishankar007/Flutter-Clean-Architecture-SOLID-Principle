@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'app_configuration.dart';
+import 'app_config.dart';
 import 'config/theme/theme.dart';
 import 'core/services/navigation/navigation_service.dart';
 import 'core/utils/screen_util/screen_util.dart';
@@ -16,7 +16,7 @@ class CleanArchitectureSample extends StatelessWidget {
 
         return MaterialApp.router(
           debugShowCheckedModeBanner: false,
-          title: AppConfigurationUtil.I.appTitle,
+          title: AppConfigUtil.I.appTitle,
           theme: lightTheme,
           routerDelegate: NavigationUtil.I.routerDelegate,
           routeInformationParser: NavigationUtil.I.routeInformationParser,

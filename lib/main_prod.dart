@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'app_configuration.dart';
+import 'app_config.dart';
+import 'app_initializer.dart';
 import 'application.dart';
-import 'service_initializer.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await initializeServices(environment: Flavor.production);
+  await AppInitializer.initializeApp(environment: Flavor.production);
 
   runApp(const CleanArchitectureSample());
 }

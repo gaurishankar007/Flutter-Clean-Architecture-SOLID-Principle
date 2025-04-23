@@ -1,82 +1,77 @@
 {
-  // Use IntelliSense to learn about possible attributes.
-  // Hover to view descriptions of existing attributes.
-  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "CleanArchitecture | Prod (debug mode)",
+      "name": "Debug-Dev",
       "request": "launch",
       "type": "dart",
-      "flutterMode": "debug",
-      "program": "lib/main_prod.dart",
-      "args": ["--flavor", "production", "--target", "lib/main_prod.dart"]
-    },
-    {
-      "name": "CleanArchitecture | Prod (profile mode)",
-      "request": "launch",
-      "type": "dart",
-      "flutterMode": "profile",
-      "program": "lib/main_prod.dart",
-      "args": ["--flavor", "production", "--target", "lib/main_prod.dart"]
-    },
-    {
-      "name": "CleanArchitecture | Prod (release mode)",
-      "request": "launch",
-      "type": "dart",
-      "flutterMode": "release",
-      "program": "lib/main_prod.dart",
-      "args": ["--flavor", "production", "--target", "lib/main_prod.dart"]
-    },
-
-    {
-      "name": "CleanArchitecture | Stg (debug mode)",
-      "request": "launch",
-      "type": "dart",
-      "flutterMode": "debug",
-      "program": "lib/main_stg.dart",
-      "args": ["--flavor", "staging", "--target", "lib/main_stg.dart"]
-    },
-    {
-      "name": "CleanArchitecture | Stg (profile mode)",
-      "request": "launch",
-      "type": "dart",
-      "flutterMode": "profile",
-      "program": "lib/main_stg.dart",
-      "args": ["--flavor", "staging", "--target", "lib/main_stg.dart"]
-    },
-    {
-      "name": "CleanArchitecture | Stg (release mode)",
-      "request": "launch",
-      "type": "dart",
-      "flutterMode": "release",
-      "program": "lib/main_stg.dart",
-      "args": ["--flavor", "staging", "--target", "lib/main_stg.dart"]
-    },
-
-    {
-      "name": "CleanArchitecture | Dev (debug mode)",
-      "request": "launch",
-      "type": "dart",
-      "flutterMode": "debug",
       "program": "lib/main_dev.dart",
-      "args": ["--flavor", "development", "--target", "lib/main_dev.dart"]
+      "args": ["--flavor", "development", "--target", "lib/main_dev.dart"],
+      "flutterMode": "debug"
     },
     {
-      "name": "CleanArchitecture | Dev (profile mode)",
+      "name": "Debug-Stg",
       "request": "launch",
       "type": "dart",
-      "flutterMode": "profile",
-      "program": "lib/main_dev.dart",
-      "args": ["--flavor", "development", "--target", "lib/main_dev.dart"]
+      "program": "lib/main_stg.dart",
+      "args": ["--flavor", "staging", "--target", "lib/main_stg.dart"],
+      "flutterMode": "debug"
     },
     {
-      "name": "CleanArchitecture | Dev (release mode)",
+      "name": "Debug-Prod",
       "request": "launch",
       "type": "dart",
-      "flutterMode": "release",
+      "program": "lib/main_prod.dart",
+      "args": ["--flavor", "production", "--target", "lib/main_prod.dart"],
+      "flutterMode": "debug"
+    },
+    {
+      "name": "Profile-Dev",
+      "request": "launch",
+      "type": "dart",
       "program": "lib/main_dev.dart",
-      "args": ["--flavor", "development", "--target", "lib/main_dev.dart"]
+      "args": ["--flavor", "development", "--target", "lib/main_dev.dart"],
+      "flutterMode": "profile"
+    },
+    {
+      "name": "Profile-Stg",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main_stg.dart",
+      "args": ["--flavor", "staging", "--target", "lib/main_stg.dart"],
+      "flutterMode": "profile"
+    },
+    {
+      "name": "Profile-Prod",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main_prod.dart",
+      "args": ["--flavor", "production", "--target", "lib/main_prod.dart"],
+      "flutterMode": "profile"
+    },
+    {
+      "name": "Release-Dev",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main_dev.dart",
+      "args": ["--flavor", "development", "--target", "lib/main_dev.dart"],
+      "flutterMode": "release"
+    },
+    {
+      "name": "Release-Stg",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main_stg.dart",
+      "args": ["--flavor", "staging", "--target", "lib/main_stg.dart"],
+      "flutterMode": "release"
+    },
+    {
+      "name": "Release-Prod",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main_prod.dart",
+      "args": ["--flavor", "production", "--target", "lib/main_prod.dart"],
+      "flutterMode": "release"
     }
   ]
 }

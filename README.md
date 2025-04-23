@@ -189,12 +189,12 @@ lib/
 │   ├── injector.config.dart
 │   └── injector.dart
 │
-├── app_configuration.dart
+├── app_config.dart
+├── app_initializer.dart
 ├── application.dart
 ├── main_dev.dart
 ├── main_prod.dart
 ├── main_stg.dart
-└── service_initializer.dart
 ```
 
 ---

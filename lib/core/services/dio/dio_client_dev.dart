@@ -6,7 +6,7 @@ import 'package:alice_dio/alice_dio_adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../app_configuration.dart';
+import '../../../app_config.dart';
 import '../navigation/navigation_service.dart';
 import 'dio_client.dart';
 
@@ -15,7 +15,7 @@ class DevDioClientImplementation implements DioClient {
   final Dio _dio = Dio();
 
   DevDioClientImplementation({
-    required AppConfiguration appConfiguration,
+    required AppConfig appConfiguration,
     required AuthInterceptor authInterceptor,
   }) {
     _dio.options = BaseOptions(
