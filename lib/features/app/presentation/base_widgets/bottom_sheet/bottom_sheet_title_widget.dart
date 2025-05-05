@@ -16,9 +16,9 @@ class BottomSheetTitleWidget extends StatelessWidget {
             onPressed: NavigationUtil.I.popPage,
             disableSplash: true,
             icon: const Icon(
-              AppIcon.close,
+              AppIcons.close,
               size: 20,
-              color: AppColor.black,
+              color: AppColors.black,
             ),
           )
         ],

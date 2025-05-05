@@ -19,8 +19,8 @@ enum Space {
   final double value;
 }
 
-class UIHelper {
-  UIHelper._();
+class UIHelpers {
+  UIHelpers._();
 
   /// Shows nothing in the UI
   static const nothing = SizedBox.shrink();
@@ -86,8 +86,7 @@ class UIHelper {
   static final mediumAllPadding = EdgeInsets.all(Space.medium.value);
 
   /// All Padding = screen padding
-  static final screenAllPadding =
-      EdgeInsets.all(ScreenUtil.I.horizontalSpace);
+  static final screenAllPadding = EdgeInsets.all(ScreenUtil.I.horizontalSpace);
 
   //<========== Horizontal Padding ==========>
   /// Horizontal Padding = 12

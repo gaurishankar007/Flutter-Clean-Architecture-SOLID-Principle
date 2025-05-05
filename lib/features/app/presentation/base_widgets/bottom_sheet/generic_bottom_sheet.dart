@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/constants/app_color.dart';
-import '../../../../../core/constants/app_icon.dart';
+import '../../../../../core/constants/app_colors.dart';
+import '../../../../../core/constants/app_icons.dart';
 import '../../../../../core/services/navigation/navigation_service.dart';
 import '../../../../../core/utils/screen_util/screen_util.dart';
-import '../../../../../core/utils/ui_helper.dart';
+import '../../../../../core/utils/ui_helpers.dart';
 import '../../widgets/title_widget.dart';
 import '../action/icon_button_widget.dart';
 import '../action/primary_button_widget.dart';
@@ -23,18 +23,18 @@ Future<T?> showGenericBottomSheet<T>({
 
   return await showModalBottomSheet<T>(
     context: context,
-    backgroundColor: AppColor.white,
-    barrierColor: AppColor.black60,
+    backgroundColor: AppColors.white,
+    barrierColor: AppColors.black60,
     useSafeArea: true,
     enableDrag: false,
     isDismissible: false,
     isScrollControlled: false,
     scrollControlDisabledMaxHeightRatio: .95,
     shape: RoundedRectangleBorder(
-      borderRadius: UIHelper.largeTRadius,
+      borderRadius: UIHelpers.largeTRadius,
     ),
     builder: (builder) => ClipRRect(
-      borderRadius: UIHelper.largeTRadius,
+      borderRadius: UIHelpers.largeTRadius,
       child: child,
     ),
   );

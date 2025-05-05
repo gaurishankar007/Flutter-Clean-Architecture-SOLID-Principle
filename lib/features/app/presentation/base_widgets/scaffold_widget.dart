@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../../../core/constants/app_color.dart';
+import '../../../../core/constants/app_colors.dart';
 import '../../../../core/utils/extensions/build_context_extension.dart';
 import '../../../../core/utils/screen_util/screen_util.dart';
 
@@ -55,8 +55,8 @@ class ScaffoldWidget extends StatelessWidget {
     if (onRefresh != null) {
       newChild = RefreshIndicator(
         onRefresh: onRefresh!,
-        color: AppColor.primary,
-        backgroundColor: AppColor.white,
+        color: AppColors.primary,
+        backgroundColor: AppColors.white,
         strokeWidth: 2,
         edgeOffset: 100,
         child: newChild,

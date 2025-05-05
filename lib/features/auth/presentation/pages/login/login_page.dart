@@ -5,7 +5,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../../../../core/utils/extensions/string_extension.dart';
-import '../../../../../core/utils/ui_helper.dart';
+import '../../../../../core/utils/ui_helpers.dart';
 import '../../../../app/presentation/base_widgets/scaffold_widget.dart';
 import '../../cubits/login/login_cubit.dart';
 import '../../widgets/welcome_logo_widget.dart';
@@ -37,7 +37,7 @@ class LoginPage extends HookWidget {
           children: [
             const WelcomeLogoWidget(title: "Login"),
             Container(
-              margin: UIHelper.smallTxxLargeBPadding,
+              margin: UIHelpers.smallTxxLargeBPadding,
               child: Form(
                 key: formKey,
                 child: LoginFormWidget(

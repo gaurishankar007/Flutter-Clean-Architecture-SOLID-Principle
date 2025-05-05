@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-import '../../../../../core/constants/app_color.dart';
-import '../../../../../core/utils/ui_helper.dart';
+import '../../../../../core/constants/app_colors.dart';
+import '../../../../../core/utils/ui_helpers.dart';
 import '../loading_circle_widget.dart';
 import '../text/text_widget.dart';
 
@@ -25,7 +25,7 @@ class PrimaryButtonWidget extends HookWidget {
     required this.text,
     this.textType,
     this.textFontWeight,
-    this.foregroundColor = AppColor.white,
+    this.foregroundColor = AppColors.white,
     this.height,
     this.width,
     this.color,
@@ -61,9 +61,9 @@ class PrimaryButtonWidget extends HookWidget {
           return ElevatedButton(
             onPressed: onPressed.call,
             style: ElevatedButton.styleFrom(
-              backgroundColor: color ?? AppColor.primary,
+              backgroundColor: color ?? AppColors.primary,
               shape: RoundedRectangleBorder(
-                borderRadius: UIHelper.xSmallCRadius,
+                borderRadius: UIHelpers.xSmallCRadius,
               ),
               elevation: elevation,
             ),

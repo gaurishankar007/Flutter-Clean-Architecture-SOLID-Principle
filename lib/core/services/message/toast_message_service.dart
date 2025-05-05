@@ -4,9 +4,9 @@ import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../features/app/presentation/base_widgets/text/text_widget.dart';
-import '../../constants/app_color.dart';
+import '../../constants/app_colors.dart';
 import '../../data/states/data_state.dart';
-import '../../utils/ui_helper.dart';
+import '../../utils/ui_helpers.dart';
 import '../navigation/navigation_service.dart';
 
 abstract class ToastMessageService {
@@ -22,9 +22,9 @@ class ToastMessageServiceImplementation implements ToastMessageService {
     toastStartPosition: ToastPosition.top,
     toastAlignment: Alignment.topCenter,
   );
-  final EdgeInsets _padding = UIHelper.smallAllPadding;
+  final EdgeInsets _padding = UIHelpers.smallAllPadding;
   final BoxShadow _boxShadow = const BoxShadow(
-    color: AppColor.black05,
+    color: AppColors.black05,
     spreadRadius: 1,
     blurRadius: 3,
   );
@@ -36,13 +36,13 @@ class ToastMessageServiceImplementation implements ToastMessageService {
       title: Text(message),
       trailing: const Icon(
         Icons.check_circle_rounded,
-        color: AppColor.green500,
+        color: AppColors.green500,
         size: 20,
       ),
       toastSetting: _toastSetting.copyWith(displayDuration: duration),
       toastStyle: ToastStyle(
         padding: _padding,
-        progressBarColor: AppColor.green500,
+        progressBarColor: AppColors.green500,
         boxShadow: [_boxShadow],
       ),
     );
@@ -55,13 +55,13 @@ class ToastMessageServiceImplementation implements ToastMessageService {
       title: TextWidget(message),
       trailing: const Icon(
         Icons.warning_rounded,
-        color: AppColor.red600,
+        color: AppColors.red600,
         size: 20,
       ),
       toastSetting: _toastSetting.copyWith(displayDuration: duration),
       toastStyle: ToastStyle(
         padding: _padding,
-        progressBarColor: AppColor.red600,
+        progressBarColor: AppColors.red600,
         boxShadow: [_boxShadow],
       ),
     );

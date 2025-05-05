@@ -106,9 +106,9 @@ lib/
 │
 ├── core/
 │   ├── constants/
-│   │   ├── api_endpoint.dart
-│   │   ├── app_color.dart
-│   │   └── app_icon.dart
+│   │   ├── api_endpoints.dart
+│   │   ├── app_colors.dart
+│   │   └── app_icons.dart
 │   ├── data/
 │   │   ├── api/
 │   │   │   ├── api_response.dart
@@ -161,8 +161,8 @@ lib/
 │   │   ├── debounce_time.dart
 │   │   ├── service_mixin.dart
 │   │   ├── type_defs.dart
-│   │   ├── ui_helper.dart
-│   │   └── validator.dart
+│   │   ├── ui_helpers.dart
+│   │   └── validators.dart
 │
 ├── feature/
 │   ├── app/

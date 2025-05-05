@@ -76,7 +76,7 @@ class AuthInterceptor extends Interceptor {
         refreshToken: _sessionManager.refreshToken,
       );
       final response = await _dio.post(
-        ApiEndpoint.refreshToken,
+        ApiEndpoints.refreshToken,
         data: request.toJson(),
         options: Options(headers: requestOptions.headers),
       );

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../../core/constants/app_color.dart';
-import '../../../../../../core/constants/app_icon.dart';
-import '../../../../../../core/utils/ui_helper.dart';
+import '../../../../../../core/constants/app_colors.dart';
+import '../../../../../../core/constants/app_icons.dart';
+import '../../../../../../core/utils/ui_helpers.dart';
 import '../../../../../app/presentation/base_widgets/action/icon_button_widget.dart';
 import '../../../cubits/dashboard/dashboard_cubit.dart';
 
@@ -13,19 +13,19 @@ class BottomNavigationWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final icons = [
-      AppIcon.home,
-      AppIcon.setting,
+      AppIcons.home,
+      AppIcons.setting,
     ];
 
     return Container(
       height: 50,
       width: double.maxFinite,
       decoration: BoxDecoration(
-        color: AppColor.white,
-        borderRadius: UIHelper.sMediumTRadius,
+        color: AppColors.white,
+        borderRadius: UIHelpers.sMediumTRadius,
         boxShadow: const [
           BoxShadow(
-            color: AppColor.black10,
+            color: AppColors.black10,
             spreadRadius: 2,
             blurRadius: 4,
           ),
@@ -49,8 +49,8 @@ class BottomNavigationWidget extends StatelessWidget {
                     icons[index],
                     size: 20,
                     color: index == state.activeIndex
-                        ? AppColor.primary
-                        : AppColor.fade.withAlpha(153),
+                        ? AppColors.primary
+                        : AppColors.fade.withAlpha(153),
                   ),
                 );
               },

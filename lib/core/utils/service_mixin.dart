@@ -11,7 +11,7 @@ import '../services/session/session_manager.dart';
 mixin ServiceMixin {
   final _navigationService = NavigationUtil.I;
   final _toastService = ToastMessageUtil.I;
-  final _sessionManager = SessionManagerUtil.I;
+  final _sessionManager = SessionUtil.I;
   final _imagePickerService = ImagePickerUtil.I;
 
   /// Navigation Service

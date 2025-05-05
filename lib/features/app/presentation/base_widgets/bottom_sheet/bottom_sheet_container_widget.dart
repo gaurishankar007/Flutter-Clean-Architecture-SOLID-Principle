@@ -23,7 +23,7 @@ class BottomSheetContainerWidget extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border.symmetric(
           horizontal: BorderSide(
-            color: AppColor.black10,
+            color: AppColors.black10,
             width: borderWidth,
           ),
         ),

@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/constants/api_endpoint.dart';
+import '../../../../core/constants/api_endpoints.dart';
 import '../../../../core/data/errors/data_handler.dart';
 import '../../../../core/services/dio/dio_client.dart';
 import '../../../../core/utils/type_defs.dart';
@@ -25,7 +25,7 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
   FutureData<UserDataModel> login(LoginRequest request) {
     return DataHandler.safeApiCall(
       request: () => _dioClient.post(
-        ApiEndpoint.login,
+        ApiEndpoints.login,
         data: request.toJson(),
         options: Options(
           validateStatus: (status) => status == 200 || status == 400,
@@ -38,7 +38,7 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
   @override
   FutureBool checkAUth() {
     return DataHandler.safeApiCall(
-      request: () => _dioClient.get(ApiEndpoint.checkAuth),
+      request: () => _dioClient.get(ApiEndpoints.checkAuth),
       fromJson: (json) => true,
     );
   }

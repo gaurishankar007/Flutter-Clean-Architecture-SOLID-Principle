@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../core/constants/app_color.dart';
-import '../../../../../../core/utils/ui_helper.dart';
+import '../../../../../../core/constants/app_colors.dart';
+import '../../../../../../core/utils/ui_helpers.dart';
 import '../../../../../app/presentation/base_widgets/text/text_widget.dart';
 
 class BlueContainerWidget extends StatelessWidget {
@@ -12,14 +12,14 @@ class BlueContainerWidget extends StatelessWidget {
     return Container(
       height: 160,
       width: double.maxFinite,
-      padding: UIHelper.screenHsMediumVPadding,
+      padding: UIHelpers.screenHsMediumVPadding,
       decoration: BoxDecoration(
-        color: AppColor.primary,
-        borderRadius: UIHelper.largeBRadius,
+        color: AppColors.primary,
+        borderRadius: UIHelpers.largeBRadius,
       ),
       child: TextWidget.headline(
         "Settings",
-        color: AppColor.white,
+        color: AppColors.white,
         fontWeight: FontWeight.w500,
       ),
     );

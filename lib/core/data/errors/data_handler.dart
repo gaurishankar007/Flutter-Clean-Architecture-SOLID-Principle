@@ -5,7 +5,6 @@ import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/services.dart' show PlatformException;
 
 import '../../utils/type_defs.dart';
-import '../api/api_response.dart';
 import '../states/data_state.dart';
 
 part 'error_handler.dart';
@@ -50,12 +49,22 @@ class DataHandler {
   /// - [fromJson]: A deserialization function to convert JSON (Map) into an object of type [R].
   /// - [isStandardResponse]: If `true`, assumes the API response is wrapped in a standard
   ///   structure (e.g., `{ data: ..., message: ... }`) and extracts the inner `data` field.
+  /// - [responseDataKey]: The key used to extract the data from the response when
+  ///   [isStandardResponse] is `true`.
   /// - [staticData]: Optional custom value to return instead of processing the API response.
   ///   Useful when you want to bypass parsing and directly return a predefined value.
+  ///
+  /// Behavior:
+  /// - If [staticData] is provided, it is returned directly without processing the API response.
+  /// - If [fromJson] is provided, it is used to deserialize the [rawData] into the desired type.
+  /// - Handles both `Map` and `List` types for deserialization.
+  /// - Throws a [FormatException] if the response data type does not match the expected format.
+  /// - Returns a [SuccessState] with the parsed data, message, and status code on success.
   static FutureData<T> safeApiCall<T, R>({
     required Future<Response> Function() request,
     R Function(MapDynamic json)? fromJson,
     bool isStandardResponse = true,
+    String responseDataKey = "data",
     T? staticData,
   }) {
     return ErrorHandler.catchException(() async {
@@ -66,11 +75,14 @@ class DataHandler {
       T? data;
 
       /// Handle standard API structure
-      if (isStandardResponse) {
-        ApiResponse apiResponse = ApiResponse.fromResponse(response);
-        isSuccess = apiResponse.success;
-        message = apiResponse.message;
-        rawData = apiResponse.data;
+      if (isStandardResponse && staticData == null) {
+        Map<String, dynamic> data = response.data;
+        // Throw server error if the response structure is not standard
+        if (!data.containsKey(responseDataKey)) throw ServerResponseError();
+
+        rawData = data[responseDataKey];
+        isSuccess = data["success"] ?? true;
+        message = data["message"];
       }
 
       /// If api response did not succeeded
@@ -79,8 +91,7 @@ class DataHandler {
           message: message,
           statusCode: response.statusCode,
         );
-      }
-      if (staticData != null) {
+      } else if (staticData != null) {
         data = staticData;
       } else if (fromJson != null) {
         if (rawData is MapDynamic) {

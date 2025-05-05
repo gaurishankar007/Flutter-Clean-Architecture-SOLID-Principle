@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/constants/app_color.dart';
-import '../../../../../core/utils/ui_helper.dart';
+import '../../../../../core/constants/app_colors.dart';
+import '../../../../../core/utils/ui_helpers.dart';
 import '../text/text_widget.dart';
 
 class CheckBoxWidget extends StatelessWidget {
@@ -25,10 +25,10 @@ class CheckBoxWidget extends StatelessWidget {
       child: Checkbox(
         value: value,
         fillColor: WidgetStateColor.resolveWith(
-          (states) => value ? AppColor.hightLight : Colors.transparent,
+          (states) => value ? AppColors.hightLight : Colors.transparent,
         ),
         side:
-            value ? null : const BorderSide(width: 1.2, color: AppColor.black),
+            value ? null : const BorderSide(width: 1.2, color: AppColors.black),
         onChanged: onChanged,
         visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -36,12 +36,12 @@ class CheckBoxWidget extends StatelessWidget {
     );
 
     if (title != null) {
-      final textColor = value ? AppColor.hightLight : AppColor.base;
+      final textColor = value ? AppColors.hightLight : AppColors.base;
       child = Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           child,
-          UIHelper.xSmallHSpace,
+          UIHelpers.xSmallHSpace,
           TextWidget(title!, color: textColor, fontWeight: FontWeight.w500),
         ],
       );

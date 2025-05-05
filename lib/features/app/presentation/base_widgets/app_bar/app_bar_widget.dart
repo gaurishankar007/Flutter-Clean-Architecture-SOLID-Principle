@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/constants/app_color.dart';
-import '../../../../../core/constants/app_icon.dart';
+import '../../../../../core/constants/app_colors.dart';
+import '../../../../../core/constants/app_icons.dart';
 import '../../../../../core/services/navigation/navigation_service.dart';
 import '../../../../../core/utils/screen_util/screen_util.dart';
-import '../../../../../core/utils/ui_helper.dart';
+import '../../../../../core/utils/ui_helpers.dart';
 import '../action/icon_button_widget.dart';
 import '../text/text_widget.dart';
 
@@ -44,14 +44,14 @@ class AppBarWidget extends StatelessWidget {
 
     if (showLeading) {
       leadingWidget = Padding(
-        padding: UIHelper.screenLPadding,
+        padding: UIHelpers.screenLPadding,
         child: leading ??
             IconButtonWidget(
               onPressed: NavigationUtil.I.popPage,
               icon: const Icon(
-                AppIcon.arrow_left,
+                AppIcons.arrow_left,
                 size: 20,
-                color: AppColor.base,
+                color: AppColors.base,
               ),
               disableSplash: true,
             ),
@@ -61,7 +61,7 @@ class AppBarWidget extends StatelessWidget {
     if (title.isNotEmpty) {
       titleWidget = TextWidget.bodyLarge(
         title,
-        color: AppColor.black,
+        color: AppColors.black,
         fontWeight: titleFontWeight,
       );
     }

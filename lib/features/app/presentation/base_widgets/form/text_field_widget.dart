@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/constants/app_color.dart';
-import '../../../../../core/utils/ui_helper.dart';
+import '../../../../../core/constants/app_colors.dart';
+import '../../../../../core/utils/ui_helpers.dart';
 import '../text/text_widget.dart';
 
 class TextFieldWidget extends StatelessWidget {
@@ -54,10 +54,10 @@ class TextFieldWidget extends StatelessWidget {
       autovalidateMode: autovalidateMode,
       obscureText: obscureText,
       obscuringCharacter: "*",
-      style: const TextStyle(color: AppColor.base, fontSize: 16),
+      style: const TextStyle(color: AppColors.base, fontSize: 16),
       focusNode: focusNode,
       decoration: InputDecoration(
-        contentPadding: UIHelper.sMediumAllPadding,
+        contentPadding: UIHelpers.sMediumAllPadding,
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
         hintText: hintText,
@@ -75,7 +75,7 @@ class TextFieldWidget extends StatelessWidget {
             textType: titleSize ?? TextType.titleSmall,
             fontWeight: FontWeight.w400,
           ),
-          UIHelper.xSmallVSpace,
+          UIHelpers.xSmallVSpace,
           child,
         ],
       );

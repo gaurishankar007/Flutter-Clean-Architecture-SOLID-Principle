@@ -79,8 +79,8 @@ class SessionManagerImplementation implements SessionManager {
 }
 
 /// A util class for accessing [SessionManager]
-class SessionManagerUtil {
-  SessionManagerUtil._();
+class SessionUtil {
+  SessionUtil._();
 
   /// Returns the registered instance of [SessionManager] which is always the same
   static SessionManager get I => GetIt.I<SessionManager>();

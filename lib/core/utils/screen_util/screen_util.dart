@@ -12,16 +12,12 @@ class ScreenUtil {
 
   double _width = 0;
   double _height = 0;
-  ScreenType _screenType = ScreenType.unknown;
   double _statusBarHeight = 0;
   double _devicePixelRatio = 0;
+  ScreenType _type = ScreenType.medium;
 
   double get height => _height;
   double get width => _width;
-
-  /// Screen type according to the width
-  ///* small, medium, large, extraLarge
-  ScreenType get screenType => _screenType;
 
   /// Height of the system top status bar
   double get statusBarHeight => _statusBarHeight;
@@ -36,14 +32,19 @@ class ScreenUtil {
   /// - Then the devicePixelRatio = 1080 / 360 = 3.0
   double get devicePixelRatio => _devicePixelRatio;
 
+  ScreenType get type => _type;
+
   /// Set screen dimensions, orientation, screen type, etc.
   configureScreen(Size size) {
     _height = size.height;
     _width = size.width;
     _statusBarHeight = 0;
+    _type = _checkScreenType();
+
+    /// Don't reassign device pixel multiple times
+    if (_devicePixelRatio != 0) return;
     _devicePixelRatio =
         WidgetsBinding.instance.platformDispatcher.views.first.devicePixelRatio;
-    _screenType = _checkScreenType();
   }
 
   /// Check screen size according to the width
@@ -51,7 +52,8 @@ class ScreenUtil {
     if (width <= 360) return ScreenType.small;
     if (width <= 540) return ScreenType.medium;
     if (width <= 720) return ScreenType.large;
-    return ScreenType.extraLarge;
+    if (width <= 900) return ScreenType.extraLarge;
+    return ScreenType.ultraLarge;
   }
 
   /// Get the required number within the limitation
@@ -77,73 +79,48 @@ class ScreenUtil {
     return _limitedNumber(width, min: min, max: max);
   }
 
-  /// Get the adaptive value based on the screen type with the lower and upper bound
-  /// * [baseScreen] is the screen type that the text size is designed for
-  T adaptiveBound<T>({
-    ScreenType baseScreen = ScreenType.large,
+  /// Returns a value adapted to the current screen type.
+  /// It checks the current screen type's index (from the [ScreenType] enum)
+  /// with the keys in [screenValues]. If a key contains the current index,
+  /// its corresponding value is returned.
+  /// Otherwise, the [baseValue] is returned as the default.
+  T getAdaptiveValue<T>({
     required T baseValue,
-    T? lowerBound,
-    T? upperBound,
+    required Map<Set<int>, T> screenValues,
   }) {
-    if (_screenType == baseScreen) return baseValue;
-    // If the screen type is smaller than the base screen type
-    if (_screenType.index < baseScreen.index) return lowerBound ?? baseValue;
-    return upperBound ?? baseValue;
-  }
-
-  /// Get the adaptive number according to the screen type
-  /// * [baseScreen] is the screen type that is designed for
-  /// * [baseValue] is the value that is designed for the base screen type
-  /// * [differenceBy] is the difference value that will be added or subtracted according to the screen type
-  /// * [maxDifferenceCount] is the maximum difference count that will be added or subtracted
-  double adaptiveNumber({
-    required ScreenType baseScreen,
-    required double baseValue,
-    required double differenceBy,
-    int? maxDifferenceCount,
-  }) {
-    if (_screenType == baseScreen) return baseValue;
-
-    // Difference between the screen types
-    int indexDifference = (_screenType.index - baseScreen.index).abs();
-
-    // If the difference is greater than the max difference count
-    if (maxDifferenceCount != null && indexDifference > maxDifferenceCount) {
-      indexDifference = maxDifferenceCount;
+    for (final entry in screenValues.entries) {
+      if (entry.key.contains(_type.index)) return entry.value;
     }
 
-    // Difference value
-    double differenceValue = differenceBy * indexDifference;
-
-    // If the screen type is greater than the base screen type
-    if (_screenType.index > baseScreen.index) {
-      return baseValue + differenceValue;
-    }
-
-    // If the screen type is smaller than the base screen type
-    if (baseValue < differenceValue) return baseValue;
-    return baseValue - differenceValue;
+    return baseValue;
   }
 
-  /// Page horizontal padding
-  double get horizontalSpace {
-    /// If the screen is small or medium size
-    if (_width < 540) return widthPart(5.55, max: 20);
-    return 24;
-  }
+  /// Whether the screen is small or medium
+  bool get _isSmallScreen => _type.index < ScreenType.large.index;
 
-  /// Page vertical padding
-  double get verticalSpace => _width < 540 ? 24 : 32;
+  /// Spacing between the items in the grid view
+  double gridViewSpace = 20;
+
+  /// View horizontal padding
+  ///
+  double get horizontalSpace => _isSmallScreen ? widthPart(5.55, max: 20) : 24;
+
+  /// View vertical padding
+  double get verticalSpace => _isSmallScreen ? 24 : 32;
 
   /// View horizontal padding
   EdgeInsets get horizontalPadding =>
       EdgeInsets.symmetric(horizontal: horizontalSpace);
 
+  /// View horizontal padding
+  EdgeInsets get verticalPadding =>
+      EdgeInsets.symmetric(vertical: verticalSpace);
+
   /// View padding
   EdgeInsets pagePadding() => EdgeInsets.symmetric(
-        horizontal: horizontalSpace,
-        vertical: verticalSpace,
-      );
+    horizontal: horizontalSpace,
+    vertical: verticalSpace,
+  );
 
   /// Width of the screen excluding left and right screen padding
   double availableWidth({double extraSpace = 0}) =>

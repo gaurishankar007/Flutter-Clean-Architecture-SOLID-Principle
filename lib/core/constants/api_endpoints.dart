@@ -1,5 +1,5 @@
-class ApiEndpoint {
-  ApiEndpoint._();
+class ApiEndpoints {
+  ApiEndpoints._();
 
   /// Base
   static const auth = "api/auth/";

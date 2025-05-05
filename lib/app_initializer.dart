@@ -11,6 +11,6 @@ class AppInitializer {
     configureDependencies(environment: environment);
 
     GetIt.I<InternetService>().subscribeConnectivity();
-    await SessionManagerUtil.I.checkForUserCredential();
+    await SessionUtil.I.checkForUserCredential();
   }
 }

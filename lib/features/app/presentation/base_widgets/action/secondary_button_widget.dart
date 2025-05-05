@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-import '../../../../../core/constants/app_color.dart';
-import '../../../../../core/utils/ui_helper.dart';
+import '../../../../../core/constants/app_colors.dart';
+import '../../../../../core/utils/ui_helpers.dart';
 import '../loading_circle_widget.dart';
 import '../text/text_widget.dart';
 
@@ -25,10 +25,10 @@ class SecondaryButtonWidget extends HookWidget {
     required this.text,
     this.textType = TextType.bodyLarge,
     this.textFontWeight = FontWeight.w500,
-    this.foregroundColor = AppColor.primary,
+    this.foregroundColor = AppColors.primary,
     this.height,
     this.width,
-    this.color = AppColor.primary,
+    this.color = AppColors.primary,
     this.loadableButton = false,
     this.elevation,
     this.expandWidth = false,
@@ -61,10 +61,10 @@ class SecondaryButtonWidget extends HookWidget {
           return OutlinedButton(
             onPressed: onPressed,
             style: OutlinedButton.styleFrom(
-              backgroundColor: AppColor.white,
+              backgroundColor: AppColors.white,
               side: BorderSide(color: color, width: 1.5),
               shape: RoundedRectangleBorder(
-                borderRadius: UIHelper.xSmallCRadius,
+                borderRadius: UIHelpers.xSmallCRadius,
               ),
               elevation: 0,
               splashFactory: InkRipple.splashFactory,

@@ -21,7 +21,7 @@ class BottomSheetButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: UIHelper.screenLR(top: topPadding, bottom: bottomPadding),
+      padding: UIHelpers.screenLR(top: topPadding, bottom: bottomPadding),
       child: outlined
           ? SecondaryButtonWidget(
               text: text,

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../core/constants/app_color.dart';
-import '../../../../../../core/constants/app_icon.dart';
-import '../../../../../../core/utils/ui_helper.dart';
+import '../../../../../../core/constants/app_colors.dart';
+import '../../../../../../core/constants/app_icons.dart';
+import '../../../../../../core/utils/ui_helpers.dart';
 import '../../../../../app/presentation/base_widgets/text/text_widget.dart';
 
 class SettingItemsWidget extends StatelessWidget {
@@ -11,13 +11,13 @@ class SettingItemsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: UIHelper.sMediumAllPadding,
+      padding: UIHelpers.sMediumAllPadding,
       decoration: BoxDecoration(
-        color: AppColor.white,
-        borderRadius: UIHelper.smallCRadius,
+        color: AppColors.white,
+        borderRadius: UIHelpers.smallCRadius,
         boxShadow: const [
           BoxShadow(
-            color: AppColor.black15,
+            color: AppColors.black15,
             blurRadius: 24,
           )
         ],
@@ -26,7 +26,7 @@ class SettingItemsWidget extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         children: [
-          settingItemWidget(AppIcon.lock, "Change Password"),
+          settingItemWidget(AppIcons.lock, "Change Password"),
         ],
       ),
     );
@@ -37,14 +37,14 @@ class SettingItemsWidget extends StatelessWidget {
       child: ListTile(
         onTap: () {},
         shape: RoundedRectangleBorder(
-          borderRadius: UIHelper.smallCRadius,
-          side: const BorderSide(color: AppColor.border),
+          borderRadius: UIHelpers.smallCRadius,
+          side: const BorderSide(color: AppColors.border),
         ),
-        contentPadding: UIHelper.sMediumHxSmallVPadding,
+        contentPadding: UIHelpers.sMediumHxSmallVPadding,
         horizontalTitleGap: 8,
         leading: Icon(iconData, size: 22),
         title: TextWidget.bodyLarge(name),
-        trailing: const Icon(AppIcon.arrow_right, size: 22),
+        trailing: const Icon(AppIcons.arrow_right, size: 22),
       ),
     );
   }

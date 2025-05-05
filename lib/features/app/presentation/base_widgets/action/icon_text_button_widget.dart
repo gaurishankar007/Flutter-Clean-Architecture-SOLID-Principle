@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/constants/app_color.dart';
-import '../../../../../core/utils/ui_helper.dart';
+import '../../../../../core/constants/app_colors.dart';
+import '../../../../../core/utils/ui_helpers.dart';
 import '../text/text_widget.dart';
 
 class IconTextButtonWidget extends StatelessWidget {
@@ -24,13 +24,13 @@ class IconTextButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color newIconColor = iconColor ?? AppColor.base;
+    Color newIconColor = iconColor ?? AppColors.base;
 
     return InkWell(
       onTap: onPressed,
-      borderRadius: UIHelper.xxSmallCRadius,
+      borderRadius: UIHelpers.xxSmallCRadius,
       child: Padding(
-        padding: UIHelper.xxSmallAllPadding,
+        padding: UIHelpers.xxSmallAllPadding,
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -39,7 +39,7 @@ class IconTextButtonWidget extends StatelessWidget {
               color: newIconColor,
               size: iconSize,
             ),
-            UIHelper.xxSmallHSpace,
+            UIHelpers.xxSmallHSpace,
             TextWidget(text, color: textColor),
           ],
         ),

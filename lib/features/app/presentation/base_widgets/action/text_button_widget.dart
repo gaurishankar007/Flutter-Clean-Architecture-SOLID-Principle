@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/constants/app_color.dart';
+import '../../../../../core/constants/app_colors.dart';
 import '../text/text_widget.dart';
 
 class TextButtonWidget extends StatelessWidget {
@@ -39,7 +39,7 @@ class TextButtonWidget extends StatelessWidget {
       ),
       child: TextWidget(
         text,
-        color: textColor ?? AppColor.hightLight,
+        color: textColor ?? AppColors.hightLight,
         textType: textType ?? TextType.bodyLarge,
         fontWeight: textFontWeight ?? FontWeight.w400,
       ),

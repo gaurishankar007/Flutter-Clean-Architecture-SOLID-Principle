@@ -2,9 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/constants/app_color.dart';
+import '../../../../../core/constants/app_colors.dart';
 import '../../../../../core/services/session/session_manager.dart';
-import '../../../../../core/utils/ui_helper.dart';
+import '../../../../../core/utils/ui_helpers.dart';
 import '../../../../app/presentation/base_widgets/action/primary_button_widget.dart';
 import '../../../../app/presentation/base_widgets/scaffold_widget.dart';
 import '../../cubits/dashboard/dashboard_cubit.dart';
@@ -25,15 +25,15 @@ class SettingPage extends StatelessWidget {
         children: [
           const BlueContainerWidget(),
           Padding(
-            padding: UIHelper.screenLR(top: 130, bottom: 12),
+            padding: UIHelpers.screenLR(top: 130, bottom: 12),
             child: Column(
               children: [
                 const SettingItemsWidget(),
                 const Spacer(),
                 PrimaryButtonWidget(
-                  onTap: SessionManagerUtil.I.clearSessionData,
+                  onTap: SessionUtil.I.clearSessionData,
                   text: "Logout",
-                  color: AppColor.error,
+                  color: AppColors.error,
                   expandWidth: true,
                 ),
               ],

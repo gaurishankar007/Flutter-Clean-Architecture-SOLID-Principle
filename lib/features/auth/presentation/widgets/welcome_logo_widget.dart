@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/constants/app_color.dart';
-import '../../../../core/utils/ui_helper.dart';
+import '../../../../core/constants/app_colors.dart';
+import '../../../../core/utils/ui_helpers.dart';
 import '../../../app/presentation/base_widgets/text/text_widget.dart';
 
 class WelcomeLogoWidget extends StatelessWidget {
@@ -13,18 +13,18 @@ class WelcomeLogoWidget extends StatelessWidget {
     return Column(
       children: [
         Container(
-          margin: UIHelper.xxSmallTxLargeBPadding,
+          margin: UIHelpers.xxSmallTxLargeBPadding,
           child: const TextWidget(
             "Welcome",
-            color: AppColor.primary,
+            color: AppColors.primary,
             textType: TextType.headlineLarge,
             fontWeight: FontWeight.w900,
           ),
         ),
-        UIHelper.mediumVSpace,
+        UIHelpers.mediumVSpace,
         Align(
           alignment: Alignment.centerLeft,
-          child: TextWidget.titleMedium(title, color: AppColor.blackE1),
+          child: TextWidget.titleMedium(title, color: AppColors.blackE1),
         ),
       ],
     );

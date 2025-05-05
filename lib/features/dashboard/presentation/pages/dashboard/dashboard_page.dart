@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
-import '../../../../../core/constants/app_color.dart';
+import '../../../../../core/constants/app_colors.dart';
 import '../../cubits/dashboard/dashboard_cubit.dart';
 import 'widgets/bottom_navigation_widget.dart';
 
@@ -20,7 +20,7 @@ class DashboardPage extends StatelessWidget {
         ),
       ],
       child: Container(
-        color: AppColor.surface,
+        color: AppColors.surface,
         child: Stack(
           children: [
             Padding(

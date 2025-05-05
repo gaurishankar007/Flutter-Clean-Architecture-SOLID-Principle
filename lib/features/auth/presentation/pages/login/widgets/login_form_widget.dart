@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../../core/constants/app_color.dart';
-import '../../../../../../core/utils/ui_helper.dart';
-import '../../../../../../core/utils/validator.dart';
+import '../../../../../../core/constants/app_colors.dart';
+import '../../../../../../core/utils/ui_helpers.dart';
+import '../../../../../../core/utils/validators.dart';
 import '../../../../../app/presentation/base_widgets/form/text_field_widget.dart';
 import '../../../cubits/login/login_cubit.dart';
 import 'login_optional_widget.dart';
@@ -29,16 +29,16 @@ class LoginFormWidget extends StatelessWidget {
               title: "Username",
               controller: usernameController,
               hintText: "Enter your username",
-              validator: Validator.username,
+              validator: Validators.username,
               autovalidateMode: AutovalidateMode.onUserInteraction,
             ),
             Container(
-              margin: UIHelper.mediumTxxSmallBPadding,
+              margin: UIHelpers.mediumTxxSmallBPadding,
               child: TextFieldWidget(
                 title: "Password",
                 hintText: "Enter your password",
                 controller: passwordController,
-                validator: Validator.password,
+                validator: Validators.password,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 obscureText: !state.passwordVisibility,
                 suffixIcon: InkWell(
@@ -48,7 +48,7 @@ class LoginFormWidget extends StatelessWidget {
                     state.passwordVisibility
                         ? Icons.visibility_outlined
                         : Icons.visibility_off_outlined,
-                    color: AppColor.black60,
+                    color: AppColors.black60,
                     size: 22,
                   ),
                 ),

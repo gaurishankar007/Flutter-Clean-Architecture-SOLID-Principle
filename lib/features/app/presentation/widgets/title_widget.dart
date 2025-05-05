@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/constants/app_color.dart';
+import '../../../../core/constants/app_colors.dart';
 import '../base_widgets/text/text_widget.dart';
 
 class TitleWidget extends StatelessWidget {
@@ -15,6 +15,6 @@ class TitleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextWidget.title(title, color: color ?? AppColor.blackE1);
+    return TextWidget.title(title, color: color ?? AppColors.blackE1);
   }
 }
