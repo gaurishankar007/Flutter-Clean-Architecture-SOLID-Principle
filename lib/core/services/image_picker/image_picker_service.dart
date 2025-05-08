@@ -15,9 +15,20 @@ abstract class ImagePickerService {
   });
 }
 
+@module
+abstract class ImagePickerServiceModule {
+  @lazySingleton
+  ImagePicker get imagePicker => ImagePicker();
+}
+
 /// Image picker service class for picking single/multiple images
 @LazySingleton(as: ImagePickerService)
 class ImagePickerServiceImplementation implements ImagePickerService {
+  final ImagePicker _imagePicker;
+
+  const ImagePickerServiceImplementation({required ImagePicker imagePicker})
+      : _imagePicker = imagePicker;
+
   /// Pick single image
   @override
   Future<String?> pickImage({
@@ -28,7 +39,7 @@ class ImagePickerServiceImplementation implements ImagePickerService {
     CameraDevice preferredCameraDevice = CameraDevice.rear,
     bool requestFullMetadata = true,
   }) async {
-    final xImage = await ImagePicker().pickImage(
+    final xImage = await _imagePicker.pickImage(
       source: source,
       maxWidth: maxWidth,
       maxHeight: maxHeight,

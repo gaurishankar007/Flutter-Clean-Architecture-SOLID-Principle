@@ -25,16 +25,15 @@ dependencies:
   auto_route: ^10.0.1
   # Local
   shared_preferences: ^2.5.3
-  isar: ^3.1.0+1
-  path_provider: ^2.1.5
-  flutter_dotenv: ^5.2.1
   # State Management
   flutter_bloc: ^9.1.0
   flutter_hooks: ^0.21.2
-  # Image Picker
-  image_picker: ^1.1.2
-  # Animation
+  # UI
   flutter_sliding_toast: ^1.5.0
+  # Util
+  image_picker: ^1.1.2
+  path_provider: ^2.1.5
+  flutter_dotenv: ^5.2.1
 
 dev_dependencies:
   flutter_test:

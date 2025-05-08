@@ -4,5 +4,5 @@ import 'package:injectable/injectable.dart';
 import 'injector.config.dart';
 
 @InjectableInit(initializerName: "initialize")
-void configureDependencies({String? environment}) =>
-    GetIt.I.initialize(environment: environment);
+Future<void> configureDependencies({String? environment}) async =>
+    await GetIt.I.initialize(environment: environment);

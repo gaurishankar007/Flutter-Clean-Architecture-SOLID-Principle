@@ -25,7 +25,7 @@ class AuthLocalDataSourceImplementation implements AuthLocalDataSource {
 
   @override
   FutureBool saveUserData(UserData userData) async {
-    return ErrorHandler.catchException(() async {
+    return ErrorHandler.handleException(() async {
       _localDatabase.setString("userData", jsonEncode(userData.toJson()));
       return const SuccessState(data: true);
     });
@@ -33,7 +33,7 @@ class AuthLocalDataSourceImplementation implements AuthLocalDataSource {
 
   @override
   FutureData<UserDataModel> getUserData() async {
-    return ErrorHandler.catchException(() async {
+    return ErrorHandler.handleException(() async {
       String userData = await _localDatabase.getString("userData") ?? "";
 
       if (userData.isNotEmpty) {
@@ -47,7 +47,7 @@ class AuthLocalDataSourceImplementation implements AuthLocalDataSource {
 
   @override
   FutureBool removeUserData() {
-    return ErrorHandler.catchException(() async {
+    return ErrorHandler.handleException(() async {
       await _localDatabase.remove("userData");
       return const SuccessState(data: true);
     });

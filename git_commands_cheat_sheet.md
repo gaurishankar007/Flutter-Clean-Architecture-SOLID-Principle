@@ -72,6 +72,7 @@ A collection of essential and frequently used git commands to boost your product
 - ✅ `git remote rename <old_name> <new_name>`: Renames an existing remote repository.
 - ✅ `git fetch <remote>`: Fetches commits, branches, and tags from a remote repository without merging them into your local branches.
 - ✅ `git pull <remote> <branch>`: Fetches commits from a remote branch and merges them into your local branch.
+- ✅ `git pull --rebase <remote> <branch>`: Fetches commits from a remote branch and reapplies your local commits on top of them, creating a linear history and avoiding merge commits.
 - ✅ `git push <remote> <branch>`: Pushes commits from your local branch to a remote branch.
 - ✅ `git remote set-url <remote> <new_url>`: Changes the URL of an existing remote repository.
 - ✅ `git remote show <remote>`: Displays detailed information about a remote repository.

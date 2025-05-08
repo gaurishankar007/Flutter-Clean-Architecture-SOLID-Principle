@@ -1,4 +1,8 @@
-part of 'generic_bottom_sheet.dart';
+import 'package:flutter/material.dart';
+
+import '../../../../../core/utils/ui_helpers.dart';
+import '../action/primary_button_widget.dart';
+import '../action/secondary_button_widget.dart';
 
 class BottomSheetButtonWidget extends StatelessWidget {
   final Function() onTap;

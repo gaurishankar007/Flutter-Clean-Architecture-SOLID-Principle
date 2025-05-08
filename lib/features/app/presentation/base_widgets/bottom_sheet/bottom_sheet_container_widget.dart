@@ -1,4 +1,7 @@
-part of 'generic_bottom_sheet.dart';
+import 'package:flutter/material.dart';
+
+import '../../../../../core/constants/app_colors.dart';
+import '../../../../../core/utils/screen_util/screen_util.dart';
 
 class BottomSheetContainerWidget extends StatelessWidget {
   final EdgeInsets? padding;

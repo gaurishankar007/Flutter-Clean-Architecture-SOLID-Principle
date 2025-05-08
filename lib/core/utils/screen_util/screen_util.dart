@@ -14,7 +14,7 @@ class ScreenUtil {
   double _height = 0;
   double _statusBarHeight = 0;
   double _devicePixelRatio = 0;
-  ScreenType _type = ScreenType.medium;
+  ScreenType _type = ScreenType.unknown;
 
   double get height => _height;
   double get width => _width;
@@ -49,11 +49,11 @@ class ScreenUtil {
 
   /// Check screen size according to the width
   ScreenType _checkScreenType() {
-    if (width <= 360) return ScreenType.small;
-    if (width <= 540) return ScreenType.medium;
-    if (width <= 720) return ScreenType.large;
-    if (width <= 900) return ScreenType.extraLarge;
-    return ScreenType.ultraLarge;
+    if (width <= 360) return ScreenType.compact;
+    if (width <= 600) return ScreenType.phone;
+    if (width <= 840) return ScreenType.tablet;
+    if (width <= 1024) return ScreenType.largeTablet;
+    return ScreenType.desktop;
   }
 
   /// Get the required number within the limitation
@@ -96,17 +96,17 @@ class ScreenUtil {
   }
 
   /// Whether the screen is small or medium
-  bool get _isSmallScreen => _type.index < ScreenType.large.index;
+  bool get _isPhoneScreen => _type.index <= ScreenType.phone.index;
 
   /// Spacing between the items in the grid view
   double gridViewSpace = 20;
 
   /// View horizontal padding
   ///
-  double get horizontalSpace => _isSmallScreen ? widthPart(5.55, max: 20) : 24;
+  double get horizontalSpace => _isPhoneScreen ? widthPart(5.55, max: 20) : 24;
 
   /// View vertical padding
-  double get verticalSpace => _isSmallScreen ? 24 : 32;
+  double get verticalSpace => _isPhoneScreen ? 24 : 32;
 
   /// View horizontal padding
   EdgeInsets get horizontalPadding =>
@@ -118,9 +118,9 @@ class ScreenUtil {
 
   /// View padding
   EdgeInsets pagePadding() => EdgeInsets.symmetric(
-    horizontal: horizontalSpace,
-    vertical: verticalSpace,
-  );
+        horizontal: horizontalSpace,
+        vertical: verticalSpace,
+      );
 
   /// Width of the screen excluding left and right screen padding
   double availableWidth({double extraSpace = 0}) =>

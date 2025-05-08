@@ -1,6 +1,6 @@
-part of 'dio_client.dart';
+part of 'api_service.dart';
 
-abstract class DioMultiPartClient {
+abstract class MultiPartClient {
   Future<MultipartFile> multipartFromFile(
     String filePath, {
     String? filename,
@@ -14,7 +14,7 @@ abstract class DioMultiPartClient {
 ///
 /// MultipartFile is based on stream, and a stream can be read only once,
 /// so the same MultipartFile can't be read multiple times.
-class DioMultiPartClientImplementation implements DioMultiPartClient {
+class MultiPartClientImplementation implements MultiPartClient {
   @override
   Future<MultipartFile> multipartFromFile(
     String filePath, {

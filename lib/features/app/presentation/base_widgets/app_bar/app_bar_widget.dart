@@ -47,7 +47,7 @@ class AppBarWidget extends StatelessWidget {
         padding: UIHelpers.screenLPadding,
         child: leading ??
             IconButtonWidget(
-              onPressed: NavigationUtil.I.popPage,
+              onPressed: NavigationUtil.I.popTop,
               icon: const Icon(
                 AppIcons.arrow_left,
                 size: 20,

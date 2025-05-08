@@ -17,6 +17,12 @@ abstract class ToastMessageService {
 
 @LazySingleton(as: ToastMessageService)
 class ToastMessageServiceImplementation implements ToastMessageService {
+  final NavigationService _navigationService;
+
+  ToastMessageServiceImplementation({
+    required NavigationService navigationService,
+  }) : _navigationService = navigationService;
+
   final _toastSetting = const SlidingToastSetting(
     displayDuration: Duration(milliseconds: 2500),
     toastStartPosition: ToastPosition.top,
@@ -32,7 +38,7 @@ class ToastMessageServiceImplementation implements ToastMessageService {
   @override
   showSuccess(String message, {Duration? duration}) {
     InteractiveToast.slide(
-      overlayState: NavigationUtil.I.navigatorKey.currentState?.overlay,
+      overlayState: _navigationService.navigatorKey.currentState?.overlay,
       title: Text(message),
       trailing: const Icon(
         Icons.check_circle_rounded,
@@ -51,7 +57,7 @@ class ToastMessageServiceImplementation implements ToastMessageService {
   @override
   showError(String message, {Duration? duration}) {
     InteractiveToast.slide(
-      overlayState: NavigationUtil.I.navigatorKey.currentState?.overlay,
+      overlayState: _navigationService.navigatorKey.currentState?.overlay,
       title: TextWidget(message),
       trailing: const Icon(
         Icons.warning_rounded,

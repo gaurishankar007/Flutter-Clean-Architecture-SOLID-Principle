@@ -13,10 +13,10 @@ import '../../utils/type_defs.dart';
 import '../session/session_manager.dart';
 
 part 'auth_interceptor.dart';
-part 'dio_multi_part_client.dart';
+part 'multipart_service.dart';
 
 /// Convenience methods to make an HTTP PATCH request.
-abstract class DioClient {
+abstract class ApiService {
   Future<Response> get<T>(
     String path, {
     final Object? data,
@@ -64,4 +64,10 @@ abstract class DioClient {
     final Options? options,
     final CancelToken? cancelToken,
   });
+}
+
+@module
+abstract class ApiServiceModule {
+  @lazySingleton
+  Dio get dio => Dio();
 }

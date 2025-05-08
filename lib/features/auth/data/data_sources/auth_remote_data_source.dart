@@ -3,7 +3,7 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../core/constants/api_endpoints.dart';
 import '../../../../core/data/errors/data_handler.dart';
-import '../../../../core/services/dio/dio_client.dart';
+import '../../../../core/services/api/api_service.dart';
 import '../../../../core/utils/type_defs.dart';
 import '../../domain/requests/login_request.dart';
 import '../models/user_data_model.dart';
@@ -15,10 +15,10 @@ abstract class AuthRemoteDataSource {
 
 @LazySingleton(as: AuthRemoteDataSource)
 class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
-  final DioClient _dioClient;
+  final ApiService _dioClient;
 
   const AuthRemoteDataSourceImplementation({
-    required DioClient dioClient,
+    required ApiService dioClient,
   }) : _dioClient = dioClient;
 
   @override

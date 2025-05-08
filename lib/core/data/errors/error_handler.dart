@@ -3,8 +3,17 @@ part of 'data_handler.dart';
 class ErrorHandler {
   ErrorHandler._();
 
-  /// Exception and error handler for Dio, Type, Format, and other
-  static FutureData<T> catchException<T>(
+  /// Catches exceptions and logs the error.
+  static Future<void> catchException(Function() callBack) async {
+    try {
+      await callBack();
+    } catch (error, stackTrace) {
+      debugError(error, stackTrace);
+    }
+  }
+
+  /// Handles exceptions and returns appropriate failure states.
+  static FutureData<T> handleException<T>(
     FutureData<T> Function() callBack,
   ) async {
     try {
@@ -107,10 +116,12 @@ class ErrorHandler {
   //       'The password is invalid or the user does not have a password.',
   //   'weak-password':
   //       'Please choose a stronger password consisting of more characters!',
-  //   'invalid-email': 'Please double check your email and try again!',
+  //   'invalid-email':
+  //       'Invalid email. Please double check your email and try again!',
   //   'operation-not-allowed':
   //       'You cannot register using this method at this moment!',
-  //   'email-already-in-use': 'Please choose another email to register with!',
+  //   'email-already-in-use':
+  //       'Email already in use.Please choose another email to register with!',
   //   'requires-recent-login':
   //       'You need to log out and log back in again in order to perform this operation',
   //   'no-current-user': 'No current user with this information was found',

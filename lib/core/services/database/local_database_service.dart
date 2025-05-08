@@ -8,35 +8,36 @@ abstract class LocalDatabaseService {
   Future<void> clear();
 }
 
+@module
+abstract class LocalDatabaseModule {
+  @preResolve
+  Future<SharedPreferences> get sharedPreferences =>
+      SharedPreferences.getInstance();
+}
+
 @LazySingleton(as: LocalDatabaseService)
 class LocalDatabaseServiceImplementation implements LocalDatabaseService {
-  late final Future<SharedPreferences> sharedPreferences;
+  final SharedPreferences sharedPreferences;
 
-  LocalDatabaseServiceImplementation() {
-    sharedPreferences = SharedPreferences.getInstance();
-  }
+  const LocalDatabaseServiceImplementation({required this.sharedPreferences});
 
   @override
   Future<String?> getString(String key) async {
-    final database = await sharedPreferences;
-    return database.getString(key);
+    return sharedPreferences.getString(key);
   }
 
   @override
   Future<void> setString(String key, String value) async {
-    final database = await sharedPreferences;
-    database.setString(key, value);
+    await sharedPreferences.setString(key, value);
   }
 
   @override
   Future<void> remove(String key) async {
-    final database = await sharedPreferences;
-    database.remove(key);
+    await sharedPreferences.remove(key);
   }
 
   @override
   Future<void> clear() async {
-    final database = await sharedPreferences;
-    database.clear();
+    await sharedPreferences.clear();
   }
 }

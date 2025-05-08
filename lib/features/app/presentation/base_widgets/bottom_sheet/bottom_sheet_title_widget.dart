@@ -1,4 +1,11 @@
-part of 'generic_bottom_sheet.dart';
+import 'package:flutter/material.dart';
+
+import '../../../../../core/constants/app_colors.dart';
+import '../../../../../core/constants/app_icons.dart';
+import '../../../../../core/services/navigation/navigation_service.dart';
+import '../../../../../core/utils/screen_util/screen_util.dart';
+import '../../widgets/title_widget.dart';
+import '../action/icon_button_widget.dart';
 
 class BottomSheetTitleWidget extends StatelessWidget {
   final String title;
@@ -13,7 +20,7 @@ class BottomSheetTitleWidget extends StatelessWidget {
         children: [
           Flexible(child: TitleWidget(title: title)),
           IconButtonWidget(
-            onPressed: NavigationUtil.I.popPage,
+            onPressed: NavigationUtil.I.popTop,
             disableSplash: true,
             icon: const Icon(
               AppIcons.close,

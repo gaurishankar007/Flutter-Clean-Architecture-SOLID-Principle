@@ -2,16 +2,17 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../app_config.dart';
-import 'dio_client.dart';
+import 'api_service.dart';
 
-@LazySingleton(as: DioClient, env: [Flavor.production])
-class ProdDioClientImplementation implements DioClient {
-  final Dio _dio = Dio();
+@LazySingleton(as: ApiService, env: [Flavor.production])
+class ApiServiceProd implements ApiService {
+  final Dio _dio;
 
-  ProdDioClientImplementation({
+  ApiServiceProd({
+    required Dio dio,
     required AppConfig appConfiguration,
     required AuthInterceptor authInterceptor,
-  }) {
+  }) : _dio = dio {
     _dio.options = BaseOptions(
       baseUrl: appConfiguration.apiBaseUrl,
       connectTimeout: const Duration(seconds: 15),

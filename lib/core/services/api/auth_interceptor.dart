@@ -1,4 +1,4 @@
-part of 'dio_client.dart';
+part of 'api_service.dart';
 
 /// Modifies http requests and responses. Used to
 /// * Add headers

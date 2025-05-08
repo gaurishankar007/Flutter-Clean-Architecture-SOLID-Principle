@@ -6,67 +6,36 @@
       "detail": "",
       "type": "flutter",
       "command": "flutter",
-      "args": [
-        "clean"
-      ],
+      "args": ["clean"],
       "group": "build",
-      "problemMatcher": [],
+      "problemMatcher": []
     },
     {
       "label": "flutter: Get Dependencies",
       "detail": "",
       "type": "flutter",
       "command": "flutter",
-      "args": [
-        "pub",
-        "get"
-      ],
+      "args": ["pub", "get"],
       "group": "build",
-      "problemMatcher": [],
+      "problemMatcher": []
+    },
+    {
+      "label": "flutter: Builder Runner Build",
+      "detail": "",
+      "type": "dart",
+      "command": "dart",
+      "args": ["run", "build_runner", "build", "--delete-conflicting-outputs"],
+      "group": "build",
+      "problemMatcher": []
     },
     {
       "label": "flutter: Builder Runner Watch",
       "detail": "",
       "type": "dart",
       "command": "dart",
-      "args": [
-        "run",
-        "build_runner",
-        "watch",
-        "--delete-conflicting-outputs"
-      ],
+      "args": ["run", "build_runner", "watch", "--delete-conflicting-outputs"],
       "group": "build",
-      "problemMatcher": [],
-    },
-    {
-      "label": "flutter: Builder Runner Watch",
-      "detail": "",
-      "type": "dart",
-      "command": "dart",
-      "args": [
-        "run",
-        "build_runner",
-        "watch",
-        "--delete-conflicting-outputs"
-      ],
-      "group": "build",
-      "problemMatcher": [],
-    },
-    {
-      "label": "flutter: Run Debug Development",
-      "detail": "",
-      "type": "flutter",
-      "command": "flutter",
-      "args": [
-        "run",
-        "debug",
-        "--flavor",
-        "development",
-        "--target",
-        "lib/main_dev.dart"
-      ],
-      "group": "build",
-      "problemMatcher": [],
+      "problemMatcher": []
     },
     {
       "label": "flutter: Build Release Staging Apk",
@@ -76,14 +45,14 @@
       "args": [
         "build",
         "apk",
-        "release",
+        "--release",
         "--flavor",
         "staging",
         "--target",
         "lib/main_stg.dart"
       ],
       "group": "build",
-      "problemMatcher": [],
+      "problemMatcher": []
     },
     {
       "label": "flutter: Build Release Production Apk",
@@ -93,42 +62,49 @@
       "args": [
         "build",
         "apk",
-        "release",
+        "--release",
         "--flavor",
         "production",
         "--target",
         "lib/main_prod.dart"
       ],
       "group": "build",
-      "problemMatcher": [],
+      "problemMatcher": []
+    },
+    {
+      "label": "flutter: Build Release Production App Bundle",
+      "detail": "",
+      "type": "flutter",
+      "command": "flutter",
+      "args": [
+        "build",
+        "appbundle",
+        "--release",
+        "--flavor",
+        "production",
+        "--target",
+        "lib/main_prod.dart"
+      ],
+      "group": "build",
+      "problemMatcher": []
     },
     {
       "label": "mason: Make Feature Template",
       "detail": "",
       "type": "shell",
       "command": "mason",
-      "args": [
-        "make",
-        "cubit_feature",
-        "-c",
-        "config.json"
-      ],
+      "args": ["make", "cubit_feature", "-c", "config.json"],
       "group": "build",
-      "problemMatcher": [],
+      "problemMatcher": []
     },
     {
       "label": "mason: Make Cubit Page Template",
       "detail": "",
       "type": "shell",
       "command": "mason",
-      "args": [
-        "make",
-        "cubit_page",
-        "-c",
-        "config.json"
-      ],
+      "args": ["make", "cubit_page", "-c", "config.json"],
       "group": "build",
-      "problemMatcher": [],
+      "problemMatcher": []
     }
   ]
 }

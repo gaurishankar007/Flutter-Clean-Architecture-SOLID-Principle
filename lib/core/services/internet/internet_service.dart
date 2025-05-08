@@ -8,17 +8,27 @@ abstract class InternetService {
   bool get isConnected;
   Stream<InternetStatus>? get connectivityStream;
   Future<bool> checkConnection();
-  subscribeConnectivity();
-  unSubscriptionConnectivity();
+  Future<void> subscribeConnectivity();
+  void unSubscriptionConnectivity();
+}
+
+@module
+abstract class InternetServiceModule {
+  @lazySingleton
+  InternetConnection get internetConnection => InternetConnection();
 }
 
 /// Check whether the device is online or offline
 @LazySingleton(as: InternetService)
 class InternetServiceImplementation implements InternetService {
-  final _internetConnection = InternetConnection();
+  final InternetConnection _internetConnection;
   Stream<InternetStatus>? _connectivityStream;
   StreamSubscription<InternetStatus>? _subscription;
   bool _connection = true;
+
+  InternetServiceImplementation({
+    required InternetConnection internetConnection,
+  }) : _internetConnection = internetConnection;
 
   @override
   bool get isConnected => _connection;
@@ -32,7 +42,7 @@ class InternetServiceImplementation implements InternetService {
 
   /// Creates a broadcast stream and updates internet status
   @override
-  subscribeConnectivity() {
+  subscribeConnectivity() async {
     /// Broadcasts a stream which can be listen multiple times
     _connectivityStream ??=
         _internetConnection.onStatusChange.asBroadcastStream();

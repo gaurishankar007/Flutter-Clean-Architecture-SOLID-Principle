@@ -1,49 +1,50 @@
-import 'package:injectable/injectable.dart';
-import 'package:isar/isar.dart';
-import 'package:path_provider/path_provider.dart';
+// import 'package:injectable/injectable.dart';
+// import 'package:isar/isar.dart';
+// import 'package:path_provider/path_provider.dart';
 
-abstract class IsarDatabaseService {
-  Future open();
-  Future<void> put<T>(T collection);
-  Future<void> putAll<T>(List<T> collection);
-  Future<List<T>> getAll<T>();
-  Future<T?> get<T>(int id);
-  Future<void> clearAll();
-}
+// import '../../../features/auth/data/isar_collections/user_collection.dart';
 
-@LazySingleton(as: IsarDatabaseService)
-class IsarDatabaseServiceImplementation implements IsarDatabaseService {
-  late final Isar _isar;
+// abstract class IsarDatabaseService {
+//   Future<void> put<T>(T collection);
+//   Future<void> putAll<T>(List<T> collection);
+//   Future<List<T>> getAll<T>();
+//   Future<T?> get<T>(int id);
+//   Future<void> clearAll();
+// }
 
-  @override
-  Future open() async {
-    /// If isar is already open, discard the operation
-    if (Isar.instanceNames.isNotEmpty) return;
+// @module
+// abstract class IsarDatabaseModule {
+//   @preResolve
+//   Future<Isar> provideIsar() async {
+//     final directory = await getApplicationDocumentsDirectory();
+//     return await Isar.open([
+//       UserCollectionSchema,
+//     ], directory: directory.path, inspector: true);
+//   }
+// }
 
-    final directory = await getApplicationDocumentsDirectory();
-    _isar = await Isar.open(
-      [],
-      directory: directory.path,
-      inspector: true,
-    );
-  }
+// @LazySingleton(as: IsarDatabaseService)
+// class IsarDatabaseServiceImplementation implements IsarDatabaseService {
+//   final Isar _isar;
 
-  @override
-  Future<void> put<T>(T collection) async => await _isar
-      .writeTxn(() async => await _isar.collection<T>().put(collection));
+//   const IsarDatabaseServiceImplementation({required Isar isar}) : _isar = isar;
 
-  @override
-  Future<void> putAll<T>(List<T> collection) async => await _isar
-      .writeTxn(() async => await _isar.collection<T>().putAll(collection));
+//   @override
+//   Future<void> put<T>(T collection) async => await _isar
+//       .writeTxn(() async => await _isar.collection<T>().put(collection));
 
-  @override
-  Future<List<T>> getAll<T>() async =>
-      await _isar.collection<T>().where().findAll();
+//   @override
+//   Future<void> putAll<T>(List<T> collection) async => await _isar
+//       .writeTxn(() async => await _isar.collection<T>().putAll(collection));
 
-  @override
-  Future<T?> get<T>(int id) async => await _isar.collection<T>().get(id);
+//   @override
+//   Future<List<T>> getAll<T>() async =>
+//       await _isar.collection<T>().where().findAll();
 
-  @override
-  Future<void> clearAll() async =>
-      await _isar.writeTxn(() async => await _isar.clear());
-}
+//   @override
+//   Future<T?> get<T>(int id) async => await _isar.collection<T>().get(id);
+
+//   @override
+//   Future<void> clearAll() async =>
+//       await _isar.writeTxn(() async => await _isar.clear());
+// }

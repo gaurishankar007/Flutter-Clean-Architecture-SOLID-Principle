@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:clean_architecture/features/app/presentation/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/constants/app_colors.dart';
@@ -7,6 +6,7 @@ import '../../../../../core/constants/app_icons.dart';
 import '../../../../../core/services/session/session_manager.dart';
 import '../../../../app/presentation/base_widgets/app_bar/app_bar_widget.dart';
 import '../../../../app/presentation/base_widgets/scaffold_widget.dart';
+import '../../../../app/presentation/widgets/title_widget.dart';
 import 'widgets/close_app_dialog.dart';
 
 @RoutePage()

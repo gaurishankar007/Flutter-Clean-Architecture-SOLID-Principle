@@ -5,7 +5,7 @@ A collections of essential and frequently needed guidelines to setup flutter pro
 ## 1. Activate Flutter Pub Executable Commands
 
 - `Windows`: Add this path `"C:\Users\{username}\AppData\Local\Pub\Cache\bin"` to system's Path.
-- `macOs`: Add this path `export PATH="$PATH":"$HOME/` inside .zshrc file.
+- `macOs`: Add this path `export PATH="$PATH":"$HOME/.pub-cache/bin` inside .zshrc file.
 
 ## 2. Firebase CLI
 

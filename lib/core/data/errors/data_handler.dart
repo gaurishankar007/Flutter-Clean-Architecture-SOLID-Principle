@@ -67,7 +67,7 @@ class DataHandler {
     String responseDataKey = "data",
     T? staticData,
   }) {
-    return ErrorHandler.catchException(() async {
+    return ErrorHandler.handleException(() async {
       final response = await request();
       Object? rawData = response.data;
       bool isSuccess = true;
