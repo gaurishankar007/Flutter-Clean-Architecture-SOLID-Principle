@@ -127,12 +127,13 @@ lib/
 │   │   ├── database/
 │   │   │   └── isar_database_service.dart
 │   │   │   └── local_database_service.dart
-│   │   ├── dio/
+│   │   ├── api/
 │   │   │   ├── auth_interception.dart
-│   │   │   ├── dio_client_dev.dart
-│   │   │   ├── dio_client_prod.dart
-│   │   │   ├── dio_client.dart
-│   │   │   └── dio_multipart_client.dart
+│   │   │   ├── api_service_dev.dart
+│   │   │   ├── api_service_prod.dart
+│   │   │   ├── api_service_stg.dart
+│   │   │   ├── api_service.dart
+│   │   │   └── multipart_service.dart
 │   │   ├── image_picker/
 │   │   │   └── image_picker_service.dart
 │   │   ├── internet/
