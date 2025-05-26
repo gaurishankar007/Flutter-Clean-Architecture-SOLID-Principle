@@ -20,13 +20,13 @@ abstract class InternetServiceModule {
 
 /// Check whether the device is online or offline
 @LazySingleton(as: InternetService)
-class InternetServiceImplementation implements InternetService {
+class InternetServiceImpl implements InternetService {
   final InternetConnection _internetConnection;
   Stream<InternetStatus>? _connectivityStream;
   StreamSubscription<InternetStatus>? _subscription;
   bool _connection = true;
 
-  InternetServiceImplementation({
+  InternetServiceImpl({
     required InternetConnection internetConnection,
   }) : _internetConnection = internetConnection;
 

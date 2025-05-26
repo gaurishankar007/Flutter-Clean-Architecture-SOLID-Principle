@@ -12,26 +12,16 @@
 import 'package:clean_architecture/app_config.dart' as _i1068;
 import 'package:clean_architecture/config/routes/routes.dart' as _i706;
 import 'package:clean_architecture/core/services/api/api_service.dart' as _i885;
-import 'package:clean_architecture/core/services/api/api_service_dev.dart'
-    as _i897;
-import 'package:clean_architecture/core/services/api/api_service_prod.dart'
-    as _i408;
-import 'package:clean_architecture/core/services/api/api_service_stg.dart'
-    as _i510;
-import 'package:clean_architecture/core/services/bottom_sheet/bottom_sheet_service.dart'
-    as _i883;
 import 'package:clean_architecture/core/services/database/local_database_service.dart'
     as _i87;
 import 'package:clean_architecture/core/services/image_picker/image_picker_service.dart'
     as _i257;
 import 'package:clean_architecture/core/services/internet/internet_service.dart'
     as _i662;
-import 'package:clean_architecture/core/services/message/toast_message_service.dart'
-    as _i957;
 import 'package:clean_architecture/core/services/navigation/navigation_service.dart'
     as _i1005;
-import 'package:clean_architecture/core/services/session/session_manager.dart'
-    as _i558;
+import 'package:clean_architecture/core/services/session/session_service.dart'
+    as _i497;
 import 'package:clean_architecture/features/auth/data/data_sources/auth_local_data_source.dart'
     as _i322;
 import 'package:clean_architecture/features/auth/data/data_sources/auth_remote_data_source.dart'
@@ -95,69 +85,41 @@ extension GetItInjectableX on _i174.GetIt {
         () => internetServiceModule.internetConnection);
     gh.lazySingleton<_i361.Dio>(() => apiServiceModule.dio);
     gh.lazySingleton<_i257.ImagePickerService>(() =>
-        _i257.ImagePickerServiceImplementation(
-            imagePicker: gh<_i183.ImagePicker>()));
+        _i257.ImagePickerServiceImpl(imagePicker: gh<_i183.ImagePicker>()));
     gh.lazySingleton<_i1068.AppConfig>(
       () => _i1068.AppConfigStg(),
       registerFor: {_staging},
     );
+    gh.lazySingleton<_i662.InternetService>(() => _i662.InternetServiceImpl(
+        internetConnection: gh<_i161.InternetConnection>()));
+    gh.lazySingleton<_i1005.NavigationService>(
+        () => _i1005.NavigationServiceImpl(appRouter: gh<_i706.AppRouter>()));
     gh.lazySingleton<_i1068.AppConfig>(
       () => _i1068.AppConfigProd(),
       registerFor: {_production},
     );
-    gh.lazySingleton<_i662.InternetService>(() =>
-        _i662.InternetServiceImplementation(
-            internetConnection: gh<_i161.InternetConnection>()));
     gh.lazySingleton<_i87.LocalDatabaseService>(() =>
-        _i87.LocalDatabaseServiceImplementation(
+        _i87.LocalDatabaseServiceImpl(
             sharedPreferences: gh<_i460.SharedPreferences>()));
     gh.lazySingleton<_i1068.AppConfig>(
       () => _i1068.AppConfigDev(),
       registerFor: {_development},
     );
-    gh.lazySingleton<_i1005.NavigationService>(() =>
-        _i1005.NavigationServiceImplementation(
-            appRouter: gh<_i706.AppRouter>()));
-    gh.lazySingleton<_i883.BottomSheetService>(() =>
-        _i883.BottomSheetServiceImplementation(
-            navigationService: gh<_i1005.NavigationService>()));
     gh.lazySingleton<_i322.AuthLocalDataSource>(() =>
         _i322.AuthLocalDataSourceImplementation(
             localDatabase: gh<_i87.LocalDatabaseService>()));
-    gh.lazySingleton<_i957.ToastMessageService>(() =>
-        _i957.ToastMessageServiceImplementation(
-            navigationService: gh<_i1005.NavigationService>()));
-    gh.lazySingleton<_i558.SessionManager>(
-        () => _i558.SessionManagerImplementation(
-              authLocalDataSource: gh<_i322.AuthLocalDataSource>(),
-              navigationService: gh<_i1005.NavigationService>(),
-            ));
+    gh.lazySingleton<_i497.SessionService>(() => _i497.SessionServiceImpl(
+          authLocalDataSource: gh<_i322.AuthLocalDataSource>(),
+          navigationService: gh<_i1005.NavigationService>(),
+        ));
     gh.lazySingleton<_i885.AuthInterceptor>(() =>
-        _i885.AuthInterceptor(sessionManager: gh<_i558.SessionManager>()));
-    gh.lazySingleton<_i885.ApiService>(
-      () => _i897.ApiServiceDev(
-        dio: gh<_i361.Dio>(),
-        appConfiguration: gh<_i1068.AppConfig>(),
-        authInterceptor: gh<_i885.AuthInterceptor>(),
-      ),
-      registerFor: {_development},
-    );
-    gh.lazySingleton<_i885.ApiService>(
-      () => _i408.ApiServiceProd(
-        dio: gh<_i361.Dio>(),
-        appConfiguration: gh<_i1068.AppConfig>(),
-        authInterceptor: gh<_i885.AuthInterceptor>(),
-      ),
-      registerFor: {_production},
-    );
-    gh.lazySingleton<_i885.ApiService>(
-      () => _i510.ApiServiceStg(
-        dio: gh<_i361.Dio>(),
-        appConfiguration: gh<_i1068.AppConfig>(),
-        authInterceptor: gh<_i885.AuthInterceptor>(),
-      ),
-      registerFor: {_staging},
-    );
+        _i885.AuthInterceptor(sessionManager: gh<_i497.SessionService>()));
+    gh.lazySingleton<_i885.ApiService>(() => _i885.ApiServiceImpl(
+          dio: gh<_i361.Dio>(),
+          appConfig: gh<_i1068.AppConfig>(),
+          authInterceptor: gh<_i885.AuthInterceptor>(),
+          navigationService: gh<_i1005.NavigationService>(),
+        ));
     gh.lazySingleton<_i141.AuthRemoteDataSource>(() =>
         _i141.AuthRemoteDataSourceImplementation(
             dioClient: gh<_i885.ApiService>()));

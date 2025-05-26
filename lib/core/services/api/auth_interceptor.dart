@@ -6,7 +6,7 @@ part of 'api_service.dart';
 /// * Refresh tokens
 @LazySingleton()
 class AuthInterceptor extends Interceptor {
-  final SessionManager _sessionManager;
+  final SessionService _sessionManager;
   final Dio _dio = Dio();
 
   /// This flag is to prevent multiple refresh token requests. If the request
@@ -18,7 +18,7 @@ class AuthInterceptor extends Interceptor {
   /// token is expired, each requests are retried after refreshing token
   final List<DioRequestData> _pendingRequests = [];
 
-  AuthInterceptor({required SessionManager sessionManager})
+  AuthInterceptor({required SessionService sessionManager})
       : _sessionManager = sessionManager;
 
   @override

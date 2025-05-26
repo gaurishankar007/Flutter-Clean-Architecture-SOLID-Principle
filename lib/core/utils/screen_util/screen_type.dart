@@ -4,6 +4,10 @@ part of 'screen_util.dart';
 ///
 /// Categories are loosely inspired by Material Design 3 layout breakpoints:
 /// https://m3.material.io/foundations/layout/applying-layout/window-size-classes
+/// According to material design,
+/// Mobile Layout -> width <= 600 dp
+/// Tablet Layout -> 600 < width <= 840 dp
+/// Mobile Layout -> width > 840 dp
 ///
 /// Screen widths are in logical pixels (dp).
 ///

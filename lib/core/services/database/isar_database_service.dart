@@ -24,10 +24,10 @@
 // }
 
 // @LazySingleton(as: IsarDatabaseService)
-// class IsarDatabaseServiceImplementation implements IsarDatabaseService {
+// class IsarDatabaseServiceImpl implements IsarDatabaseService {
 //   final Isar _isar;
 
-//   const IsarDatabaseServiceImplementation({required Isar isar}) : _isar = isar;
+//   const IsarDatabaseServiceImpl({required Isar isar}) : _isar = isar;
 
 //   @override
 //   Future<void> put<T>(T collection) async => await _isar

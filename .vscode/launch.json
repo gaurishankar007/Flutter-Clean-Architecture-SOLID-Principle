@@ -21,8 +21,8 @@
       "name": "Debug-Prod",
       "request": "launch",
       "type": "dart",
-      "program": "lib/main_prod.dart",
-      "args": ["--flavor", "production", "--target", "lib/main_prod.dart"],
+      "program": "lib/main.dart",
+      "args": ["--flavor", "production", "--target", "lib/main.dart"],
       "flutterMode": "debug"
     },
     {
@@ -45,8 +45,8 @@
       "name": "Profile-Prod",
       "request": "launch",
       "type": "dart",
-      "program": "lib/main_prod.dart",
-      "args": ["--flavor", "production", "--target", "lib/main_prod.dart"],
+      "program": "lib/main.dart",
+      "args": ["--flavor", "production", "--target", "lib/main.dart"],
       "flutterMode": "profile"
     },
     {
@@ -69,8 +69,8 @@
       "name": "Release-Prod",
       "request": "launch",
       "type": "dart",
-      "program": "lib/main_prod.dart",
-      "args": ["--flavor", "production", "--target", "lib/main_prod.dart"],
+      "program": "lib/main.dart",
+      "args": ["--flavor", "production", "--target", "lib/main.dart"],
       "flutterMode": "release"
     },
     {
@@ -93,7 +93,8 @@
         "--web-browser-flag=--disable-web-security",
         "--web-hostname",
         "localhost",
-        "--web-port 5000"
+        "--web-port",
+        "5000"
       ]
     }
   ]

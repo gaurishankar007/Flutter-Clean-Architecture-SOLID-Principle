@@ -2,7 +2,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'core/data/errors/data_handler.dart';
 import 'core/services/internet/internet_service.dart';
-import 'core/services/session/session_manager.dart';
+import 'core/services/session/session_service.dart';
 import 'injector/injector.dart';
 
 class AppInitializer {

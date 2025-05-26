@@ -1,4 +1,4 @@
-# Flutter Clean Architecture & SOLID Principles 🚀🚀🚀
+# Flutter Clean Architecture & SOLID Principles 🚀
 
 A comprehensive guide to building scalable and maintainable Flutter applications using **Clean Architecture** and **SOLID Principles**.
 
@@ -6,46 +6,54 @@ A comprehensive guide to building scalable and maintainable Flutter applications
 
 ## Table of Contents 📌
 
-- [Flutter Clean Architecture \& SOLID Principles 🚀🚀🚀](#flutter-clean-architecture--solid-principles-)
+- [Flutter Clean Architecture \& SOLID Principles 🚀](#flutter-clean-architecture--solid-principles-)
   - [Table of Contents 📌](#table-of-contents-)
-  - [What is Clean Architecture? 🏗️](#what-is-clean-architecture-️)
-    - [Core Layers of Clean Architecture:](#core-layers-of-clean-architecture)
-    - [Benefits of Clean Architecture:](#benefits-of-clean-architecture)
-  - [What are SOLID Principles? 💡](#what-are-solid-principles-)
-  - [Getting Started 🛠️](#getting-started-️)
-  - [Project Features ✨](#project-features-)
-  - [Feature Template Generation Using Mason 🧱](#feature-template-generation-using-mason-)
-    - [Steps to Generate a New Feature Template](#steps-to-generate-a-new-feature-template)
-    - [What do `cubit_feature` \& `cubit_page` Do?](#what-do-cubit_feature--cubit_page-do)
+  - [Introduction](#introduction)
+  - [What is Clean Architecture?](#what-is-clean-architecture)
+    - [Core Layers](#core-layers)
+    - [Benefits](#benefits)
+  - [SOLID Principles](#solid-principles)
+  - [Getting Started](#getting-started)
+  - [Project Features](#project-features)
+  - [Feature Template Generation with Mason](#feature-template-generation-with-mason)
+    - [How to Generate a Feature](#how-to-generate-a-feature)
+    - [What Do `cubit_feature` \& `cubit_page` Do?](#what-do-cubit_feature--cubit_page-do)
     - [Configuration](#configuration)
-  - [Visual Representation 📊](#visual-representation-)
-  - [Why Clean Architecture \& SOLID Principles? 🧩](#why-clean-architecture--solid-principles-)
-  - [Overview of API Workflow Layers 🧱](#overview-of-api-workflow-layers-)
-    - [Data Flow Summary 🔁](#data-flow-summary-)
-    - [Core Components 📦](#core-components-)
+  - [Visual Representation](#visual-representation)
+  - [API Workflow Overview](#api-workflow-overview)
+    - [Data Flow Summary](#data-flow-summary)
+    - [Core Components](#core-components)
       - [1. `Repository`](#1-repository)
       - [2. `RemoteDataSource`](#2-remotedatasource)
-      - [3. `DioClient`](#3-dioclient)
+      - [3. `ApiService`](#3-apiservice)
       - [4. `Interceptor`](#4-interceptor)
       - [5. `LocalDataSource`](#5-localdatasource)
       - [6. `DataHandler`](#6-datahandler)
       - [7. `ErrorHandler`](#7-errorhandler)
       - [8. `DataState<T>`](#8-datastatet)
-    - [Example: Login Flow 🔄](#example-login-flow-)
+    - [Example: Login Flow](#example-login-flow)
       - [Internal Flow](#internal-flow)
-    - [Benefits ✅](#benefits-)
-    - [Debugging Tools 🔍](#debugging-tools-)
-    - [Testing Tips 🧪](#testing-tips-)
+    - [Benefits](#benefits-1)
+    - [Debugging Tools](#debugging-tools)
+    - [Testing Tips](#testing-tips)
 
-## What is Clean Architecture? 🏗️
+---
+
+## Introduction
+
+This project demonstrates how to structure Flutter applications using **Clean Architecture** and **SOLID Principles**. The goal is to create modular, testable, and maintainable codebases that scale with your application's growth.
+
+---
+
+## What is Clean Architecture?
 
 **Clean Architecture** is a software design philosophy that promotes separation of concerns through clearly defined layers. Each layer has a specific responsibility, making the codebase modular, testable, and easier to maintain.
 
-### Core Layers of Clean Architecture:
+### Core Layers
 
 1. **Presentation Layer**
 
-   - Contains the UI and state management (e.g., Cubits, Widgets, Pages).
+   - Contains UI and state management (e.g., Cubits, Widgets, Pages).
    - Responsible for displaying data and handling user interactions.
 
 2. **Domain Layer**
@@ -57,36 +65,36 @@ A comprehensive guide to building scalable and maintainable Flutter applications
    - Manages data sources (e.g., APIs, local databases).
    - Implements repositories to provide data to the domain layer.
 
-### Benefits of Clean Architecture:
+### Benefits
 
-- Promotes **independence** from frameworks, UI, and external data sources.
-- Ensures **modularity**, enabling easier testing and maintenance.
-- Supports **scalability** and flexibility for future feature additions.
+- **Framework Independence**: Decouples business logic from frameworks, UI, and data sources.
+- **Modularity**: Enables easier testing and maintenance.
+- **Scalability**: Supports flexible and future-proof feature additions.
 
 ---
 
-## What are SOLID Principles? 💡
+## SOLID Principles
 
-**SOLID Principles** complement **Clean Architecture** by defining guidelines to write clean, maintainable, and extensible code. They are:
+**SOLID Principles** complement Clean Architecture by providing guidelines for writing clean, maintainable, and extensible code:
 
-1. **S - Single Responsibility Principle (SRP)**  
-   Each class should have only one responsibility or reason to change.
+1. **Single Responsibility Principle (SRP)**  
+   Each class should have only one reason to change.
 
-2. **O - Open/Closed Principle (OCP)**  
+2. **Open/Closed Principle (OCP)**  
    Classes should be open for extension but closed for modification.
 
-3. **L - Liskov Substitution Principle (LSP)**  
-   Subtypes must be substitutable for their base types without altering the correctness of the program.
+3. **Liskov Substitution Principle (LSP)**  
+   Subtypes must be substitutable for their base types without altering program correctness.
 
-4. **I - Interface Segregation Principle (ISP)**  
+4. **Interface Segregation Principle (ISP)**  
    Classes should not be forced to implement interfaces they do not use.
 
-5. **D - Dependency Inversion Principle (DIP)**  
+5. **Dependency Inversion Principle (DIP)**  
    High-level modules should not depend on low-level modules; both should depend on abstractions.
 
 ---
 
-## Getting Started 🛠️
+## Getting Started
 
 ```
 lib/
@@ -106,85 +114,14 @@ lib/
 │
 ├── core/
 │   ├── constants/
-│   │   ├── api_endpoints.dart
-│   │   ├── app_colors.dart
-│   │   └── app_icons.dart
 │   ├── data/
-│   │   ├── api/
-│   │   │   ├── api_response.dart
-│   │   │   ├── refresh_token_request.dart
-│   │   │   └── refresh_token_response.dart
-│   │   ├── errors/
-│   │   │   ├── data_handler.dart
-│   │   │   ├── error_handler.dart
-│   │   │   └── error_types.dart
-│   │   ├── states/
-│   │   │   ├── data_state.dart
-│   │   │   ├── failure_state.dart
-│   │   │   ├── loading_state.dart
-│   │   │   └── success_state.dart
 │   ├── services/
-│   │   ├── database/
-│   │   │   └── isar_database_service.dart
-│   │   │   └── local_database_service.dart
-│   │   ├── api/
-│   │   │   ├── auth_interception.dart
-│   │   │   ├── api_service_dev.dart
-│   │   │   ├── api_service_prod.dart
-│   │   │   ├── api_service_stg.dart
-│   │   │   ├── api_service.dart
-│   │   │   └── multipart_service.dart
-│   │   ├── image_picker/
-│   │   │   └── image_picker_service.dart
-│   │   ├── internet/
-│   │   │   └── internet_service.dart
-│   │   ├── message/
-│   │   │   └── toast_message_service.dart
-│   │   ├── navigation/
-│   │   │   └── navigation_service.dart
-│   │   ├── session/
-│   │   │   └── session_manager.dart
 │   ├── utils/
-│   │   ├── base_cubit/
-│   │   │   └── base_cubit.dart
-│   │   ├── extensions/
-│   │   │   ├── build_context_extension.dart
-│   │   │   ├── double_extension.dart
-│   │   │   ├── duration_extension.dart
-│   │   │   ├── num_extension.dart
-│   │   │   ├── page_controller_extension.dart
-│   │   │   └── string_extension.dart
-│   │   ├── screen_util/
-│   │   │   ├── screen_type.dart
-│   │   │   └── screen_util.dart
-│   │   ├── use_case/
-│   │   │   └── use_case.dart
-│   │   ├── debounce_time.dart
-│   │   ├── service_mixin.dart
-│   │   ├── type_defs.dart
-│   │   ├── ui_helpers.dart
-│   │   └── validators.dart
 │
 ├── feature/
 │   ├── app/
-│   │   └── presentation/
-│   │       ├── base_widgets/
-│   │       ├── widgets/
 │   ├── auth/
-│   │   ├── data/
-│   │   │   ├── models/
-│   │   │   ├── data_sources/
-│   │   │   └── repository_implementations/
-│   │   ├── domain/
-│   │   │   ├── entities/
-│   │   │   ├── repositories/
-│   │   │   └── use_cases/
-│   │   └── presentation/
-│   │       ├── cubits/
-│   │       ├── pages/
-│   │       └── widgets/
 │   ├── dashboard/
-│   │   └── ... (dashboard-specific files like auth feature)
 │
 ├── injector/
 │   ├── injector.config.dart
@@ -194,32 +131,30 @@ lib/
 ├── app_initializer.dart
 ├── application.dart
 ├── main_dev.dart
-├── main_prod.dart
+├── main.dart
 ├── main_stg.dart
 ```
 
 ---
 
-## Project Features ✨
+## Project Features
 
-- 🛡️ **Use of SOLID Principles**: Ensuring scalable, maintainable, and testable code.
-- 🏗️ **Clean Architecture**: Divides code into layers (Data, Domain, Presentation) for better separation of concerns.
-- 🍴 **Build Flavors**: Seamless support for Development, Staging, and Production environments.
-- 🔧 **Robust Error Handling**: Comprehensive API and internal error management mechanisms.
-- 🔄 **Automated Request/Response Handling**: Including token refreshing and request inspection.
-- 📡 **Core Services**:
-  - Navigation, Internet, Local Database, Toast Messages, and User Credential management.
+- 🛡️ **SOLID Principles**: Ensures scalable, maintainable, and testable code.
+- 🏗️ **Clean Architecture**: Divides code into layers (Data, Domain, Presentation) for clear separation of concerns.
+- 🍴 **Build Flavors**: Supports Development, Staging, and Production environments.
+- 🔧 **Robust Error Handling**: Comprehensive API and internal error management.
+- 🔄 **Automated Request/Response Handling**: Includes token refreshing and request inspection.
+- 📡 **Core Services**: Navigation, Internet, Local Database, Toast Messages, and User Credential management.
 - 🎨 **Reusable UI Components**: Customizable themes and reusable widgets.
-- ⚙️ **Utilities**:
-  - Screen size handling, extensions, mixins, generics, and form validation utilities.
+- ⚙️ **Utilities**: Screen size handling, extensions, mixins, generics, and form validation utilities.
 
 ---
 
-## Feature Template Generation Using Mason 🧱
+## Feature Template Generation with Mason
 
 This project uses **Mason** to generate feature templates for consistent and efficient development.
 
-### Steps to Generate a New Feature Template
+### How to Generate a Feature
 
 1. **Activate the `mason_cli` globally**:
 
@@ -240,60 +175,38 @@ This project uses **Mason** to generate feature templates for consistent and eff
    ```
 
 4. **Generate a new cubit and page using the `cubit_page` brick**:
+
    ```bash
    mason make cubit_page -c config.json
    ```
 
-### What do `cubit_feature` & `cubit_page` Do?
+### What Do `cubit_feature` & `cubit_page` Do?
 
-The `cubit_feature` brick generates a feature template following the **Clean Architecture** structure, including:
+- **`cubit_feature`**: Generates a feature template following Clean Architecture, including:
 
-- **Data Layer**:
+  - **Data Layer**: Data Sources, Models, Repositories
+  - **Domain Layer**: Entities, Repositories, Use Cases
+  - **Presentation Layer**: Cubits, Pages, Widgets
 
-  - Data Sources
-  - Models
-  - Repositories
-
-- **Domain Layer**:
-
-  - Entities
-  - Repositories
-  - Use cases
-
-- **Presentation Layer**:
-
-  - Cubits
-  - Pages
-  - Widgets
-
-The `cubit_page` brick generates a cubit and a page templates inside the specified feature's presentation layer.
+- **`cubit_page`**: Generates a cubit and page template inside the specified feature's presentation layer.
 
 ### Configuration
 
-The generation process relies on a `config.json` file, which includes details such as feature, cubit, page names and entity name with it's variables type, name. Ensure that the `config.json` is correctly defined before running the generation command.
+The generation process relies on a `config.json` file, which includes details such as feature, cubit, and page names, as well as entity names and their variable types. Ensure that `config.json` is correctly defined before running the generation command.
 
 ---
 
-## Visual Representation 📊
+## Visual Representation
 
 ![Clean Architecture With SOLID Principle](https://miro.medium.com/v2/resize:fit:720/format:webp/0*1w080Y72qaOdoC3W.png)
 
-> This diagram highlights the modular and scalable structure of Clean Architecture, aligning with **SOLID principles** to ensure the best development practices.
+> This diagram highlights the modular and scalable structure of Clean Architecture, aligning with **SOLID principles** to ensure best development practices.
 
 ---
 
-## Why Clean Architecture & SOLID Principles? 🧩
+## API Workflow Overview
 
-- **Improves Code Readability**: Clear separation of layers and responsibilities makes it easier to understand.
-- **Simplifies Maintenance**: Modular code allows isolated changes with minimal risk.
-- **Promotes Scalability**: Adding new features becomes seamless with a structured foundation.
-- **Enhances Testing**: Decoupled modules and layers are more straightforward to test.
-
-**Start your journey toward building robust and scalable Flutter applications today! 🚀**
-
----
-
-## Overview of API Workflow Layers 🧱
+### Data Flow Summary
 
 ```mermaid
 graph TD
@@ -305,81 +218,70 @@ graph TD
     Repository -->|uses| InternetService
     Repository -->|wrapped by| DataHandler
     Repository -->|handles| DataState
-    RemoteDataSource -->|uses| DioClient
+    RemoteDataSource -->|uses| ApiService
     RemoteDataSource -->|wrapped by| DataHandler
-    DioClient -->|sends| API
+    ApiService -->|sends| API
     LocalDataSource -->|uses| LocalDatabaseService
     LocalDataSource -->|wrapped by| ErrorHandler
     LocalDatabaseService -->|sends| LocalDB
 ```
 
----
-
-### Data Flow Summary 🔁
-
-1. **UI calls Cubit which calls UseCase**
-2. **Cubit calls UseCase**
-3. **UseCase calls Repository**
-4. **Repository checks Internet availability** using `InternetService`
-5. If online:
+1. **UI calls Cubit, which calls UseCase**
+2. **UseCase calls Repository**
+3. **Repository checks Internet availability** using `InternetService`
+4. If online:
    - Calls `RemoteDataSource`
-   - `RemoteDataSource` uses `DioClient` to make the HTTP request
-   - Wraps response handling with `DataHandler.requestApi`
+   - `RemoteDataSource` uses `ApiService` to make HTTP requests
+   - Response handling is wrapped with `DataHandler.safeApiCall`
    - Errors are caught via `ErrorHandler`
-6. If offline:
-   - It can optionally fall back to `localCallback`
-   - The `localCallback` uses `LocalDataSource`
-7. **Repository sometimes also calls `LocalDataSource`** without depending on `InternetService`
-
-All outcomes are returned as **DataState<T>**: `SuccessState`, or `FailureState`.
+5. If offline:
+   - Optionally falls back to `localCallback` using `LocalDataSource`
+6. **Repository may also call `LocalDataSource`** directly
+7. **All outcomes are returned as `DataState<T>`**: `SuccessState`, or `FailureState`
 
 ---
 
-### Core Components 📦
+### Core Components
 
 #### 1. `Repository`
 
 - Acts as the single source of truth for the domain layer.
-- Decides when to fetch from remote or local.
-- Uses `guardNetwork()` from `DataHandler` to handle connectivity gracefully.
+- Decides when to fetch from remote or local sources.
+- Uses `fetchWithFallback()` from `DataHandler` for connectivity handling.
 
 #### 2. `RemoteDataSource`
 
 - Contains remote API methods.
-- Makes network calls via `DioClient`.
+- Makes network calls via `ApiService`.
 
-#### 3. `DioClient`
+#### 3. `ApiService`
 
-- Abstract layer over Dio.
-- Simplifies request methods like `get`, `post`, `put`, `patch`, `delete`.
-- Adds Alice debugger & interceptor.
+- Abstracts over Dio for HTTP requests.
+- Simplifies request methods and adds debugging/interception.
 
 #### 4. `Interceptor`
 
-- Used in Dio to intercept and modify requests and responses.
-- Automatically appends access tokens.
-- Catches 401 responses and refreshes tokens before retrying failed requests.
+- Intercepts and modifies requests/responses.
+- Appends access tokens and handles token refresh on 401 responses.
 
 #### 5. `LocalDataSource`
 
-- Manages data locally using LocalDatabaseService
-- Used for fallback or offline data storage
+- Manages local data using `LocalDatabaseService`.
+- Used for fallback or offline storage.
 
 #### 6. `DataHandler`
 
-- Wraps remote calls in `requestApi()`.
+- Wraps remote calls in `safeApiCall()`.
 - Validates and parses API responses.
 - Handles `SuccessState`, `FailureState`, and JSON parsing.
 
 #### 7. `ErrorHandler`
 
-- Catches various error types (`DioException`, `FormatException`, `TypeError`, etc.)
-- Converts errors into `FailureState` with meaningful messages.
+- Catches various error types and converts them into `FailureState` with meaningful messages.
 
 #### 8. `DataState<T>`
 
-- Sealed class for representing UI state.
-- Types:
+- Represents UI state as a sealed class:
   - `SuccessState<T>`
   - `FailureState<T>`
   - `LoadingState<T>`
@@ -394,10 +296,9 @@ state.when(
 
 ---
 
-### Example: Login Flow 🔄
+### Example: Login Flow
 
 ```dart
-
 @injectable
 class LoginCubit extends BaseCubit<LoginState> {
   final LoginCubitUseCases _useCases;
@@ -418,22 +319,20 @@ class LoginCubit extends BaseCubit<LoginState> {
       loading: () => print("Logging in..."),
     );
 
-    /// Or
-
     if (dataState.hasData) {
       saveUserData(dataState.data!);
     } else if (dataState.hasError) {
-      // Do something else
+      // Handle error
     }
   }
 
   saveUserData(UserData userData) async {
-   final dataState = await _useCases.saveUserData.call(userData);
+    final dataState = await _useCases.saveUserData.call(userData);
 
-   if (dataState.hasData) {
-      // Do something
+    if (dataState.hasData) {
+      // Handle success
     } else if (dataState.hasError) {
-      // Do something else
+      // Handle error
     }
   }
 }
@@ -452,7 +351,7 @@ graph TD
     %% Remote Data Flow
     E -->|check internet| F[InternetService]
     E -->|calls| G[AuthRemoteDataSource.login]
-    G --> H[Request API via DioClient]
+    G --> H[Request API via ApiService]
     H --> I[Handles API Response]
     I -->|success| J[SuccessState]
     I -->|failure| K[FailureState]
@@ -467,22 +366,26 @@ graph TD
 
 ---
 
-### Benefits ✅
+### Benefits
 
 - **Decoupled Layers**: Easier testing and maintenance.
 - **Unified Error Handling**: All API and type errors are gracefully caught.
-- **Clean Network Management**: Internet check, retries, and fallback handled centrally.
+- **Clean Network Management**: Internet checks, retries, and fallback handled centrally.
 - **Consistent UI State**: Always returns `DataState` for safe rendering.
 
 ---
 
-### Debugging Tools 🔍
+### Debugging Tools
 
-- **Alice** integrated into `DioClient` for easy request/response inspection
+- **Alice** integrated into `ApiService` for easy request/response inspection.
 
 ---
 
-### Testing Tips 🧪
+### Testing Tips
 
-- You can mock `DioClient`, `AuthRemoteDataSource`, and `AuthRepository` easily.
+- Mock `ApiService`, `AuthRemoteDataSource`, and `AuthRepository` easily.
 - Test each layer in isolation.
+
+---
+
+**Start your journey toward building robust and scalable Flutter applications today! 🚀**

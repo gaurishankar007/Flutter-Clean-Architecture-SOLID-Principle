@@ -23,10 +23,10 @@ abstract class ImagePickerServiceModule {
 
 /// Image picker service class for picking single/multiple images
 @LazySingleton(as: ImagePickerService)
-class ImagePickerServiceImplementation implements ImagePickerService {
+class ImagePickerServiceImpl implements ImagePickerService {
   final ImagePicker _imagePicker;
 
-  const ImagePickerServiceImplementation({required ImagePicker imagePicker})
+  const ImagePickerServiceImpl({required ImagePicker imagePicker})
       : _imagePicker = imagePicker;
 
   /// Pick single image

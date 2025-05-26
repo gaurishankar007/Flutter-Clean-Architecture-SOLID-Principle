@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/constants/app_colors.dart';
-import '../../../../../core/services/session/session_manager.dart';
+import '../../../../../core/services/session/session_service.dart';
 import '../../../../../core/utils/ui_helpers.dart';
 import '../../../../app/presentation/base_widgets/action/primary_button_widget.dart';
 import '../../../../app/presentation/base_widgets/scaffold_widget.dart';

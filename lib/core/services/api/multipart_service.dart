@@ -14,7 +14,7 @@ abstract class MultiPartService {
 ///
 /// MultipartFile is based on stream, and a stream can be read only once,
 /// so the same MultipartFile can't be read multiple times.
-class MultiPartServiceImplementation implements MultiPartService {
+class MultiPartServiceImpl implements MultiPartService {
   @override
   Future<MultipartFile> multipartFromFile(
     String filePath, {

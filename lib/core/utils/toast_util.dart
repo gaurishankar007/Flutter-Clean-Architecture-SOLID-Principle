@@ -1,42 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sliding_toast/flutter_sliding_toast.dart';
-import 'package:get_it/get_it.dart';
-import 'package:injectable/injectable.dart';
 
-import '../../../features/app/presentation/base_widgets/text/text_widget.dart';
-import '../../constants/app_colors.dart';
-import '../../data/states/data_state.dart';
-import '../../utils/ui_helpers.dart';
-import '../navigation/navigation_service.dart';
+import '../../features/app/presentation/base_widgets/text/text_widget.dart';
+import '../constants/app_colors.dart';
+import '../data/states/data_state.dart';
+import '../services/navigation/navigation_service.dart';
+import 'ui_helpers.dart';
 
-abstract class ToastMessageService {
-  showSuccess(String message, {Duration? duration});
-  showError(String message, {Duration? duration});
-  showDataStateToast(DataState dataState, {String message = ""});
-}
+class ToastUtil {
+  ToastUtil._();
 
-@LazySingleton(as: ToastMessageService)
-class ToastMessageServiceImplementation implements ToastMessageService {
-  final NavigationService _navigationService;
-
-  ToastMessageServiceImplementation({
-    required NavigationService navigationService,
-  }) : _navigationService = navigationService;
-
-  final _toastSetting = const SlidingToastSetting(
+  static final _navigationService = NavigationUtil.I;
+  static final _toastSetting = const SlidingToastSetting(
     displayDuration: Duration(milliseconds: 2500),
     toastStartPosition: ToastPosition.top,
     toastAlignment: Alignment.topCenter,
   );
-  final EdgeInsets _padding = UIHelpers.smallAllPadding;
-  final BoxShadow _boxShadow = const BoxShadow(
+  static final EdgeInsets _padding = UIHelpers.smallAllPadding;
+  static final BoxShadow _boxShadow = const BoxShadow(
     color: AppColors.black05,
     spreadRadius: 1,
     blurRadius: 3,
   );
 
-  @override
-  showSuccess(String message, {Duration? duration}) {
+  static showSuccess(String message, {Duration? duration}) {
     InteractiveToast.slide(
       overlayState: _navigationService.navigatorKey.currentState?.overlay,
       title: Text(message),
@@ -54,8 +41,7 @@ class ToastMessageServiceImplementation implements ToastMessageService {
     );
   }
 
-  @override
-  showError(String message, {Duration? duration}) {
+  static showError(String message, {Duration? duration}) {
     InteractiveToast.slide(
       overlayState: _navigationService.navigatorKey.currentState?.overlay,
       title: TextWidget(message),
@@ -74,20 +60,11 @@ class ToastMessageServiceImplementation implements ToastMessageService {
   }
 
   /// Shows success or error message based on success and failure state
-  @override
-  showDataStateToast(DataState dataState, {String message = ""}) {
+  static showDataStateToast(DataState dataState, {String message = ""}) {
     if (dataState is! SuccessState) {
       showError(dataState.message!);
     } else if (message.isNotEmpty) {
       showSuccess(message);
     }
   }
-}
-
-/// A util class for accessing [ToastMessageService]
-class ToastMessageUtil {
-  ToastMessageUtil._();
-
-  /// Returns the registered instance of [ToastMessageService] which is always the same
-  static ToastMessageService get I => GetIt.I<ToastMessageService>();
 }

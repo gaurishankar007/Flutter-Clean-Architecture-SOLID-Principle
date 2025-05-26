@@ -7,7 +7,7 @@ import '../../../features/auth/data/models/user_data_model.dart';
 import '../../../features/auth/domain/entities/user_data.dart';
 import '../navigation/navigation_service.dart';
 
-abstract class SessionManager {
+abstract class SessionService {
   bool get isLoggedIn;
   UserData get userData;
   String get refreshToken;
@@ -21,12 +21,12 @@ abstract class SessionManager {
 }
 
 /// A class that stores user data
-@LazySingleton(as: SessionManager)
-class SessionManagerImplementation implements SessionManager {
+@LazySingleton(as: SessionService)
+class SessionServiceImpl implements SessionService {
   final AuthLocalDataSource _authLocalDataSource;
   final NavigationService _navigationService;
 
-  SessionManagerImplementation({
+  SessionServiceImpl({
     required AuthLocalDataSource authLocalDataSource,
     required NavigationService navigationService,
   })  : _authLocalDataSource = authLocalDataSource,
@@ -78,10 +78,10 @@ class SessionManagerImplementation implements SessionManager {
   }
 }
 
-/// A util class for accessing [SessionManager]
+/// A util class for accessing [SessionService]
 class SessionUtil {
   SessionUtil._();
 
-  /// Returns the registered instance of [SessionManager] which is always the same
-  static SessionManager get I => GetIt.I<SessionManager>();
+  /// Returns the registered instance of [SessionService] which is always the same
+  static SessionService get I => GetIt.I<SessionService>();
 }

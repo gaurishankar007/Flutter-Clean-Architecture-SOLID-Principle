@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../core/constants/app_colors.dart';
 import '../../../../../core/constants/app_icons.dart';
-import '../../../../../core/services/session/session_manager.dart';
+import '../../../../../core/services/session/session_service.dart';
 import '../../../../app/presentation/base_widgets/app_bar/app_bar_widget.dart';
 import '../../../../app/presentation/base_widgets/scaffold_widget.dart';
 import '../../../../app/presentation/widgets/title_widget.dart';

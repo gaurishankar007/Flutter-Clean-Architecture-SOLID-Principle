@@ -56,6 +56,9 @@ class DataHandler {
   ///
   /// Behavior:
   /// - If [staticData] is provided, it is returned directly without processing the API response.
+  /// - [useStaticDataAsNull]: If `true`, [staticData] will be used as the result even if it is `null`.
+  ///   This allows you to explicitly return `null` as static data. If `false`, [staticData]
+  ///   is only used if it is not `null`.
   /// - If [fromJson] is provided, it is used to deserialize the [rawData] into the desired type.
   /// - Handles both `Map` and `List` types for deserialization.
   /// - Throws a [FormatException] if the response data type does not match the expected format.
@@ -66,6 +69,7 @@ class DataHandler {
     bool isStandardResponse = true,
     String responseDataKey = "data",
     T? staticData,
+    bool useStaticDataAsNull = false,
   }) {
     return ErrorHandler.handleException(() async {
       final response = await request();
@@ -91,7 +95,7 @@ class DataHandler {
           message: message,
           statusCode: response.statusCode,
         );
-      } else if (staticData != null) {
+      } else if (staticData != null || useStaticDataAsNull) {
         data = staticData;
       } else if (fromJson != null) {
         if (rawData is MapDynamic) {
