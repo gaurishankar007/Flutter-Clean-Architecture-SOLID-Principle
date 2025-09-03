@@ -57,6 +57,7 @@ A collection of essential and frequently used Flutter commands to boost your pro
 
 - ✅ `dart run build_runner build --delete-conflicting-outputs`: Build generated files.
 - ✅ `dart run build_runner watch --delete-conflicting-outputs`: Watch for changes and rebuild files.
+- ✅ `dart run pigeon --input <path to the pigeon configuration file>`: Generate pigeon files.
 
 ---
 
