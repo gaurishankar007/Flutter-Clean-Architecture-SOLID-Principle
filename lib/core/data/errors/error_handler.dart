@@ -19,27 +19,21 @@ class ErrorHandler {
     try {
       return await callBack();
     } on DioException catch (exception, stackTrace) {
+      debugError("Error Response: ${exception.response?.toString()}");
       debugError(exception, stackTrace);
       return _dioExceptionToFailureState<T>(exception);
-    } on ServerResponseError {
-      if (kDebugMode) debugError("Invalid response from the server.");
-      return BadResponseState<T>();
-    }
+    } 
     // on FirebaseAuthException catch (exception, stackTrace) {
     //   debugError(exception, stackTrace);
-    //   return _firebaseAuthExceptionToFailureState(exception);
-    // }
-    // on IsarError catch (error, stackTrace) {
-    //   debugError(error, stackTrace);
-    //   return FailureState.isarError(error.toString());
-    // }
+    //   return _firebaseAuthExceptionToFailureState<T>(exception);
+    // } on GoogleSignInException catch (exception, stackTrace) {
+    //   debugError(exception, stackTrace);
+    //   return _googleSignInExceptionToFailureState<T>(exception);
+    // } 
     on TypeError catch (error, stackTrace) {
       debugError(error, stackTrace);
       return FailureState.typeError();
     } on FormatException catch (exception, stackTrace) {
-      debugError(exception, stackTrace);
-      return FailureState.formatError();
-    } on PlatformException catch (exception, stackTrace) {
       debugError(exception, stackTrace);
       return FailureState.formatError();
     } catch (error, stackTrace) {
@@ -52,7 +46,7 @@ class ErrorHandler {
   static FailureState<T> _dioExceptionToFailureState<T>(
     DioException exception,
   ) {
-    String errorMessage = ERROR_MESSAGE;
+    String? errorMessage = ERROR_MESSAGE;
     DioExceptionType errorType = exception.type;
     Response? response = exception.response;
     final statusCode = response?.statusCode ?? 0;
@@ -62,20 +56,25 @@ class ErrorHandler {
       if (response.data is Map) errorMessage = response.data?['message'];
 
       if (statusCode >= 400 && statusCode < 500) {
-        return BadRequestState(message: errorMessage, statusCode: statusCode);
+        return FailureState.badRequest(
+          message: errorMessage,
+          statusCode: statusCode,
+        );
       } else if (statusCode >= 500) {
-        return ServerErrorState(message: errorMessage, statusCode: statusCode);
+        return FailureState.serverError(
+          message: errorMessage,
+          statusCode: statusCode,
+        );
       }
     }
 
-    /// For other Dio-specific errors (timeouts, cancellation, etc.)
-    if (exception.error is FirebaseError) {
-      errorMessage = exception.message ?? ERROR_MESSAGE;
-    } else {
-      errorMessage = _dioErrorMessages[errorType] ?? ERROR_MESSAGE;
-    }
+    errorMessage = _dioErrorMessages[errorType.name] ?? ERROR_MESSAGE;
 
-    return FailureState.dioError(errorMessage, statusCode: statusCode);
+    return FailureState(
+      message: errorMessage,
+      errorType: ErrorType.dioError,
+      statusCode: statusCode,
+    );
   }
 
   /// Returns the respective data failure state base on the firebase auth exception.
@@ -86,10 +85,25 @@ class ErrorHandler {
   //   final errorMessage =
   //       _firebaseAuthErrorMessages[firebaseAuthError] ?? ERROR_MESSAGE;
 
-  //   return FailureState.firebaseError(errorMessage);
+  //   return FailureState(
+  //     message: errorMessage,
+  //     errorType: ErrorType.firebaseAuthError,
+  //   );
   // }
 
-  static debugError(Object? error, [StackTrace? stackTrace]) {
+  /// Returns the respective data failure state base on the google sign in exception.
+  // static FailureState<T> _googleSignInExceptionToFailureState<T>(
+  //   GoogleSignInException exception,
+  // ) {
+  //   final errorCode = exception.code.name;
+  //   final errorMessage = _googleSignInErrorMessages[errorCode] ?? ERROR_MESSAGE;
+  //   return FailureState<T>(
+  //     message: errorMessage,
+  //     errorType: ErrorType.googleSignInError,
+  //   );
+  // }
+
+  static void debugError(Object? error, [StackTrace? stackTrace]) {
     if (kDebugMode) {
       log(
         "<--------- Caught Exception ---------->",
@@ -99,17 +113,16 @@ class ErrorHandler {
     }
   }
 
-  static const Map<DioExceptionType, String> _dioErrorMessages = {
-    DioExceptionType.connectionError: "Connection error, host lookup failed.",
-    DioExceptionType.cancel: "Request was cancelled",
-    DioExceptionType.receiveTimeout:
-        "Receive timeout in connection. $CHECK_INTERNET",
-    DioExceptionType.sendTimeout: "Send timeout in connection. $CHECK_INTERNET",
-    DioExceptionType.connectionTimeout: "Connection timeout. $CHECK_INTERNET",
-    DioExceptionType.badCertificate: "Bad certificate. $CUSTOMER_SUPPORT",
+  static const _dioErrorMessages = {
+    "connectionError": "Connection error, host lookup failed.",
+    "cancel": "Request was cancelled",
+    "receiveTimeout": "Receive timeout in connection. $CHECK_INTERNET",
+    "sendTimeout": "Send timeout in connection. $CHECK_INTERNET",
+    "connectionTimeout": "Connection timeout. $CHECK_INTERNET",
+    "badCertificate": "Bad certificate. $CUSTOMER_SUPPORT",
   };
 
-  // static const Map<String, String> _firebaseAuthErrorMessages = {
+  // static const _firebaseAuthErrorMessages = {
   //   'invalid-credential': 'The given user was not found on the server!',
   //   'user-not-found': 'The given user was not found on the server!',
   //   'wrong-password':
@@ -132,5 +145,21 @@ class ErrorHandler {
   //   'invalid-verification-code': 'The verification code is invalid or expired.',
   //   'invalid-verification-id': 'The verification ID is invalid.',
   //   'unknown': 'Unknown authentication error',
+  // };
+
+  // static const _googleSignInErrorMessages = {
+  //   'unknownError':
+  //       'An unknown error occurred during Google Sign-In. Please try again.',
+  //   'canceled':
+  //       'The sign-in process was canceled. Please try again if you want to sign in.',
+  //   'interrupted': 'The sign-in process was interrupted. Please try again.',
+  //   'clientConfigurationError':
+  //       'Google Sign-In is not configured correctly on this app. Please contact support.',
+  //   'providerConfigurationError':
+  //       'There is a problem with the Google Sign-In provider configuration. Please contact support.',
+  //   'uiUnavailable':
+  //       'The sign-in UI could not be displayed. This might be a temporary issue, please try again.',
+  //   'userMismatch':
+  //       'The user trying to sign in is different from the one already signed in. Please sign out first.',
   // };
 }

@@ -2,13 +2,11 @@ import 'dart:developer' show log;
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart' show kDebugMode;
-import 'package:flutter/services.dart' show PlatformException;
 
 import '../../utils/type_defs.dart';
 import '../states/data_state.dart';
 
 part 'error_handler.dart';
-part 'error_types.dart';
 
 /// Handles flutter, api, local database errors and returns suitable [DataState]
 /// Checks for internet connection and returns suitable [DataState]
@@ -32,7 +30,9 @@ class DataHandler {
       return dataState;
     }
 
-    return localCallback != null ? await localCallback() : NoInternetState();
+    return localCallback != null
+        ? await localCallback()
+        : FailureState.noInternet();
   }
 
   /// Executes an API request while handling network errors, formatting issues,
@@ -52,7 +52,7 @@ class DataHandler {
   /// - [responseDataKey]: The key used to extract the data from the response when
   ///   [isStandardResponse] is `true`.
   /// - [staticData]: Optional custom value to return instead of processing the API response.
-  ///   Useful when you want to bypass parsing and directly return a predefined value.
+  ///   Useful when you want to bypass parsing and directly return a predefined value.fined value.
   ///
   /// Behavior:
   /// - If [staticData] is provided, it is returned directly without processing the API response.
@@ -74,28 +74,22 @@ class DataHandler {
     return ErrorHandler.handleException(() async {
       final response = await request();
       Object? rawData = response.data;
-      bool isSuccess = true;
-      String? message;
+      String? responseMessage;
       T? data;
 
-      /// Handle standard API structure
+      // Handle standard API structure
       if (isStandardResponse && staticData == null) {
         Map<String, dynamic> data = response.data;
-        // Throw server error if the response structure is not standard
-        if (!data.containsKey(responseDataKey)) throw ServerResponseError();
+        // Returns bad response failure state if the response structure is not standard
+        if (!data.containsKey(responseDataKey)) {
+          return FailureState.badResponse();
+        }
 
         rawData = data[responseDataKey];
-        isSuccess = data["success"] ?? true;
-        message = data["message"];
+        responseMessage = data["message"];
       }
 
-      /// If api response did not succeeded
-      if (!isSuccess) {
-        return FailureState<T>(
-          message: message,
-          statusCode: response.statusCode,
-        );
-      } else if (staticData != null || useStaticDataAsNull) {
+      if (staticData != null || useStaticDataAsNull) {
         data = staticData;
       } else if (fromJson != null) {
         if (rawData is MapDynamic) {
@@ -103,8 +97,10 @@ class DataHandler {
         } else if (rawData is List) {
           data = rawData.map((json) => fromJson(json)).toList() as T;
         } else {
-          throw FormatException(
-            'Expected Map or List but got ${rawData.runtimeType}.',
+          final type = rawData.runtimeType;
+          return FailureState(
+            message: 'Expected Map or List but got $type.',
+            errorType: ErrorType.formatError,
           );
         }
       } else if (rawData is List) {
@@ -115,7 +111,7 @@ class DataHandler {
 
       return SuccessState(
         data: data,
-        message: message,
+        message: responseMessage,
         statusCode: response.statusCode,
       );
     });

@@ -7,4 +7,7 @@ class SuccessState<T> extends DataState<T> {
     super.message,
     super.statusCode,
   }) : super(hasData: true);
+
+  /// A success data state when there is no any error and data is null
+  static final nil = SuccessState<Null>(data: null);
 }

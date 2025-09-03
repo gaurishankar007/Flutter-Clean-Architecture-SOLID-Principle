@@ -1,7 +1,5 @@
 import 'package:dio/dio.dart';
 
-import '../errors/data_handler.dart';
-
 class ApiResponse<T extends Object?> {
   final T data;
   final int statusCode;
@@ -16,18 +14,14 @@ class ApiResponse<T extends Object?> {
   });
 
   factory ApiResponse.fromResponse(Response response) {
-    try {
-      Map<String, dynamic> data = response.data;
-      int statusCode = response.statusCode ?? 0;
+    Map<String, dynamic> data = response.data;
+    int statusCode = response.statusCode ?? 0;
 
-      return ApiResponse<T>(
-        data: data['data'] as T,
-        statusCode: statusCode,
-        success: data['success'] as bool,
-        message: data['message'] as String,
-      );
-    } catch (_) {
-      throw ServerResponseError();
-    }
+    return ApiResponse<T>(
+      data: data['data'] as T,
+      statusCode: statusCode,
+      success: data['success'] as bool,
+      message: data['message'] as String,
+    );
   }
 }
