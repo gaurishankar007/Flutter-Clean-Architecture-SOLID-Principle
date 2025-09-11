@@ -1,4 +1,7 @@
+import 'dart:io' show Platform;
+
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
@@ -10,9 +13,16 @@ abstract class NavigationService {
   RouterDelegate<Object>? get routerDelegate;
   RouteInformationParser<Object>? get routeInformationParser;
   GlobalKey<NavigatorState> get navigatorKey;
+  String get currentPath;
   Future<bool> popTop<T extends Object?>([T? result]);
   Future<void> replaceAllRoute(PageRouteInfo<dynamic> route);
   Future<T?> pushRoute<T>(PageRouteInfo<dynamic> route);
+  Future<T?> pushPlatformRoute<T>({
+    PageRouteInfo<dynamic>? androidRoute,
+    PageRouteInfo<dynamic>? iOSRoute,
+    PageRouteInfo<dynamic>? webRoute,
+  });
+  Future<T?> replaceRoute<T>(PageRouteInfo<dynamic> route);
 }
 
 @module
@@ -26,7 +36,7 @@ class NavigationServiceImpl implements NavigationService {
   final AppRouter _appRouter;
 
   NavigationServiceImpl({required AppRouter appRouter})
-      : _appRouter = appRouter;
+    : _appRouter = appRouter;
 
   /// A delegate that configures a widget, typically a [Navigator]
   @override
@@ -40,6 +50,10 @@ class NavigationServiceImpl implements NavigationService {
   /// Get Navigator key from auto router
   @override
   GlobalKey<NavigatorState> get navigatorKey => _appRouter.navigatorKey;
+
+  /// Get the name of the currentName
+  @override
+  String get currentPath => _appRouter.currentPath;
 
   /// Removes the top most page from the stack
   @override
@@ -61,6 +75,47 @@ class NavigationServiceImpl implements NavigationService {
   Future<T?> pushRoute<T>(PageRouteInfo<dynamic> route) async {
     try {
       return await _appRouter.push(route);
+    } catch (error, stackTrace) {
+      ErrorHandler.debugError(error, stackTrace);
+      return null;
+    }
+  }
+
+  /// Adds the corresponding page to the given route based on the current platform
+  @override
+  Future<T?> pushPlatformRoute<T>({
+    PageRouteInfo<dynamic>? androidRoute,
+    PageRouteInfo<dynamic>? iOSRoute,
+    PageRouteInfo<dynamic>? webRoute,
+    String? platform,
+  }) async {
+    try {
+      platform ??= kIsWeb
+          ? 'web'
+          : Platform.isAndroid
+          ? 'android'
+          : Platform.isIOS
+          ? 'ios'
+          : null;
+
+      if (webRoute != null && platform == 'web') {
+        return await _appRouter.push(webRoute);
+      } else if (androidRoute != null && platform == 'android') {
+        return await _appRouter.push(androidRoute);
+      } else if (iOSRoute != null && platform == 'ios') {
+        return await _appRouter.push(iOSRoute);
+      }
+      return null;
+    } catch (error, stackTrace) {
+      ErrorHandler.debugError(error, stackTrace);
+      return null;
+    }
+  }
+
+  @override
+  Future<T?> replaceRoute<T>(PageRouteInfo route) async {
+    try {
+      return await _appRouter.replace(route);
     } catch (error, stackTrace) {
       ErrorHandler.debugError(error, stackTrace);
       return null;
