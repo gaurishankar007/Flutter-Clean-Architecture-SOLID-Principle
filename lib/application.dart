@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'app_config.dart';
-import 'config/theme/theme.dart';
+import 'core/config/theme/theme.dart';
 import 'core/services/navigation/navigation_service.dart';
 import 'core/utils/screen_util/screen_util.dart';
 

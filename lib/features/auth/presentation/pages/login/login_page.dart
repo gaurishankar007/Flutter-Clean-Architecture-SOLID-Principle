@@ -6,11 +6,11 @@ import 'package:get_it/get_it.dart';
 
 import '../../../../../core/utils/extensions/string_extension.dart';
 import '../../../../../core/utils/ui_helpers.dart';
-import '../../../../app/presentation/base_widgets/scaffold_widget.dart';
+import '../../../../../shared/widgets/base/base_scaffold.dart';
 import '../../cubits/login/login_cubit.dart';
-import '../../widgets/welcome_logo_widget.dart';
-import 'widgets/login_button_widget.dart';
-import 'widgets/login_form_widget.dart';
+import '../../widgets/welcome_logo.dart';
+import 'widgets/login_button.dart';
+import 'widgets/login_form.dart';
 
 @RoutePage()
 class LoginPage extends HookWidget {
@@ -26,21 +26,21 @@ class LoginPage extends HookWidget {
 
     return BlocProvider(
       create: (context) => GetIt.I<LoginCubit>(),
-      child: ScaffoldWidget(
+      child: BaseScaffold(
         showAnnotatedRegion: true,
-        bottomNavigationBar: LoginButtonWidget(
+        bottomNavigationBar: LoginButton(
           formKey: formKey,
           usernameController: usernameController,
           passwordController: passwordController,
         ),
         body: Column(
           children: [
-            const WelcomeLogoWidget(title: "Login"),
+            const WelcomeLogo(title: "Login"),
             Container(
               margin: UIHelpers.smallTxxLargeBPadding,
               child: Form(
                 key: formKey,
-                child: LoginFormWidget(
+                child: LoginForm(
                   usernameController: usernameController,
                   passwordController: passwordController,
                 ),

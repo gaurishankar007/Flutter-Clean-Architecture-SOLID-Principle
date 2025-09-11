@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import 'user.dart';
+import '../../../../core/domain/entities/user.dart';
 
 class UserData extends Equatable {
   final User user;

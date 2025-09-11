@@ -1,10 +1,10 @@
 import '../../../../core/utils/type_defs.dart';
-import '../requests/login_request.dart';
+import '../entities/authentication.dart';
 import '../entities/user_data.dart';
 
 abstract class AuthRepository {
-  FutureData<UserData> login(LoginRequest request);
+  FutureData<UserData> login(Authentication authentication);
   FutureBool saveUserData(UserData userData);
   FutureData<UserData> getUserData();
-  FutureBool checkAUth();
+  FutureBool checkAuth();
 }

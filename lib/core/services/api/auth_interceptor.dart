@@ -82,9 +82,9 @@ class AuthInterceptor extends Interceptor {
       );
 
       /// If api response is successful, return the new accessToken
-      ApiResponse<MapDynamic> apiResponse = ApiResponse.fromResponse(response);
+      ApiModel<MapDynamic> apiResponse = ApiModel.fromResponse(response);
       if (apiResponse.success) {
-        final tokenResponse = RefreshTokenResponse.fromJson(apiResponse.data);
+        final tokenResponse = RefreshTokenModel.fromJson(apiResponse.data);
         _sessionManager.refreshAccessToken(tokenResponse.accessToken);
         return true;
       }

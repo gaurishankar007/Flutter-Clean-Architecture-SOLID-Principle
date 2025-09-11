@@ -3,9 +3,9 @@ import 'package:flutter/services.dart';
 
 import '../../../../../../core/constants/app_colors.dart';
 import '../../../../../../core/utils/ui_helpers.dart';
-import '../../../../../app/presentation/base_widgets/action/primary_button_widget.dart';
+import '../../../../../../shared/widgets/base/buttons/primary_button.dart';
 
-showCloseAppDialog(BuildContext context) {
+void showCloseAppDialog(BuildContext context) {
   showDialog(
     context: context,
     builder: (dialogContext) {
@@ -15,7 +15,7 @@ showCloseAppDialog(BuildContext context) {
         content: const Text("Are you sure you want to close the app?"),
         actionsPadding: UIHelpers.sMediumAllPadding,
         actions: [
-          PrimaryButtonWidget(
+          PrimaryButton(
             height: 40,
             width: 80,
             onTap: () => Navigator.pop(dialogContext),
@@ -23,7 +23,7 @@ showCloseAppDialog(BuildContext context) {
             foregroundColor: AppColors.white,
           ),
           UIHelpers.xxSmallHSpace,
-          PrimaryButtonWidget(
+          PrimaryButton(
             height: 40,
             width: 80,
             color: AppColors.red600,

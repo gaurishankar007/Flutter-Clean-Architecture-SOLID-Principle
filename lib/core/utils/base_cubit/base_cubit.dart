@@ -25,6 +25,7 @@ abstract class BaseState extends Equatable {
       ];
 }
 
-abstract class BaseCubit<BaseState> extends Cubit<BaseState> with ServiceMixin {
+abstract class BaseCubit<T extends BaseState?> extends Cubit<T>
+    with ServiceMixin {
   BaseCubit(super.initialState);
 }

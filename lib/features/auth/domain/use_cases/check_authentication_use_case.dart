@@ -12,5 +12,5 @@ class CheckAuthenticationUseCase extends UseCaseNoParameter<bool> {
       : _authRepository = authRepository;
 
   @override
-  FutureBool call() => _authRepository.checkAUth();
+  FutureBool call() => _authRepository.checkAuth();
 }

@@ -5,7 +5,7 @@ import 'package:get_it/get_it.dart';
 
 import '../../../../../core/constants/app_colors.dart';
 import '../../cubits/dashboard/dashboard_cubit.dart';
-import 'widgets/bottom_navigation_widget.dart';
+import 'widgets/base_bottom_navigation.dart';
 
 @RoutePage()
 class DashboardPage extends StatelessWidget {
@@ -31,7 +31,7 @@ class DashboardPage extends StatelessWidget {
             ),
             const Align(
               alignment: Alignment.bottomCenter,
-              child: BottomNavigationWidget(),
+              child: BaseBottomNavigation(),
             ),
           ],
         ),

@@ -7,7 +7,7 @@ class DashboardState extends BaseState {
 
   factory DashboardState.initial() => const DashboardState(activeIndex: 0);
 
-  copyWith({int? activeIndex}) =>
+  DashboardState copyWith({int? activeIndex}) =>
       DashboardState(activeIndex: activeIndex ?? this.activeIndex);
 
   @override

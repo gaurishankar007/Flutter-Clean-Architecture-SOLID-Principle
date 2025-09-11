@@ -281,7 +281,7 @@ class UIHelpers {
 
   //<========== Only Padding ==========>
   /// Only padding = left, right = screen horizontal padding, top, bottom = 16
-  static screenLR({double? top, double? bottom}) => EdgeInsets.only(
+  static EdgeInsets screenLR({double? top, double? bottom}) => EdgeInsets.only(
         top: top ?? Space.sMedium.value,
         right: ScreenUtil.I.horizontalSpace,
         bottom: bottom ?? Space.sMedium.value,

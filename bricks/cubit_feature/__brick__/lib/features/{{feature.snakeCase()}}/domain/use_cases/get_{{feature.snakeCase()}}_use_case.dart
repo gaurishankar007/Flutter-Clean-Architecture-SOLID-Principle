@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/data/states/data_state.dart';
+import '../../../../core/data_states/data_state.dart';
 import '../../../../core/utils/type_defs.dart';
 import '../../../../core/utils/use_case/use_case.dart';
 import '../repositories/{{feature.snakeCase()}}_repository.dart';

@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
 
-import '../../../../../config/routes/routes.gr.dart';
+import '../../../../../core/config/routes/routes.gr.dart';
 import '../../../../../core/utils/base_cubit/base_cubit.dart';
 import '../../../../../core/utils/type_defs.dart';
 import 'dashboard_cubit_use_cases.dart';
@@ -17,13 +17,13 @@ class DashboardCubit extends BaseCubit<DashboardState> {
   })  : _useCases = useCases,
         super(DashboardState.initial());
 
-  initialize() async {
+  Future<void> initialize() async {
     /// If token is expired, log out and don't perform other operations
     // final dataState = await _verifyToken();
     // if (dataState is! SuccessState) return;
   }
 
-  setIndex(int index) {
+  void setIndex(int index) {
     if (_activeIndex == index && index != 0) return;
 
     _activeIndex = index;
@@ -31,10 +31,12 @@ class DashboardCubit extends BaseCubit<DashboardState> {
 
     switch (index) {
       case 0:
-        return replaceAllRoute(const HomeRoute());
+        replaceAllRoute(const HomeRoute());
+        return;
 
       case 1:
-        return replaceAllRoute(const SettingRoute());
+        replaceAllRoute(const SettingRoute());
+        return;
 
       default:
         return;

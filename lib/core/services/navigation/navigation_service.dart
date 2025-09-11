@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../config/routes/routes.dart';
-import '../../data/errors/data_handler.dart';
+import '../../config/routes/routes.dart';
+import '../../data_handling/data_handler.dart';
 
 abstract class NavigationService {
   RouterDelegate<Object>? get routerDelegate;

@@ -12,14 +12,16 @@ A comprehensive guide to building scalable and maintainable Flutter applications
   - [What is Clean Architecture?](#what-is-clean-architecture)
     - [Core Layers](#core-layers)
     - [Benefits](#benefits)
+  - [Visual Representation](#visual-representation)
   - [SOLID Principles](#solid-principles)
-  - [Getting Started](#getting-started)
   - [Project Features](#project-features)
+  - [Project Structure](#project-structure)
+  - [Project Features](#project-features-1)
   - [Feature Template Generation with Mason](#feature-template-generation-with-mason)
     - [How to Generate a Feature](#how-to-generate-a-feature)
     - [What Do `cubit_feature` \& `cubit_page` Do?](#what-do-cubit_feature--cubit_page-do)
     - [Configuration](#configuration)
-  - [Visual Representation](#visual-representation)
+  - [Visual Representation](#visual-representation-1)
   - [API Workflow Overview](#api-workflow-overview)
     - [Data Flow Summary](#data-flow-summary)
     - [Core Components](#core-components)
@@ -36,6 +38,7 @@ A comprehensive guide to building scalable and maintainable Flutter applications
     - [Benefits](#benefits-1)
     - [Debugging Tools](#debugging-tools)
     - [Testing Tips](#testing-tips)
+  - [Developer Resources](#developer-resources)
 
 ---
 
@@ -73,6 +76,14 @@ This project demonstrates how to structure Flutter applications using **Clean Ar
 
 ---
 
+## Visual Representation
+
+!Clean Architecture With SOLID Principle
+
+> This diagram highlights the modular and scalable structure of Clean Architecture, aligning with **SOLID principles** to ensure best development practices.
+
+---
+
 ## SOLID Principles
 
 **SOLID Principles** complement Clean Architecture by providing guidelines for writing clean, maintainable, and extensible code:
@@ -92,41 +103,54 @@ This project demonstrates how to structure Flutter applications using **Clean Ar
 5. **Dependency Inversion Principle (DIP)**  
    High-level modules should not depend on low-level modules; both should depend on abstractions.
 
+For more detailed information and real-world examples, see the [**SOLID Principles documentation**](documentation/solid_principles.md).
+
 ---
 
-## Getting Started
+## Project Features
+
+- 🛡️ **SOLID Principles**: Ensures scalable, maintainable, and testable code.
+- 🏗️ **Clean Architecture**: Divides code into layers (Data, Domain, Presentation) for clear separation of concerns.
+- 🍴 **Build Flavors**: Supports Development, Staging, and Production environments.
+- 🔧 **Robust Error Handling**: Comprehensive API and internal error management.
+- 🔄 **Automated Request/Response Handling**: Includes token refreshing and request inspection.
+- 📡 **Core Services**: Navigation, Internet, Local Database, Toast Messages, and User Credential management.
+- 🎨 **Reusable UI Components**: Customizable themes and reusable widgets.
+- ⚙️ **Utilities**: Screen size handling, extensions, mixins, generics, and form validation utilities.
+
+---
+
+## Project Structure
 
 ```
 lib/
-│
-├── config/
-│   ├── routes/
-│   │   ├── guards/
-│   │   │   ├── authenticated_guard.dart
-│   │   ├── helper/
-│   │   │   ├── route_data.dart
-│   │   │   └── sliding_auto_route.dart
-│   │   ├── routes.dart
-│   │   └── routes.gr.dart
-│   ├── theme/
-│   │   ├── theme_data.dart
-│   │   └── themes.dart
-│
 ├── core/
+│   ├── config/
+│   │   ├── routes/
+│   │   │   ├── guards/
+│   │   │   ├── helper/
+│   │   │   ├── routes.dart
+│   │   │   └── routes.gr.dart
+│   │   ├── theme/
+│   │   │   ├── theme_data.dart
+│   │   │   └── themes.dart
 │   ├── constants/
-│   ├── data/
+│   ├── data/models/
+│   ├── data_handling/
+│   ├── data_states/
+│   ├── domain/entities/
 │   ├── services/
-│   ├── utils/
-│
-├── feature/
-│   ├── app/
+│   └── utils/
+├── features/
 │   ├── auth/
 │   ├── dashboard/
-│
+│   ├── .....
 ├── injector/
 │   ├── injector.config.dart
 │   └── injector.dart
-│
+├── shared/
+│   ├── models/
+│   └── widgets/
 ├── app_config.dart
 ├── app_initializer.dart
 ├── application.dart
@@ -308,7 +332,7 @@ class LoginCubit extends BaseCubit<LoginState> {
   })  : _useCases = useCases,
         super(const LoginState.initial());
 
-  login({required String username, required String password}) async {
+  Future<void> login({required String username, required String password}) async {
     final dataState = await _useCases.login.call(
       LoginRequest(username: "", password: ""),
     );
@@ -326,7 +350,7 @@ class LoginCubit extends BaseCubit<LoginState> {
     }
   }
 
-  saveUserData(UserData userData) async {
+  Future<void> saveUserData(UserData userData) async {
     final dataState = await _useCases.saveUserData.call(userData);
 
     if (dataState.hasData) {
@@ -388,4 +412,11 @@ graph TD
 
 ---
 
-**Start your journey toward building robust and scalable Flutter applications today! 🚀**
+## Developer Resources
+
+For more details on specific commands and guidelines, refer to the following documents:
+
+- [**Docker Commands**](docs/docker_commands.md): Essential Docker and Docker Compose commands for development environments.
+- [**Flutter Commands Cheat Sheet**](docs/flutter_commands_cheat_sheet.md): A collection of essential and frequently used Flutter commands to boost your productivity.
+- [**Flutter Configuration Guidelines**](docs/flutter_configuration_guidelines.md): Guidelines for setting up the Flutter environment, including activating pub commands, configuring Firebase CLI, and managing the Java SDK location.
+- [**Git Commands Cheat Sheet**](docs/git_commands_cheat_sheet.md): A collection of essential and frequently used git commands to boost your productivity.

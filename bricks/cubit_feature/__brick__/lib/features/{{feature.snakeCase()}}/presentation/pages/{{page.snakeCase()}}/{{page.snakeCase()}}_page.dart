@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../app/presentation/base_widgets/app_bar/app_bar_widget.dart';
-import '../../../../app/presentation/base_widgets/scaffold_widget.dart';
+import '../../../../../shared/widgets/base/app_bar/base_app_bar.dart';
+import '../../../../../shared/widgets/base/base_scaffold.dart';
 
 @RoutePage()
 class {{page.pascalCase()}}Page extends StatelessWidget {
@@ -10,8 +10,8 @@ class {{page.pascalCase()}}Page extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const ScaffoldWidget(
-      appBar: AppBarWidget(title: "{{page.pascalCase()}}"),
+    return const BaseScaffold(
+      appBar: BaseAppBar(title: "{{page.pascalCase()}}"),
       body: SafeArea(
         child: Column(
           children: [],

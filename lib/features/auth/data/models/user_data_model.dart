@@ -1,5 +1,5 @@
 import '../../domain/entities/user_data.dart';
-import 'user_model.dart';
+import '../../../../core/data/models/user_model.dart';
 
 class UserDataModel extends UserData {
   const UserDataModel({

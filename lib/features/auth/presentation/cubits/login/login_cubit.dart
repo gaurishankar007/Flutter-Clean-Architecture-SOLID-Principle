@@ -1,11 +1,11 @@
 // import 'dart:io';
 import 'package:injectable/injectable.dart';
 
-import '../../../../../config/routes/routes.gr.dart';
-import '../../../../../core/data/states/data_state.dart';
+import '../../../../../core/config/routes/routes.gr.dart';
+import '../../../../../core/data_states/data_state.dart';
 import '../../../../../core/utils/base_cubit/base_cubit.dart';
 // import '../../../domain/entities/requests/login_request.dart';
-import '../../../domain/entities/user.dart';
+import '../../../../../core/domain/entities/user.dart';
 import '../../../domain/entities/user_data.dart';
 import 'login_cubit_use_cases.dart';
 
@@ -23,7 +23,7 @@ class LoginCubit extends BaseCubit<LoginState> {
         super(const LoginState.initial());
 
   /// Emits a new State
-  _refreshState() {
+  void _refreshState() {
     final newState = LoginState(
       passwordVisibility: _passwordVisibility,
       saveUserCredential: _saveUserCredential,
@@ -31,17 +31,18 @@ class LoginCubit extends BaseCubit<LoginState> {
     emit(newState);
   }
 
-  togglePasswordVisibility() {
+  void togglePasswordVisibility() {
     _passwordVisibility = !_passwordVisibility;
     _refreshState();
   }
 
-  toggleUserCredentialSaving() {
+  void toggleUserCredentialSaving() {
     _saveUserCredential = !_saveUserCredential;
     _refreshState();
   }
 
-  login({required String username, required String password}) async {
+  Future<void> login(
+      {required String username, required String password}) async {
     // String fcmToken = "";
     // String deviceType = Platform.isAndroid ? "android" : "ios";
 

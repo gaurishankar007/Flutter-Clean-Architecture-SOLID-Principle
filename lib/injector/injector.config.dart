@@ -10,7 +10,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:clean_architecture/app_config.dart' as _i1068;
-import 'package:clean_architecture/config/routes/routes.dart' as _i706;
+import 'package:clean_architecture/core/config/routes/routes.dart' as _i706;
 import 'package:clean_architecture/core/services/api/api_service.dart' as _i885;
 import 'package:clean_architecture/core/services/database/local_database_service.dart'
     as _i87;
@@ -26,7 +26,7 @@ import 'package:clean_architecture/features/auth/data/data_sources/auth_local_da
     as _i322;
 import 'package:clean_architecture/features/auth/data/data_sources/auth_remote_data_source.dart'
     as _i141;
-import 'package:clean_architecture/features/auth/data/repositories/auth_repository_implementation.dart'
+import 'package:clean_architecture/features/auth/data/repositories/auth_repository_impl.dart'
     as _i154;
 import 'package:clean_architecture/features/auth/domain/repositories/auth_repository.dart'
     as _i1003;
@@ -106,7 +106,7 @@ extension GetItInjectableX on _i174.GetIt {
       registerFor: {_development},
     );
     gh.lazySingleton<_i322.AuthLocalDataSource>(() =>
-        _i322.AuthLocalDataSourceImplementation(
+        _i322.AuthLocalDataSourceImpl(
             localDatabase: gh<_i87.LocalDatabaseService>()));
     gh.lazySingleton<_i497.SessionService>(() => _i497.SessionServiceImpl(
           authLocalDataSource: gh<_i322.AuthLocalDataSource>(),
@@ -121,14 +121,12 @@ extension GetItInjectableX on _i174.GetIt {
           navigationService: gh<_i1005.NavigationService>(),
         ));
     gh.lazySingleton<_i141.AuthRemoteDataSource>(() =>
-        _i141.AuthRemoteDataSourceImplementation(
-            dioClient: gh<_i885.ApiService>()));
-    gh.lazySingleton<_i1003.AuthRepository>(
-        () => _i154.AuthRepositoryImplementation(
-              internet: gh<_i662.InternetService>(),
-              remoteDataSource: gh<_i141.AuthRemoteDataSource>(),
-              localDataSource: gh<_i322.AuthLocalDataSource>(),
-            ));
+        _i141.AuthRemoteDataSourceImpl(dioClient: gh<_i885.ApiService>()));
+    gh.lazySingleton<_i1003.AuthRepository>(() => _i154.AuthRepositoryImpl(
+          internet: gh<_i662.InternetService>(),
+          remoteDataSource: gh<_i141.AuthRemoteDataSource>(),
+          localDataSource: gh<_i322.AuthLocalDataSource>(),
+        ));
     gh.lazySingleton<_i817.GetUserDataUseCase>(() =>
         _i817.GetUserDataUseCase(authRepository: gh<_i1003.AuthRepository>()));
     gh.lazySingleton<_i661.SaveUserDataUseCase>(() =>

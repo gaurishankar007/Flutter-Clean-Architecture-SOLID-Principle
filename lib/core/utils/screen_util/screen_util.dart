@@ -35,7 +35,7 @@ class ScreenUtil {
   ScreenType get type => _type;
 
   /// Set screen dimensions, orientation, screen type, etc.
-  configureScreen(Size size) {
+  void configureScreen(Size size) {
     _height = size.height;
     _width = size.width;
     _statusBarHeight = 0;

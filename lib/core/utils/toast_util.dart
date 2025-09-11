@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sliding_toast/flutter_sliding_toast.dart';
 
-import '../../features/app/presentation/base_widgets/text/text_widget.dart';
+import '../../shared/widgets/base/text/base_text.dart';
 import '../constants/app_colors.dart';
-import '../data/states/data_state.dart';
+import '../data_states/data_state.dart';
 import '../services/navigation/navigation_service.dart';
 import 'ui_helpers.dart';
 
@@ -23,7 +23,7 @@ class ToastUtil {
     blurRadius: 3,
   );
 
-  static showSuccess(String message, {Duration? duration}) {
+  static void showSuccess(String message, {Duration? duration}) {
     InteractiveToast.slide(
       overlayState: _navigationService.navigatorKey.currentState?.overlay,
       title: Text(message),
@@ -41,10 +41,10 @@ class ToastUtil {
     );
   }
 
-  static showError(String message, {Duration? duration}) {
+  static void showError(String message, {Duration? duration}) {
     InteractiveToast.slide(
       overlayState: _navigationService.navigatorKey.currentState?.overlay,
-      title: TextWidget(message),
+      title: BaseText(message),
       trailing: const Icon(
         Icons.warning_rounded,
         color: AppColors.red600,
@@ -60,7 +60,7 @@ class ToastUtil {
   }
 
   /// Shows success or error message based on success and failure state
-  static showDataStateToast(DataState dataState, {String message = ""}) {
+  static void showDataStateToast(DataState dataState, {String message = ""}) {
     if (dataState is! SuccessState) {
       showError(dataState.message!);
     } else if (message.isNotEmpty) {

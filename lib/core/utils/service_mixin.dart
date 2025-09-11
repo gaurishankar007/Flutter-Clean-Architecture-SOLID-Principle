@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../features/auth/domain/entities/user_data.dart';
-import '../data/states/data_state.dart';
+import '../data_states/data_state.dart';
 import '../services/image_picker/image_picker_service.dart';
 import 'toast_util.dart';
 import '../services/navigation/navigation_service.dart';
@@ -24,15 +24,15 @@ mixin ServiceMixin {
       await _navigationService.pushRoute(route);
 
   /// Toast Message Service
-  showSuccessToast(String message) => ToastUtil.showSuccess(message);
+  void showSuccessToast(String message) => ToastUtil.showSuccess(message);
 
-  showErrorToast(String message) => ToastUtil.showError(message);
+  void showErrorToast(String message) => ToastUtil.showError(message);
 
-  showDataStateToast(DataState dataState, {String message = ""}) =>
+  void showDataStateToast(DataState dataState, {String message = ""}) =>
       ToastUtil.showDataStateToast(dataState, message: message);
 
   /// User Data Service
-  setUserData(UserData model) => _sessionManager.setUserData = model;
+  void setUserData(UserData model) => _sessionManager.setUserData = model;
 
   /// Image Picker Service
   Future<String?> pickImage([ImageSource source = ImageSource.camera]) =>

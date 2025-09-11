@@ -1,7 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../config/routes/routes.gr.dart';
+import '../../config/routes/routes.gr.dart';
 import '../../../features/auth/data/data_sources/auth_local_data_source.dart';
 import '../../../features/auth/data/models/user_data_model.dart';
 import '../../../features/auth/domain/entities/user_data.dart';
@@ -13,11 +13,11 @@ abstract class SessionService {
   String get refreshToken;
   String get accessToken;
   String get fullName;
-  checkForUserCredential();
+  Future<void> checkForUserCredential();
   set setUserData(UserData model);
-  storeUserCredential(UserDataModel userData);
-  refreshAccessToken(String accessToken);
-  clearSessionData();
+  Future<void> storeUserCredential(UserDataModel userData);
+  Future<void> refreshAccessToken(String accessToken);
+  void clearSessionData();
 }
 
 /// A class that stores user data
@@ -48,7 +48,7 @@ class SessionServiceImpl implements SessionService {
 
   /// Check user's logged in credentials and store it before starting the app
   @override
-  checkForUserCredential() async {
+  Future<void> checkForUserCredential() async {
     final dataState = await _authLocalDataSource.getUserData();
     if (dataState.hasData) _userData = dataState.data!;
   }
@@ -58,20 +58,20 @@ class SessionServiceImpl implements SessionService {
 
   /// Store user's logged in credentials
   @override
-  storeUserCredential(UserDataModel userData) async {
+  Future<void> storeUserCredential(UserDataModel userData) async {
     setUserData = userData;
     await _authLocalDataSource.saveUserData(_userData);
   }
 
   /// Store new access token if it is expired.
   @override
-  refreshAccessToken(String accessToken) async {
+  Future<void> refreshAccessToken(String accessToken) async {
     setUserData = _userData.copyWith(accessToken: accessToken);
     await _authLocalDataSource.saveUserData(_userData);
   }
 
   @override
-  clearSessionData() {
+  void clearSessionData() {
     _userData = const UserData.empty();
     _authLocalDataSource.removeUserData();
     _navigationService.replaceAllRoute(const LoginRoute());
