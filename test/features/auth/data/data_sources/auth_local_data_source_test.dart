@@ -7,7 +7,7 @@ import 'package:clean_architecture/features/auth/data/models/user_data_model.dar
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-import '../../../../../test_support/mocks/service_mocks.dart';
+import '../../../../test_support/mocks/service_mocks.dart';
 
 void main() {
   late MockLocalDatabaseService mockLocalDatabase;

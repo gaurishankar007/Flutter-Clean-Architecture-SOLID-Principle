@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:get_it/get_it.dart';
 
-import '../../../../../core/utils/extensions/string_extension.dart';
 import '../../../../../core/utils/ui_helpers.dart';
 import '../../../../../shared/widgets/base/base_scaffold.dart';
 import '../../cubits/login/login_cubit.dart';
@@ -18,10 +17,8 @@ class LoginPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final usernameController =
-        useTextEditingController(text: "username".debugOnly);
-    final passwordController =
-        useTextEditingController(text: "password".debugOnly);
+    final usernameController = useTextEditingController();
+    final passwordController = useTextEditingController();
     final formKey = useMemoized(() => GlobalKey<FormState>());
 
     return BlocProvider(

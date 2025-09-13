@@ -10,7 +10,7 @@ import '../services/session/session_service.dart';
 
 mixin ServiceMixin {
   final _navigationService = NavigationUtil.I;
-  final _sessionManager = SessionUtil.I;
+  final _sessionService = SessionUtil.I;
   final _imagePickerService = ImagePickerUtil.I;
 
   /// Navigation Service
@@ -32,7 +32,7 @@ mixin ServiceMixin {
       ToastUtil.showDataStateToast(dataState, message: message);
 
   /// User Data Service
-  void setUserData(UserData model) => _sessionManager.setUserData = model;
+  void setUserData(UserData model) => _sessionService.setUserData = model;
 
   /// Image Picker Service
   Future<String?> pickImage([ImageSource source = ImageSource.camera]) =>

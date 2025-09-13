@@ -3,9 +3,9 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../../core/config/routes/routes.gr.dart';
 import '../../../../../core/data_states/data_state.dart';
-import '../../../../../core/utils/base_cubit/base_cubit.dart';
-// import '../../../domain/entities/requests/login_request.dart';
 import '../../../../../core/domain/entities/user.dart';
+import '../../../../../core/utils/base_cubit/base_cubit.dart';
+import '../../../domain/entities/authentication.dart';
 import '../../../domain/entities/user_data.dart';
 import 'login_cubit_use_cases.dart';
 
@@ -17,10 +17,9 @@ class LoginCubit extends BaseCubit<LoginState> {
   bool _passwordVisibility = false;
   bool _saveUserCredential = false;
 
-  LoginCubit({
-    required LoginCubitUseCases useCases,
-  })  : _useCases = useCases,
-        super(const LoginState.initial());
+  LoginCubit({required LoginCubitUseCases useCases})
+    : _useCases = useCases,
+      super(const LoginState.initial());
 
   /// Emits a new State
   void _refreshState() {
@@ -41,20 +40,32 @@ class LoginCubit extends BaseCubit<LoginState> {
     _refreshState();
   }
 
-  Future<void> login(
-      {required String username, required String password}) async {
-    // String fcmToken = "";
-    // String deviceType = Platform.isAndroid ? "android" : "ios";
+  Future<void> login({
+    required String username,
+    required String password,
+  }) async {
+    final authentication = Authentication(
+      username: username,
+      password: password,
+    );
+    final dataState = await _useCases.login.call(authentication);
+    showDataStateToast(dataState);
 
-    // final form = LoginRequest(
-    //   username: username,
-    //   password: password,
-    //   fcmToken: fcmToken,
-    //   deviceType: deviceType,
-    // );
+    if (dataState.hasData) {
+      setUserData(dataState.data!);
+      if (_saveUserCredential) {
+        await _useCases.saveUserData.call(dataState.data!);
+      }
+      replaceAllRoute(const HomeRoute());
+    }
+  }
 
-    // final dataState = await _useCases.login.call(form);
+  Future<void> fakeLogin({
+    required String username,
+    required String password,
+  }) async {
     await Future.delayed(const Duration(seconds: 2));
+
     final dataState = SuccessState(
       data: UserData(
         accessToken: "access",
@@ -69,12 +80,11 @@ class LoginCubit extends BaseCubit<LoginState> {
         ),
       ),
     );
-    showDataStateToast(dataState);
-
     setUserData(dataState.data!);
     if (_saveUserCredential) {
       await _useCases.saveUserData.call(dataState.data!);
     }
+
     replaceAllRoute(const HomeRoute());
   }
 }

@@ -8,8 +8,8 @@ import 'package:clean_architecture/features/auth/domain/entities/user_data.dart'
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-import '../../../../../test_support/mocks/data_sources_mocks.dart';
-import '../../../../../test_support/mocks/service_mocks.dart';
+import '../../../../test_support/mocks/data_source_mocks.dart';
+import '../../../../test_support/mocks/service_mocks.dart';
 
 void main() {
   late MockInternetService mockInternetService;

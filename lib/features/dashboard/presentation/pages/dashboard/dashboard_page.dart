@@ -24,9 +24,7 @@ class DashboardPage extends StatelessWidget {
         child: Stack(
           children: [
             Padding(
-              padding: EdgeInsets.only(
-                bottom: 50,
-              ),
+              padding: EdgeInsets.only(bottom: 50),
               child: const AutoRouter(),
             ),
             const Align(

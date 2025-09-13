@@ -4,8 +4,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-import '../../../../test_support/mocks/external/external_mocks.dart';
-import '../../../../test_support/mocks/service_mocks.dart';
+import '../../../test_support/mocks/external/external_mocks.dart';
+import '../../../test_support/mocks/service_mocks.dart';
 
 void main() {
   late MockDio mockDio;

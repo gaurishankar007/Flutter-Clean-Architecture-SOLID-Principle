@@ -36,14 +36,19 @@ dependencies:
   flutter_dotenv: ^5.2.1
 
 dev_dependencies:
+  flutter_lints: ^6.0.0
+  # Test
   flutter_test:
     sdk: flutter
-  flutter_lints: ^6.0.0
+  integration_test:
+    sdk: flutter
+  mocktail: ^1.0.4
+  bloc_test: ^10.0.0
+  patrol: ^3.19.0
+  patrol_finders: ^2.9.0 
   build_runner: ^2.4.15
   auto_route_generator: ^10.0.1
   injectable_generator: ^2.7.0
-  mocktail: ^1.0.4
-  bloc_test: ^10.0.0
 
 flutter:
   uses-material-design: true
@@ -58,3 +63,12 @@ flutter:
     - family: AppIcon
       fonts:
         - asset: assets/icons/AppIcon.ttf
+
+
+patrol:
+  app_name: cleanArchitecture
+  flavor: development
+  android:
+    package_name: com.example.cleanArchitecture
+  ios:
+    bundle_id: com.example.cleanArchitecture

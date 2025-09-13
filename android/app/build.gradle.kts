@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.clean_architecture"
+    namespace = "com.example.cleanArchitecture"
     compileSdk = flutter.compileSdkVersion
      ndkVersion = "27.0.12077973"
 
@@ -22,13 +22,15 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.example.clean_architecture"
+        applicationId = "com.example.cleanArchitecture"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+        testInstrumentationRunner = "pl.leancode.patrol.PatrolJUnitRunner"
+        testInstrumentationRunnerArguments["clearPackageData"] = "true"
     }
 
     buildTypes {
@@ -59,8 +61,13 @@ android {
             resValue("string", "app_name", "CleanArchitecture.DEV")
         }
     }
+
+    testOptions {
+        execution = "ANDROIDX_TEST_ORCHESTRATOR"
+    }
 }
 
 dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
+    androidTestUtil("androidx.test:orchestrator:1.5.1")
 }

@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:mocktail/mocktail.dart';
 
-import '../../../../test_support/mocks/external/external_mocks.dart'
+import '../../../test_support/mocks/external/external_mocks.dart'
     show MockInternetConnection;
 
 void main() {
