@@ -37,7 +37,10 @@ A comprehensive guide to building scalable and maintainable Flutter applications
       - [Internal Flow](#internal-flow)
     - [Benefits](#benefits-1)
     - [Debugging Tools](#debugging-tools)
-    - [Testing Tips](#testing-tips)
+    - [Testing](#testing)
+    - [Running Tests](#running-tests)
+      - [Unit \& Widget Tests](#unit--widget-tests)
+      - [Integration Tests (Patrol)](#integration-tests-patrol)
   - [Developer Resources](#developer-resources)
 
 ---
@@ -405,10 +408,50 @@ graph TD
 
 ---
 
-### Testing Tips
+### Testing
 
-- Mock `ApiService`, `AuthRemoteDataSource`, and `AuthRepository` easily.
-- Test each layer in isolation.
+This project uses a multi-layered testing strategy to ensure robustness and maintainability.
+
+- **Mocking with `mocktail`**: Dependencies are mocked using the `mocktail` package. This allows for testing each layer in isolation. For example, when testing a `Repository`, the `RemoteDataSource` and `LocalDataSource` are mocked. The tests demonstrate how to mock dependencies and stub method calls to return specific data or states.
+
+- **Widget Testing with `patrol_finders`**: Widget tests use `patrol_finders` (part of the Patrol framework) to provide a more intuitive and powerful way to find and interact with widgets, making UI tests cleaner and more readable.
+
+- **Integration Testing with `patrol`**: End-to-end tests are written using `patrol`, which extends `flutter_test` with features for controlling native UI elements (like permission dialogs).
+
+  **Note**: Patrol requires a one-time setup for both native Android (`build.gradle`) and iOS (`Podfile`, `RunnerUITests.m`) projects. For detailed instructions, please refer to the official Patrol setup documentation.
+
+- **Isolating Layers**: The architecture makes it easy to test components independently:
+  - When testing a `UseCase`, the `Repository` is mocked.
+  - When testing a `Cubit`, the `UseCase`s are mocked.
+  - When testing a `DataSource`, the `ApiService` or `LocalDatabaseService` is mocked.
+
+---
+
+### Running Tests
+
+The project includes a suite of automated tests to ensure code quality and functionality.
+
+#### Unit & Widget Tests
+
+- **Run all tests**:
+
+  ```shell
+  flutter test
+  ```
+
+- **Run a specific test file**:
+  ```shell
+  flutter test path/to/your/test_file.dart
+  ```
+
+#### Integration Tests (Patrol)
+
+Ensure an emulator or physical device is running before executing these tests.
+
+- **Run a specific integration test**:
+  ```shell
+  patrol test -t path/to/your/integration_test.dart
+  ```
 
 ---
 
