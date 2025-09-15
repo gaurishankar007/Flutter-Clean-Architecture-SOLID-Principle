@@ -26,9 +26,8 @@ class InternetServiceImpl implements InternetService {
   StreamSubscription<InternetStatus>? _subscription;
   bool _connection = true;
 
-  InternetServiceImpl({
-    required InternetConnection internetConnection,
-  }) : _internetConnection = internetConnection;
+  InternetServiceImpl({required InternetConnection internetConnection})
+    : _internetConnection = internetConnection;
 
   @override
   bool get isConnected => _connection;
@@ -44,13 +43,13 @@ class InternetServiceImpl implements InternetService {
   @override
   subscribeConnectivity() async {
     /// Broadcasts a stream which can be listen multiple times
-    _connectivityStream ??=
-        _internetConnection.onStatusChange.asBroadcastStream();
+    _connectivityStream ??= _internetConnection.onStatusChange
+        .asBroadcastStream();
 
     /// Listen to internet status changes
-    _subscription ??= _connectivityStream?.listen(
-      (status) async => _connection = await checkConnection(),
-    );
+    _subscription ??= _connectivityStream?.listen((status) {
+      _connection = status == InternetStatus.connected;
+    });
   }
 
   /// Stop listening to the internet status changes
