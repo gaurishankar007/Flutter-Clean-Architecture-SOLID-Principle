@@ -2,7 +2,7 @@ import 'package:clean_architecture/core/services/database/local_database_service
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-import '../../../test_support/mocks/external/external_mocks.dart'
+import '../../../../testing/mocks/external/external_mocks.dart'
     show MockSharedPreferences;
 
 void main() {

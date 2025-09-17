@@ -7,7 +7,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-import '../../../../test_support/mocks/service_mocks.dart';
+import '../../../../../testing/mocks/service_mocks.dart';
 
 // A mock for Options is needed for `captureAny` with mocktail
 class MockOptions extends Mock implements Options {}

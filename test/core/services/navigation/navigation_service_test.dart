@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-import '../../../test_support/mocks/external/router_mocks.dart';
+import '../../../../testing/mocks/external/router_mocks.dart';
 
 // Concrete fake class for RouterDelegate
 class FakeRouterDelegate extends AutoRouterDelegate {

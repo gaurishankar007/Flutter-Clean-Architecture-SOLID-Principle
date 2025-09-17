@@ -6,7 +6,7 @@ import 'package:clean_architecture/features/auth/domain/use_cases/login_use_case
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-import '../../../../test_support/mocks/repository_mocks.dart';
+import '../../../../../testing/mocks/repository_mocks.dart';
 
 void main() {
   late LoginUseCase useCase;

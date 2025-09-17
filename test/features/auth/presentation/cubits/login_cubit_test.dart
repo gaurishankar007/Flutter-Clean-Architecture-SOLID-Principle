@@ -14,9 +14,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mocktail/mocktail.dart';
 
-import '../../../../test_support/mocks/external/router_mocks.dart';
-import '../../../../test_support/mocks/service_mocks.dart';
-import '../../../../test_support/mocks/use_case_mocks.dart';
+import '../../../../../testing/mocks/external/router_mocks.dart';
+import '../../../../../testing/mocks/service_mocks.dart';
+import '../../../../../testing/mocks/use_case_mocks.dart';
 
 final locator = GetIt.I;
 
