@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:clean_architecture/core/config/routes/routes.dart';
+import 'package:clean_architecture/routing/routes.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockAppRouter extends Mock implements AppRouter {}

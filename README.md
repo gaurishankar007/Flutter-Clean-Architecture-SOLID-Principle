@@ -12,16 +12,18 @@ A comprehensive guide to building scalable and maintainable Flutter applications
   - [What is Clean Architecture?](#what-is-clean-architecture)
     - [Core Layers](#core-layers)
     - [Benefits](#benefits)
-  - [Visual Representation](#visual-representation)
   - [SOLID Principles](#solid-principles)
   - [Project Features](#project-features)
+  - [Getting Started 🚀](#getting-started-)
+    - [Prerequisites](#prerequisites)
+    - [Installation \& Setup](#installation--setup)
+    - [Running the Application](#running-the-application)
   - [Project Structure](#project-structure)
-  - [Project Features](#project-features-1)
   - [Feature Template Generation with Mason](#feature-template-generation-with-mason)
     - [How to Generate a Feature](#how-to-generate-a-feature)
     - [What Do `cubit_feature` \& `cubit_page` Do?](#what-do-cubit_feature--cubit_page-do)
     - [Configuration](#configuration)
-  - [Visual Representation](#visual-representation-1)
+  - [Visual Representation](#visual-representation)
   - [API Workflow Overview](#api-workflow-overview)
     - [Data Flow Summary](#data-flow-summary)
     - [Core Components](#core-components)
@@ -79,14 +81,6 @@ This project demonstrates how to structure Flutter applications using **Clean Ar
 
 ---
 
-## Visual Representation
-
-!Clean Architecture With SOLID Principle
-
-> This diagram highlights the modular and scalable structure of Clean Architecture, aligning with **SOLID principles** to ensure best development practices.
-
----
-
 ## SOLID Principles
 
 **SOLID Principles** complement Clean Architecture by providing guidelines for writing clean, maintainable, and extensible code:
@@ -123,57 +117,84 @@ For more detailed information and real-world examples, see the [**SOLID Principl
 
 ---
 
+## Getting Started 🚀
+
+Follow these steps to get the project up and running on your local machine.
+
+### Prerequisites
+
+- Flutter SDK (version 3.x.x or higher)
+- An editor like VS Code or Android Studio
+- An emulator or a physical device
+
+### Installation & Setup
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/gaurishankars/Flutter-Clean-Architecture-SOLID-Principle.git
+   cd Flutter-Clean-Architecture-SOLID-Principle
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   flutter pub get
+   ```
+
+### Running the Application
+
+This project is configured with multiple build flavors (Development, Staging, Production). You can run them using the following commands:
+
+- **Development**: `flutter run --flavor dev -t lib/main_dev.dart`
+- **Staging**: `flutter run --flavor stg -t lib/main_stg.dart`
+- **Production**: `flutter run --flavor prod -t lib/main.dart`
+
+---
+
 ## Project Structure
 
 ```
 lib/
+├── config/
+│   ├── injector/
+│   └── app_config.dart
 ├── core/
-│   ├── config/
-│   │   ├── routes/
-│   │   │   ├── guards/
-│   │   │   ├── helper/
-│   │   │   ├── routes.dart
-│   │   │   └── routes.gr.dart
-│   │   ├── theme/
-│   │   │   ├── theme_data.dart
-│   │   │   └── themes.dart
 │   ├── constants/
-│   ├── data/models/
+│   ├── cubits/
+│   ├── data/
+│   │   └── models/
 │   ├── data_handling/
 │   ├── data_states/
-│   ├── domain/entities/
+│   ├── domain/
+│   │   ├── entities/
+│   │   └── use_cases/
 │   ├── services/
-│   └── utils/
-├── features/
-│   ├── auth/
-│   ├── dashboard/
-│   ├── .....
-├── injector/
-│   ├── injector.config.dart
-│   └── injector.dart
-├── shared/
-│   ├── models/
-│   └── widgets/
-├── app_config.dart
-├── app_initializer.dart
-├── application.dart
+│   │   ├── api/
+│   │   ├── database/
+│   │   ├── image_picker/
+│   │   ├── internet/
+│   │   ├── navigation/
+│   │   └── session/
+│   ├── utils/
+│   │   ├── extensions/
+│   │   ├── screen_util/
+│   │   └── .....
+│   └── app_initializer.dart
+├── routing/
+├── ui/
+│   ├── core/
+│   │   ├── models/
+│   │   ├── themes/
+│   │   ├── ui/
+│   │   └── utils/
+│   ├── features/
+│   │   ├── auth/
+│   │   ├── dashboard/
+│   │   └── ...
+│   └── application.dart
 ├── main_dev.dart
 ├── main.dart
 ├── main_stg.dart
 ```
-
----
-
-## Project Features
-
-- 🛡️ **SOLID Principles**: Ensures scalable, maintainable, and testable code.
-- 🏗️ **Clean Architecture**: Divides code into layers (Data, Domain, Presentation) for clear separation of concerns.
-- 🍴 **Build Flavors**: Supports Development, Staging, and Production environments.
-- 🔧 **Robust Error Handling**: Comprehensive API and internal error management.
-- 🔄 **Automated Request/Response Handling**: Includes token refreshing and request inspection.
-- 📡 **Core Services**: Navigation, Internet, Local Database, Toast Messages, and User Credential management.
-- 🎨 **Reusable UI Components**: Customizable themes and reusable widgets.
-- ⚙️ **Utilities**: Screen size handling, extensions, mixins, generics, and form validation utilities.
 
 ---
 

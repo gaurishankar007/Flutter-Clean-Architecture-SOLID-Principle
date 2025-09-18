@@ -1,10 +1,10 @@
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../config/routes/routes.gr.dart';
-import '../../../features/auth/data/data_sources/auth_local_data_source.dart';
-import '../../../features/auth/data/models/user_data_model.dart';
-import '../../../features/auth/domain/entities/user_data.dart';
+import '../../../routing/routes.gr.dart';
+import '../../../ui/features/auth/data/data_sources/auth_local_data_source.dart';
+import '../../../ui/features/auth/data/models/user_data_model.dart';
+import '../../../ui/features/auth/domain/entities/user_data.dart';
 import '../navigation/navigation_service.dart';
 
 abstract class SessionService {

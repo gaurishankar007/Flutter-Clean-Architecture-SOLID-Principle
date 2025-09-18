@@ -11,7 +11,7 @@ import 'package:flutter/foundation.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../app_config.dart';
+import '../../../config/app_config.dart';
 import '../../constants/api_endpoints.dart';
 import '../../data/models/api_model.dart';
 import '../../data/models/requets/refresh_token_request.dart';
@@ -78,6 +78,9 @@ abstract class ApiService {
 abstract class ApiServiceModule {
   @lazySingleton
   Dio get dio => Dio();
+
+  @injectable
+  bool get addInterceptors => false;
 }
 
 @LazySingleton(as: ApiService)
@@ -89,7 +92,7 @@ class ApiServiceImpl implements ApiService {
     required AppConfig appConfig,
     required AuthInterceptor authInterceptor,
     required NavigationService navigationService,
-    bool isTest = false,
+    bool addInterceptors = false,
   }) : _dio = dio {
     _dio.options = BaseOptions(
       baseUrl: appConfig.apiBaseUrl,
@@ -99,7 +102,7 @@ class ApiServiceImpl implements ApiService {
       headers: {"Content-Type": "application/json"},
     );
 
-    if (!isTest) {
+    if (addInterceptors) {
       /// Alice Configuration
       final alice = Alice(
         configuration: AliceConfiguration(

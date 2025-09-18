@@ -1,5 +1,5 @@
 import 'package:clean_architecture/core/constants/app_icons.dart';
-import 'package:clean_architecture/shared/widgets/base/buttons/base_icon_button.dart';
+import 'package:clean_architecture/ui/core/ui/base/buttons/base_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:patrol/patrol.dart';

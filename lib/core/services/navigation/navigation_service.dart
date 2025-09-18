@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../config/routes/routes.dart';
+import '../../../routing/routes.dart';
 import '../../data_handling/data_handler.dart';
 
 abstract class NavigationService {

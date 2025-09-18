@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../features/auth/domain/entities/user_data.dart';
+import '../../ui/features/auth/domain/entities/user_data.dart';
+import '../../ui/core/utils/toast_util.dart';
 import '../data_states/data_state.dart';
 import '../services/image_picker/image_picker_service.dart';
-import 'toast_util.dart';
 import '../services/navigation/navigation_service.dart';
 import '../services/session/session_service.dart';
 
@@ -29,7 +29,7 @@ mixin ServiceMixin {
   void showErrorToast(String message) => ToastUtil.showError(message);
 
   void showDataStateToast(DataState dataState, {String message = ""}) =>
-      ToastUtil.showDataStateToast(dataState, message: message);
+      ToastUtil.showMessage(dataState, message: message);
 
   /// User Data Service
   void setUserData(UserData model) => _sessionService.setUserData = model;

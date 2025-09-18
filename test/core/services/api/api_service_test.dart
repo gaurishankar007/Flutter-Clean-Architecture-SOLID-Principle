@@ -1,6 +1,7 @@
-import 'package:clean_architecture/app_config.dart';
+import 'package:clean_architecture/config/app_config.dart';
 import 'package:clean_architecture/core/services/api/api_service.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -23,13 +24,19 @@ void main() {
       appTitle: "Testing",
       flavor: Flavor.development,
     );
+  });
+
+  setUp(() {
+    when(
+      () => mockNavigationService.navigatorKey,
+    ).thenReturn(GlobalKey<NavigatorState>());
 
     apiService = ApiServiceImpl(
       appConfig: appConfig,
       authInterceptor: mockAuthInterceptor,
       dio: mockDio,
       navigationService: mockNavigationService,
-      isTest: true,
+      addInterceptors: false,
     );
   });
 
