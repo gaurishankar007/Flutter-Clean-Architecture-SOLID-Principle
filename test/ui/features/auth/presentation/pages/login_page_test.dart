@@ -4,7 +4,7 @@ import 'package:clean_architecture/core/domain/entities/user.dart';
 import 'package:clean_architecture/core/services/image_picker/image_picker_service.dart';
 import 'package:clean_architecture/core/services/navigation/navigation_service.dart';
 import 'package:clean_architecture/core/services/session/session_service.dart';
-import 'package:clean_architecture/core/utils/screen_util/screen_util.dart';
+import 'package:clean_architecture/ui/core/utils/screen_util/screen_util.dart';
 import 'package:clean_architecture/ui/features/auth/domain/entities/authentication.dart';
 import 'package:clean_architecture/ui/features/auth/domain/entities/user_data.dart';
 import 'package:clean_architecture/ui/features/auth/domain/use_cases/login_use_case.dart';

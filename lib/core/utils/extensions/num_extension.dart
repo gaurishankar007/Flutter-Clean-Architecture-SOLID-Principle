@@ -1,4 +1,4 @@
-import '../screen_util/screen_util.dart';
+import '../../../ui/core/utils/screen_util/screen_util.dart';
 
 extension NumberExtension<T extends num> on T {
   T get avoidNegativeValue => (this < 0 ? 0 : this) as T;

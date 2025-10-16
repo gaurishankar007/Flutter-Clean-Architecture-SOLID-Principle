@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../../../core/constants/app_colors.dart';
-import '../../../../core/utils/extensions/build_context_extension.dart';
-import '../../../../core/utils/screen_util/screen_util.dart';
+import '../../utils/extensions/build_context_extension.dart';
+import '../../utils/screen_util/screen_util.dart';
 
 class BaseScaffold extends StatelessWidget {
   final bool showAnnotatedRegion;

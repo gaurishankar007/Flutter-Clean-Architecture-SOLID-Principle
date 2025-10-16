@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:clean_architecture/routing/routes.dart';
 import 'package:clean_architecture/core/services/navigation/navigation_service.dart';
+import 'package:clean_architecture/routing/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -48,15 +48,37 @@ void main() {
     verify(() => mockAppRouter.navigatorKey).called(1);
   });
 
-  test('popTop calls maybePopTop on AppRouter', () async {
+  test('maybePop calls maybePop on AppRouter', () async {
+    when(
+      () => mockAppRouter.maybePop<Object?>(any()),
+    ).thenAnswer((_) async => true);
+
+    final result = await navigationService.maybePop<Object?>();
+
+    expect(result, true);
+    verify(() => mockAppRouter.maybePop<Object?>(null)).called(1);
+  });
+
+  test('maybePopTop calls maybePopTop on AppRouter', () async {
     when(
       () => mockAppRouter.maybePopTop<Object?>(null),
     ).thenAnswer((_) async => true);
 
-    final result = await navigationService.popTop<Object?>();
+    final result = await navigationService.maybePopTop<Object?>();
 
     expect(result, true);
     verify(() => mockAppRouter.maybePopTop<Object?>(null)).called(1);
+  });
+
+  test('back calls back on AppRouter', () {
+    // Arrange
+    when(() => mockAppRouter.back()).thenAnswer((_) {});
+
+    // Act
+    navigationService.back();
+
+    // Assert
+    verify(() => mockAppRouter.back()).called(1);
   });
 
   test('replaceAllRoute calls replaceAll on AppRouter', () async {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/utils/screen_util/screen_util.dart';
+import '../../../utils/screen_util/screen_util.dart';
 
 class NetworkTower extends StatelessWidget {
   const NetworkTower({super.key});

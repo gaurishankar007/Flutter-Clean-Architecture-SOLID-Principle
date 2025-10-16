@@ -159,7 +159,6 @@ lib/
 │   └── app_config.dart
 ├── core/
 │   ├── constants/
-│   ├── cubits/
 │   ├── data/
 │   │   └── models/
 │   ├── data_handling/
@@ -176,12 +175,12 @@ lib/
 │   │   └── session/
 │   ├── utils/
 │   │   ├── extensions/
-│   │   ├── screen_util/
 │   │   └── .....
 │   └── app_initializer.dart
 ├── routing/
 ├── ui/
 │   ├── core/
+│   │   ├── cubits/
 │   │   ├── models/
 │   │   ├── themes/
 │   │   ├── ui/

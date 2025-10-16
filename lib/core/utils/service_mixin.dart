@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../ui/features/auth/domain/entities/user_data.dart';
 import '../../ui/core/utils/toast_util.dart';
+import '../../ui/features/auth/domain/entities/user_data.dart';
 import '../data_states/data_state.dart';
 import '../services/image_picker/image_picker_service.dart';
 import '../services/navigation/navigation_service.dart';
@@ -15,7 +15,7 @@ mixin ServiceMixin {
 
   /// Navigation Service
   Future popTop<T extends Object?>([T? result]) async =>
-      await _navigationService.popTop(result);
+      await _navigationService.maybePopTop(result);
 
   Future<void> replaceAllRoute(PageRouteInfo<dynamic> route) async =>
       await _navigationService.replaceAllRoute(route);

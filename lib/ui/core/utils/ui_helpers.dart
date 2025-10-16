@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/utils/screen_util/screen_util.dart';
+import 'screen_util/screen_util.dart';
 
 enum Space {
   xxxSmall(2),

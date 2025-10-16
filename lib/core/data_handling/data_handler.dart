@@ -66,8 +66,8 @@ class DataHandler {
           );
         }
 
+        responseMessage = rawData['message'];
         rawData = rawData[responseDataKey];
-        responseMessage = response.data['message'];
       }
 
       // Handle static data return

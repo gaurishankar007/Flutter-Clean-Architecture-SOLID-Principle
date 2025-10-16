@@ -14,7 +14,9 @@ abstract class NavigationService {
   RouteInformationParser<Object>? get routeInformationParser;
   GlobalKey<NavigatorState> get navigatorKey;
   String get currentPath;
-  Future<bool> popTop<T extends Object?>([T? result]);
+  Future<bool> maybePop<T extends Object?>([T? result]);
+  Future<bool> maybePopTop<T extends Object?>([T? result]);
+  void back();
   Future<void> replaceAllRoute(PageRouteInfo<dynamic> route);
   Future<T?> pushRoute<T>(PageRouteInfo<dynamic> route);
   Future<T?> pushPlatformRoute<T>({
@@ -55,10 +57,39 @@ class NavigationServiceImpl implements NavigationService {
   @override
   String get currentPath => _appRouter.currentPath;
 
-  /// Removes the top most page from the stack
+  /// Pops the last route in the current router's stack.
+  /// This is "safe" versions of pop that checks if popping is possible before attempting.
+  ///
+  /// Example:
+  ///
+  /// Root Router [HomeRoute]
+  ///
+  ///  └─ Nested Router [ProfileRoute, SettingsRoute, AboutRoute]
+  ///
+  /// maybePop() → Removes AboutRoute (innermost router)
   @override
-  Future<bool> popTop<T extends Object?>([T? result]) async =>
+  Future<bool> maybePop<T extends Object?>([T? result]) async =>
+      await _appRouter.maybePop(result);
+
+  /// Pops from the topmost/root router in the hierarchy.
+  /// This is "safe" versions of popTop that checks if popping is possible before attempting.
+  ///
+  /// Example:
+  ///
+  /// Root Router [HomeRoute, DashboardRoute]
+  ///
+  /// └─ Nested Router [ProfileRoute, SettingsRoute, AboutRoute]
+  ///
+  /// maybePopTop() → Removes DashboardRoute (root router)
+  @override
+  Future<bool> maybePopTop<T extends Object?>([T? result]) async =>
       await _appRouter.maybePopTop(result);
+
+  /// Automatically chooses between pop/popTop based on context.
+  /// High-level navigation method that handles both Flutter navigation AND browser history.
+  /// On web, it properly syncs with browser back button.
+  @override
+  void back() => _appRouter.back();
 
   /// Replace all previous routes the new route
   @override

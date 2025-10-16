@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../utils/service_mixin.dart';
+import '../../../../core/utils/service_mixin.dart';
 
 /// The status of a bloc state when there is only a single state
 /// * loading

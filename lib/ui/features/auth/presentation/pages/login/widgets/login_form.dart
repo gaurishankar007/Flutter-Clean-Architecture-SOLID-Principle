@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../../core/constants/app_colors.dart';
 import '../../../../../../core/utils/ui_helpers.dart';
-import '../../../../../../../core/utils/validators.dart';
+import '../../../../../../core/utils/validators.dart';
 import '../../../../../../core/ui/base/form/base_text_field.dart';
 import '../../../cubits/login/login_cubit.dart';
 import 'login_optional.dart';

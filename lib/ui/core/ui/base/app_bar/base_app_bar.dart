@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../../core/constants/app_colors.dart';
 import '../../../../../core/constants/app_icons.dart';
 import '../../../../../core/services/navigation/navigation_service.dart';
-import '../../../../../core/utils/screen_util/screen_util.dart';
+import '../../../utils/screen_util/screen_util.dart';
 import '../../../utils/ui_helpers.dart';
 import '../buttons/base_icon_button.dart';
 import '../text/base_text.dart';
@@ -45,9 +45,10 @@ class BaseAppBar extends StatelessWidget {
     if (showLeading) {
       leadingWidget = Padding(
         padding: UIHelpers.screenLPadding,
-        child: leading ??
+        child:
+            leading ??
             BaseIconButton(
-              onPressed: NavigationUtil.I.popTop,
+              onPressed: NavigationUtil.I.maybePopTop,
               icon: const Icon(
                 AppIcons.arrow_left,
                 size: 20,

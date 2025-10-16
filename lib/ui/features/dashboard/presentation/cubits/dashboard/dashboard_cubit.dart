@@ -1,7 +1,7 @@
 import 'package:injectable/injectable.dart';
 
 import '../../../../../../routing/routes.gr.dart';
-import '../../../../../../core/cubits/base/base_cubit.dart';
+import '../../../../../core/cubits/base/base_cubit.dart';
 import '../../../../../../core/utils/type_defs.dart';
 import 'dashboard_cubit_use_cases.dart';
 

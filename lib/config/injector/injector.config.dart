@@ -10,7 +10,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:clean_architecture/config/app_config.dart' as _i37;
-import 'package:clean_architecture/core/cubits/rebuild_cubit.dart' as _i207;
+import 'package:clean_architecture/ui/core/cubits/rebuild_cubit.dart' as _i207;
 import 'package:clean_architecture/core/services/api/api_service.dart' as _i885;
 import 'package:clean_architecture/core/services/database/local_database_service.dart'
     as _i87;

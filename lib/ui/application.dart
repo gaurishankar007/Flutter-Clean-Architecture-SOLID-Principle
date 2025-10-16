@@ -4,7 +4,7 @@ import 'package:get_it/get_it.dart';
 
 import '../config/app_config.dart';
 import 'core/themes/theme.dart';
-import '../core/cubits/rebuild_cubit.dart';
+import 'core/cubits/rebuild_cubit.dart';
 import '../core/services/navigation/navigation_service.dart';
 
 class CleanArchitectureSample extends StatelessWidget {
