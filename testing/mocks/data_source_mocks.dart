@@ -1,5 +1,5 @@
-import 'package:clean_architecture/ui/features/auth/data/data_sources/auth_local_data_source.dart';
-import 'package:clean_architecture/ui/features/auth/data/data_sources/auth_remote_data_source.dart';
+import 'package:clean_architecture/features/auth/data/data_sources/auth_local_data_source.dart';
+import 'package:clean_architecture/features/auth/data/data_sources/auth_remote_data_source.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockAuthRemoteDataSource extends Mock implements AuthRemoteDataSource {}

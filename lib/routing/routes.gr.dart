@@ -10,13 +10,13 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i5;
-import 'package:clean_architecture/ui/features/auth/presentation/pages/login/login_page.dart'
+import 'package:clean_architecture/features/auth/presentation/pages/login/login_page.dart'
     as _i3;
-import 'package:clean_architecture/ui/features/dashboard/presentation/pages/dashboard/dashboard_page.dart'
+import 'package:clean_architecture/features/dashboard/presentation/pages/dashboard/dashboard_page.dart'
     as _i1;
-import 'package:clean_architecture/ui/features/dashboard/presentation/pages/home/home_page.dart'
+import 'package:clean_architecture/features/dashboard/presentation/pages/home/home_page.dart'
     as _i2;
-import 'package:clean_architecture/ui/features/dashboard/presentation/pages/setting/setting_page.dart'
+import 'package:clean_architecture/features/dashboard/presentation/pages/setting/setting_page.dart'
     as _i4;
 
 /// generated route for

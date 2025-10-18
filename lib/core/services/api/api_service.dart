@@ -13,9 +13,9 @@ import 'package:injectable/injectable.dart';
 
 import '../../../config/app_config.dart';
 import '../../constants/api_endpoints.dart';
-import '../../data/models/api_model.dart';
-import '../../data/models/requets/refresh_token_request.dart';
-import '../../data/models/refresh_token_model.dart';
+import '../../data/models/responses/api_response.dart';
+import '../../data/models/requests/refresh_token_request.dart';
+import '../../data/models/responses/refresh_token_response.dart';
 import '../../utils/type_defs.dart';
 import '../navigation/navigation_service.dart';
 import '../session/session_service.dart';

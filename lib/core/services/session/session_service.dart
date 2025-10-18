@@ -1,11 +1,13 @@
+import 'dart:convert';
+
+import 'package:clean_architecture/core/constants/local_db_keys.dart';
+import 'package:clean_architecture/core/domain/entities/user_data.dart';
+import 'package:clean_architecture/core/services/database/local_database_service.dart';
+import 'package:clean_architecture/core/services/navigation/navigation_service.dart';
+import 'package:clean_architecture/features/auth/data/models/responses/user_data_response.dart';
+import 'package:clean_architecture/routing/routes.gr.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
-
-import '../../../routing/routes.gr.dart';
-import '../../../ui/features/auth/data/data_sources/auth_local_data_source.dart';
-import '../../../ui/features/auth/data/models/user_data_model.dart';
-import '../../../ui/features/auth/domain/entities/user_data.dart';
-import '../navigation/navigation_service.dart';
 
 abstract class SessionService {
   bool get isLoggedIn;
@@ -15,7 +17,6 @@ abstract class SessionService {
   String get fullName;
   Future<void> checkForUserCredential();
   set setUserData(UserData model);
-  Future<void> storeUserCredential(UserDataModel userData);
   Future<void> refreshAccessToken(String accessToken);
   void clearSessionData();
 }
@@ -23,14 +24,14 @@ abstract class SessionService {
 /// A class that stores user data
 @LazySingleton(as: SessionService)
 class SessionServiceImpl implements SessionService {
-  final AuthLocalDataSource _authLocalDataSource;
+  final LocalDatabaseService _localDatabase;
   final NavigationService _navigationService;
 
   SessionServiceImpl({
-    required AuthLocalDataSource authLocalDataSource,
+    required LocalDatabaseService localDatabase,
     required NavigationService navigationService,
-  })  : _authLocalDataSource = authLocalDataSource,
-        _navigationService = navigationService;
+  }) : _localDatabase = localDatabase,
+       _navigationService = navigationService;
 
   UserData _userData = const UserData.empty();
 
@@ -49,31 +50,36 @@ class SessionServiceImpl implements SessionService {
   /// Check user's logged in credentials and store it before starting the app
   @override
   Future<void> checkForUserCredential() async {
-    final dataState = await _authLocalDataSource.getUserData();
-    if (dataState.hasData) _userData = dataState.data!;
+    final stored = await _localDatabase.getString(LocalDbKeys.userData);
+    if (stored != null && stored.isNotEmpty) {
+      try {
+        final map = jsonDecode(stored) as Map<String, dynamic>;
+        final resp = UserDataResponse.fromJson(map);
+        _userData = resp.toDomain();
+      } catch (_) {
+        _userData = const UserData.empty();
+      }
+    }
   }
 
   @override
   set setUserData(UserData model) => _userData = model;
 
-  /// Store user's logged in credentials
-  @override
-  Future<void> storeUserCredential(UserDataModel userData) async {
-    setUserData = userData;
-    await _authLocalDataSource.saveUserData(_userData);
-  }
-
   /// Store new access token if it is expired.
   @override
   Future<void> refreshAccessToken(String accessToken) async {
     setUserData = _userData.copyWith(accessToken: accessToken);
-    await _authLocalDataSource.saveUserData(_userData);
+    final resp = UserDataResponse.fromDomain(_userData);
+    await _localDatabase.setString(
+      LocalDbKeys.userData,
+      jsonEncode(resp.toJson()),
+    );
   }
 
   @override
   void clearSessionData() {
     _userData = const UserData.empty();
-    _authLocalDataSource.removeUserData();
+    _localDatabase.remove(LocalDbKeys.userData);
     _navigationService.replaceAllRoute(const LoginRoute());
   }
 }

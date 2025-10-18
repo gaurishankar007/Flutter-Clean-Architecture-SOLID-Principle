@@ -6,7 +6,8 @@ part of 'api_service.dart';
 /// * Refresh tokens
 @LazySingleton()
 class AuthInterceptor extends Interceptor {
-  final SessionService _sessionManager;
+  // Access the session service lazily via the locator to break circular DI.
+  SessionService get _sessionManager => SessionUtil.I;
   final Dio _dio = Dio();
 
   /// This flag is to prevent multiple refresh token requests. If the request
@@ -18,8 +19,7 @@ class AuthInterceptor extends Interceptor {
   /// token is expired, each requests are retried after refreshing token
   final List<DioRequestData> _pendingRequests = [];
 
-  AuthInterceptor({required SessionService sessionManager})
-      : _sessionManager = sessionManager;
+  AuthInterceptor();
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
@@ -82,9 +82,9 @@ class AuthInterceptor extends Interceptor {
       );
 
       /// If api response is successful, return the new accessToken
-      ApiModel<MapDynamic> apiResponse = ApiModel.fromResponse(response);
+      ApiResponse<MapDynamic> apiResponse = ApiResponse.fromResponse(response);
       if (apiResponse.success) {
-        final tokenResponse = RefreshTokenModel.fromJson(apiResponse.data);
+        final tokenResponse = RefreshTokenResponse.fromJson(apiResponse.data);
         _sessionManager.refreshAccessToken(tokenResponse.accessToken);
         return true;
       }
@@ -127,8 +127,5 @@ class DioRequestData {
   final DioException error;
   final ErrorInterceptorHandler handler;
 
-  const DioRequestData({
-    required this.error,
-    required this.handler,
-  });
+  const DioRequestData({required this.error, required this.handler});
 }

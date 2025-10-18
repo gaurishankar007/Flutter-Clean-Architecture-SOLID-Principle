@@ -11,6 +11,7 @@ A comprehensive guide to building scalable and maintainable Flutter applications
   - [Introduction](#introduction)
   - [What is Clean Architecture?](#what-is-clean-architecture)
     - [Core Layers](#core-layers)
+    - [Dependency rules that must be enforced](#dependency-rules-that-must-be-enforced)
     - [Benefits](#benefits)
   - [SOLID Principles](#solid-principles)
   - [Project Features](#project-features)
@@ -63,15 +64,24 @@ This project demonstrates how to structure Flutter applications using **Clean Ar
 
    - Contains UI and state management (e.g., Cubits, Widgets, Pages).
    - Responsible for displaying data and handling user interactions.
+   - May import domain/use-cases and core, but must NOT import feature data directly — always use repository interfaces / use-cases.
 
 2. **Domain Layer**
 
    - The heart of the application. Contains **Entities**, **UseCases**, and **Repositories**.
    - Focuses purely on business logic, independent of frameworks.
+   - Must not import from data or presentation.
 
 3. **Data Layer**
    - Manages data sources (e.g., APIs, local databases).
    - Implements repositories to provide data to the domain layer.
+   - May import domain to implement repository interfaces.
+
+### Dependency rules that must be enforced
+
+- Keep imports flowing inward only — Presentation -> Domain -> Data.
+- Core is reusable library and should be independent of other layers but domain, data, presentation depends on core.
+- Shared UI is reusable UI related library and It might depend on core but not other layers. Presentation layer depends on Shared UI.
 
 ### Benefits
 
@@ -130,6 +140,7 @@ Follow these steps to get the project up and running on your local machine.
 ### Installation & Setup
 
 1. **Clone the repository:**
+
    ```bash
    git clone https://github.com/gaurishankars/Flutter-Clean-Architecture-SOLID-Principle.git
    cd Flutter-Clean-Architecture-SOLID-Principle
@@ -177,18 +188,20 @@ lib/
 │   │   ├── extensions/
 │   │   └── .....
 │   └── app_initializer.dart
+├── features/
+│   ├── auth/
+│   │   ├── data/
+│   │   ├── domain/
+│   │   ├── presentation/
+│   ├── dashboard/
+│   └── ...
 ├── routing/
-├── ui/
-│   ├── core/
-│   │   ├── cubits/
-│   │   ├── models/
-│   │   ├── themes/
-│   │   ├── ui/
-│   │   └── utils/
-│   ├── features/
-│   │   ├── auth/
-│   │   ├── dashboard/
-│   │   └── ...
+├── shared_ui/
+│   ├── cubits/
+│   ├── models/
+│   ├── themes/
+│   ├── ui/
+│   ├── utils/
 │   └── application.dart
 ├── main_dev.dart
 ├── main.dart
@@ -468,9 +481,13 @@ The project includes a suite of automated tests to ensure code quality and funct
 
 Ensure an emulator or physical device is running before executing these tests.
 
+- **Run all integration tests**:
+  ```shell
+  patrol test
+  ```
 - **Run a specific integration test**:
   ```shell
-  patrol test -t path/to/your/integration_test.dart
+  patrol test --target path/to/your/integration_test.dart
   ```
 
 ---
