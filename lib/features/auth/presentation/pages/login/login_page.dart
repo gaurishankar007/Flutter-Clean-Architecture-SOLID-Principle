@@ -34,7 +34,7 @@ class LoginPage extends HookWidget {
           children: [
             const WelcomeLogo(title: "Login"),
             Container(
-              margin: UIHelpers.smallTxxLargeBPadding,
+              margin: UIHelpers.paddingT12B40,
               child: Form(
                 key: formKey,
                 child: LoginForm(

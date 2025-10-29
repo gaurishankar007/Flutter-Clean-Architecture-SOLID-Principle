@@ -44,7 +44,7 @@ class BaseAppBar extends StatelessWidget {
 
     if (showLeading) {
       leadingWidget = Padding(
-        padding: UIHelpers.screenLPadding,
+        padding: UIHelpers.paddingLS,
         child:
             leading ??
             BaseIconButton(

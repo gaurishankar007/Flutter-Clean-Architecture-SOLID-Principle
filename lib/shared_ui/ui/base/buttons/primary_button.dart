@@ -62,9 +62,7 @@ class PrimaryButton extends HookWidget {
             onPressed: onPressed.call,
             style: ElevatedButton.styleFrom(
               backgroundColor: color ?? AppColors.primary,
-              shape: RoundedRectangleBorder(
-                borderRadius: UIHelpers.xSmallCRadius,
-              ),
+              shape: RoundedRectangleBorder(borderRadius: UIHelpers.radiusC8),
               elevation: elevation,
             ),
             child: loading

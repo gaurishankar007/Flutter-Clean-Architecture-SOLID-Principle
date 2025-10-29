@@ -12,10 +12,10 @@ class BlueContainer extends StatelessWidget {
     return Container(
       height: 160,
       width: double.maxFinite,
-      padding: UIHelpers.screenHsMediumVPadding,
+      padding: UIHelpers.paddingHSV16,
       decoration: BoxDecoration(
         color: AppColors.primary,
-        borderRadius: UIHelpers.largeBRadius,
+        borderRadius: UIHelpers.radiusC24,
       ),
       child: BaseText.headline(
         "Settings",

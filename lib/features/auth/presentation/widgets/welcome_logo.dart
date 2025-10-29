@@ -13,7 +13,7 @@ class WelcomeLogo extends StatelessWidget {
     return Column(
       children: [
         Container(
-          margin: UIHelpers.xxSmallTxLargeBPadding,
+          margin: UIHelpers.paddingT4B32,
           child: const BaseText(
             "Welcome",
             color: AppColors.primary,
@@ -21,7 +21,7 @@ class WelcomeLogo extends StatelessWidget {
             fontWeight: FontWeight.w900,
           ),
         ),
-        UIHelpers.mediumVSpace,
+        UIHelpers.spaceV20,
         Align(
           alignment: Alignment.centerLeft,
           child: BaseText.titleMedium(title, color: AppColors.blackE1),

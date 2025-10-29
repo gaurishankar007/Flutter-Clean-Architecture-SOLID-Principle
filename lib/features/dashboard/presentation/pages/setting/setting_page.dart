@@ -25,7 +25,7 @@ class SettingPage extends StatelessWidget {
         children: [
           const BlueContainer(),
           Padding(
-            padding: UIHelpers.screenLR(top: 130, bottom: 12),
+            padding: UIHelpers.paddingTB(top: 130, bottom: 12),
             child: Column(
               children: [
                 const SettingItems(),

@@ -64,7 +64,7 @@ class SecondaryButton extends HookWidget {
               backgroundColor: AppColors.white,
               side: BorderSide(color: color, width: 1.5),
               shape: RoundedRectangleBorder(
-                borderRadius: UIHelpers.xSmallCRadius,
+                borderRadius: UIHelpers.radiusC8,
               ),
               elevation: 0,
               splashFactory: InkRipple.splashFactory,

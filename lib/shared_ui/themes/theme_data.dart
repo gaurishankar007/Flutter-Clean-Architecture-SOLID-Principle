@@ -23,7 +23,7 @@ AppBarTheme get appBarTheme => const AppBarTheme(
 
 /// InputDecoration Theme
 OutlineInputBorder outlinedInputBorder(Color color) => OutlineInputBorder(
-      borderRadius: UIHelpers.smallCRadius,
+      borderRadius: UIHelpers.radiusC12,
       borderSide: BorderSide(color: color, width: 2),
     );
 InputDecorationTheme get inputDecorationTheme => InputDecorationTheme(
@@ -37,7 +37,7 @@ InputDecorationTheme get inputDecorationTheme => InputDecorationTheme(
 /// CheckBox Theme
 CheckboxThemeData get checkBoxThemeData => CheckboxThemeData(
       visualDensity: const VisualDensity(horizontal: -3, vertical: -3),
-      shape: RoundedRectangleBorder(borderRadius: UIHelpers.xxSmallCRadius),
+      shape: RoundedRectangleBorder(borderRadius: UIHelpers.radiusC4),
     );
 
 /// ListTile Theme

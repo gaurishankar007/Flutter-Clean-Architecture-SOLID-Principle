@@ -22,7 +22,7 @@ class BaseBottomNavigation extends StatelessWidget {
       width: double.maxFinite,
       decoration: BoxDecoration(
         color: AppColors.white,
-        borderRadius: UIHelpers.sMediumTRadius,
+        borderRadius: UIHelpers.radiusC16,
         boxShadow: const [
           BoxShadow(
             color: AppColors.black10,

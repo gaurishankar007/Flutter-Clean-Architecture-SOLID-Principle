@@ -79,21 +79,32 @@ class ScreenUtil {
     return _limitedNumber(width, min: min, max: max);
   }
 
-  /// Returns a value adapted to the current screen type.
-  /// It checks the current screen type's index (from the [ScreenType] enum)
-  /// with the keys in [screenValues]. If a key contains the current index,
-  /// its corresponding value is returned.
-  /// Otherwise, the [baseValue] is returned as the default.
-  T getAdaptiveValue<T>({
-    required T baseValue,
-    required Map<Set<int>, T> screenValues,
-  }) {
-    for (final entry in screenValues.entries) {
-      if (entry.key.contains(_type.index)) return entry.value;
-    }
+  /// Resolve a value for the current screen type.
+  ///
+  /// The keys in [screens] can be:
+  /// - a single [ScreenType]
+  /// - an [Iterable&lt;ScreenType&gt;] (e.g. Set&lt;ScreenType&gt;)
+  ///
+  /// The first matching entry's value is returned. If none match, [base] value is returned.
+  T getResponsiveValue<T>({required T base, required Map<Object, T> screens}) {
+    for (final entry in screens.entries) {
+      final key = entry.key;
+      final value = entry.value;
 
-    return baseValue;
+      if (key is ScreenType && key == _type) return value;
+      if (key is Iterable<ScreenType> && key.contains(_type)) return value;
+    }
+    return base;
   }
+
+  /// Get adapted values for compact and small screens otherwise use [base]
+  T valueForCompactOrPhone<T>({required T base, required T screen12}) =>
+      getResponsiveValue(
+        base: base,
+        screens: {
+          {COMPACT, PHONE}: screen12,
+        },
+      );
 
   /// Whether the screen is small or medium
   bool get _isPhoneScreen => _type.index <= ScreenType.phone.index;

@@ -1,13 +1,11 @@
+// ignore_for_file: constant_identifier_names
+
 part of 'screen_util.dart';
 
 /// Enum for categorizing device screen types based on logical screen width.
 ///
 /// Categories are loosely inspired by Material Design 3 layout breakpoints:
 /// https://m3.material.io/foundations/layout/applying-layout/window-size-classes
-/// According to material design,
-/// Mobile Layout -> width <= 600 dp
-/// Tablet Layout -> 600 < width <= 840 dp
-/// Mobile Layout -> width > 840 dp
 ///
 /// Screen widths are in logical pixels (dp).
 ///
@@ -18,11 +16,10 @@ part of 'screen_util.dart';
 /// - [largeTablet]    : 841 dp to 1024 dp — large tablets.
 /// - [desktop]        : > 1024 dp — desktop or very large screen.
 
-enum ScreenType {
-  unknown,
-  compact,
-  phone,
-  tablet,
-  largeTablet,
-  desktop,
-}
+enum ScreenType { unknown, compact, phone, tablet, largeTablet, desktop }
+
+const COMPACT = ScreenType.compact;
+const PHONE = ScreenType.phone;
+const TABLET = ScreenType.tablet;
+const LARGE_TABLET = ScreenType.largeTablet;
+const DESKTOP = ScreenType.desktop;

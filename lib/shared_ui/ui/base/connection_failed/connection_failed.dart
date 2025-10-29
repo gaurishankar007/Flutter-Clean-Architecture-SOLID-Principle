@@ -17,7 +17,7 @@ class ConnectionFailed extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            margin: UIHelpers.smallTLargeBPadding,
+            margin: UIHelpers.paddingT12B24,
             child: const NetworkTower(),
           ),
           Text(

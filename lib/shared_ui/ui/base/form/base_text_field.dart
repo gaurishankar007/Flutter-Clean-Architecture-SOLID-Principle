@@ -57,7 +57,7 @@ class BaseTextField extends StatelessWidget {
       style: const TextStyle(color: AppColors.base, fontSize: 16),
       focusNode: focusNode,
       decoration: InputDecoration(
-        contentPadding: UIHelpers.sMediumAllPadding,
+        contentPadding: UIHelpers.paddingA16,
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
         hintText: hintText,
@@ -75,7 +75,7 @@ class BaseTextField extends StatelessWidget {
             textType: titleSize ?? TextType.titleSmall,
             fontWeight: FontWeight.w400,
           ),
-          UIHelpers.xSmallVSpace,
+          UIHelpers.spaceV8,
           child,
         ],
       );

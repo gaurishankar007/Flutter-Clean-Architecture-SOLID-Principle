@@ -27,8 +27,9 @@ class BaseCheckbox extends StatelessWidget {
         fillColor: WidgetStateColor.resolveWith(
           (states) => value ? AppColors.hightLight : Colors.transparent,
         ),
-        side:
-            value ? null : const BorderSide(width: 1.2, color: AppColors.black),
+        side: value
+            ? null
+            : const BorderSide(width: 1.2, color: AppColors.black),
         onChanged: onChanged,
         visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -41,7 +42,7 @@ class BaseCheckbox extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           child,
-          UIHelpers.xSmallHSpace,
+          UIHelpers.spaceH8,
           BaseText(title!, color: textColor, fontWeight: FontWeight.w500),
         ],
       );

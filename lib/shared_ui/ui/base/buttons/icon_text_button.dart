@@ -28,18 +28,14 @@ class IconTextButton extends StatelessWidget {
 
     return InkWell(
       onTap: onPressed,
-      borderRadius: UIHelpers.xxSmallCRadius,
+      borderRadius: UIHelpers.radiusC4,
       child: Padding(
-        padding: UIHelpers.xxSmallAllPadding,
+        padding: UIHelpers.paddingA4,
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
-              iconData,
-              color: newIconColor,
-              size: iconSize,
-            ),
-            UIHelpers.xxSmallHSpace,
+            Icon(iconData, color: newIconColor, size: iconSize),
+            UIHelpers.spaceH4,
             BaseText(text, color: textColor),
           ],
         ),

@@ -11,23 +11,16 @@ class SettingItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: UIHelpers.sMediumAllPadding,
+      padding: UIHelpers.paddingA16,
       decoration: BoxDecoration(
         color: AppColors.white,
-        borderRadius: UIHelpers.smallCRadius,
-        boxShadow: const [
-          BoxShadow(
-            color: AppColors.black15,
-            blurRadius: 24,
-          )
-        ],
+        borderRadius: UIHelpers.radiusC12,
+        boxShadow: const [BoxShadow(color: AppColors.black15, blurRadius: 24)],
       ),
       child: ListView(
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
-        children: [
-          settingItemWidget(AppIcons.lock, "Change Password"),
-        ],
+        children: [settingItemWidget(AppIcons.lock, "Change Password")],
       ),
     );
   }
@@ -37,10 +30,10 @@ class SettingItems extends StatelessWidget {
       child: ListTile(
         onTap: () {},
         shape: RoundedRectangleBorder(
-          borderRadius: UIHelpers.smallCRadius,
+          borderRadius: UIHelpers.radiusC12,
           side: const BorderSide(color: AppColors.border),
         ),
-        contentPadding: UIHelpers.sMediumHxSmallVPadding,
+        contentPadding: UIHelpers.paddingH16V8,
         horizontalTitleGap: 8,
         leading: Icon(iconData, size: 22),
         title: BaseText.bodyLarge(name),

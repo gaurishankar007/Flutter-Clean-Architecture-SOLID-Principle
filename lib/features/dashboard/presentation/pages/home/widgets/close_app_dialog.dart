@@ -13,7 +13,7 @@ void showCloseAppDialog(BuildContext context) {
         backgroundColor: AppColors.white,
         title: const Text("CleanArchitecture App"),
         content: const Text("Are you sure you want to close the app?"),
-        actionsPadding: UIHelpers.sMediumAllPadding,
+        actionsPadding: UIHelpers.paddingA16,
         actions: [
           PrimaryButton(
             height: 40,
@@ -22,7 +22,7 @@ void showCloseAppDialog(BuildContext context) {
             text: "No",
             foregroundColor: AppColors.white,
           ),
-          UIHelpers.xxSmallHSpace,
+          UIHelpers.spaceH4,
           PrimaryButton(
             height: 40,
             width: 80,

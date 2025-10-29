@@ -33,7 +33,7 @@ class LoginForm extends StatelessWidget {
               autovalidateMode: AutovalidateMode.onUserInteraction,
             ),
             Container(
-              margin: UIHelpers.mediumTxxSmallBPadding,
+              margin: UIHelpers.paddingT20B4,
               child: BaseTextField(
                 title: "Password",
                 hintText: "Enter your password",

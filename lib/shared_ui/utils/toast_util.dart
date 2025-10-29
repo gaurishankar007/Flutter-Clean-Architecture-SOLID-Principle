@@ -16,7 +16,7 @@ class ToastUtil {
     toastStartPosition: ToastPosition.top,
     toastAlignment: Alignment.topCenter,
   );
-  static final EdgeInsets _padding = UIHelpers.smallAllPadding;
+  static final EdgeInsets _padding = UIHelpers.paddingA12;
   static final BoxShadow _boxShadow = const BoxShadow(
     color: AppColors.black05,
     spreadRadius: 1,
